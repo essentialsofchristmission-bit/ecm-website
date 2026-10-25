@@ -93,6 +93,11 @@ You can also use a brand new file name, as long as you update the matching path 
 
 ## 3. Redeploying
 
+Live site: https://ecm-website-seven.vercel.app
+GitHub: https://github.com/essentialsofchristmission-bit/ecm-website
+
+If you later connect a custom domain, also update `siteUrl` in `content/site.json` so search engines and link previews use it.
+
 The site is hosted on Vercel and connected to GitHub. **Every time you commit a change on GitHub, Vercel rebuilds and publishes the site automatically** (usually within 2 minutes). You can watch progress in your Vercel dashboard under **Deployments**.
 
 If a deployment fails, it is almost always a missing comma or quote in a `.json` file. Open the failed deployment in Vercel to see which file, fix it, and commit again. The previous version of the site stays live until the fix is published.
