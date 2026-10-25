@@ -6,12 +6,30 @@
   "vision": "To raise a people who know Christ, live like Christ and make Christ known in every sphere of life.",
   "mission": "To teach and project the essentials of the teachings of Jesus Christ, build up believers through the Word and prayer, and reach the lost with the gospel through outreach and missions.",
   "statementOfFaith": [
-    { "title": "The Bible", "text": "We believe the Bible is the inspired, infallible Word of God and our final authority for faith and life." },
-    { "title": "God", "text": "We believe in one God, eternally existing in three persons: Father, Son and Holy Spirit." },
-    { "title": "Jesus Christ", "text": "We believe Jesus Christ is the Son of God, born of a virgin, who died for our sins, rose bodily from the dead and is coming again. He is the Way, the Truth and the Life." },
-    { "title": "Salvation", "text": "We believe salvation is by grace through faith in Jesus Christ alone, and that all who believe are born again by the Holy Spirit." },
-    { "title": "The Holy Spirit", "text": "We believe in the present ministry of the Holy Spirit, who empowers believers to live godly lives and to serve with spiritual gifts." },
-    { "title": "The Church", "text": "We believe the Church is the body of Christ, called to worship God, grow in love and make disciples of all nations." }
+    {
+      "title": "The Bible",
+      "text": "We believe the Bible is the inspired, infallible Word of God and our final authority for faith and life."
+    },
+    {
+      "title": "God",
+      "text": "We believe in one God, eternally existing in three persons: Father, Son and Holy Spirit."
+    },
+    {
+      "title": "Jesus Christ",
+      "text": "We believe Jesus Christ is the Son of God, born of a virgin, who died for our sins, rose bodily from the dead and is coming again. He is the Way, the Truth and the Life."
+    },
+    {
+      "title": "Salvation",
+      "text": "We believe salvation is by grace through faith in Jesus Christ alone, and that all who believe are born again by the Holy Spirit."
+    },
+    {
+      "title": "The Holy Spirit",
+      "text": "We believe in the present ministry of the Holy Spirit, who empowers believers to live godly lives and to serve with spiritual gifts."
+    },
+    {
+      "title": "The Church",
+      "text": "We believe the Church is the body of Christ, called to worship God, grow in love and make disciples of all nations."
+    }
   ],
   "leaders": [
     {
@@ -21,16 +39,40 @@
       "bio": "Pastor Dr. Samuel E. Tandoh leads Essentials of Christ Mission with a passion for teaching the Word of God with clarity and power. His messages call believers back to the essentials of the faith and equip them to live victoriously."
     },
     {
-      "name": "[LEADER NAME]",
-      "role": "[ROLE]",
-      "image": "/images/leader-2.jpg",
-      "bio": "[Short bio of this leader. Two or three sentences about their calling and what they lead at ECM.]"
+      "name": "Mr. Jonathan Otoo",
+      "role": "Evangelism and Prayer",
+      "image": "",
+      "bio": "Leads the Evangelism and Prayer ministries."
     },
     {
-      "name": "[LEADER NAME]",
-      "role": "[ROLE]",
-      "image": "/images/leader-3.jpg",
-      "bio": "[Short bio of this leader. Two or three sentences about their calling and what they lead at ECM.]"
+      "name": "Mr. Enoch Tetteh",
+      "role": "Choir",
+      "image": "",
+      "bio": "Leads the Choir and Music Ministry."
+    },
+    {
+      "name": "Mr. Scofray N. Y. Yeboah",
+      "role": "Media",
+      "image": "",
+      "bio": "Leads the Media Ministry."
+    },
+    {
+      "name": "Mrs. Rebecca Yeboah",
+      "role": "Welfare",
+      "image": "",
+      "bio": "Leads the Welfare Ministry."
+    },
+    {
+      "name": "Mrs. Magareth Tandoh",
+      "role": "Children's Ministry",
+      "image": "",
+      "bio": "Leads the Children's Ministry."
+    },
+    {
+      "name": "Mrs. Pamela Otoo",
+      "role": "Finance Team",
+      "image": "",
+      "bio": "Leads the Finance Team."
     }
   ]
 }

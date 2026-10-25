@@ -53,7 +53,7 @@ export default function Footer() {
           <ul className="space-y-2 text-sm text-white/90">
             <li className="flex gap-2"><PinIcon className="h-5 w-5 shrink-0" />{site.contact.address}</li>
             <li><a className="flex gap-2 hover:underline" href={`tel:${site.contact.phone}`}><PhoneIcon className="h-5 w-5 shrink-0" />{site.contact.phoneDisplay}</a></li>
-            <li><a className="flex gap-2 break-all hover:underline" href={`mailto:${site.contact.email}`}><MailIcon className="h-5 w-5 shrink-0" />{site.contact.email}</a></li>
+            <li><a className="flex gap-2 hover:underline" href={`mailto:${site.contact.email}`}><MailIcon className="h-5 w-5 shrink-0" /><span className="min-w-0">{site.contact.email.split("@")[0]}<wbr />@{site.contact.email.split("@")[1]}</span></a></li>
             <li><a className="flex gap-2 hover:underline" href={`https://wa.me/${site.contact.whatsapp}`} target="_blank" rel="noopener noreferrer"><WhatsAppIcon className="h-5 w-5 shrink-0" />WhatsApp us</a></li>
           </ul>
         </div>

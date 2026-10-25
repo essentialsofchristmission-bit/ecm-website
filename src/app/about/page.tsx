@@ -5,6 +5,10 @@ import { about, site } from "@/lib/content";
 
 export const metadata: Metadata = { title: "About Us", description: `Our story, vision, mission, beliefs and leadership at ${site.name}.` };
 
+function initials(name: string) {
+  return name.replace(/^(Mr|Mrs|Ms|Dr|Pastor)\.?\s+/g, "").split(" ").filter((w) => /^[A-Z][a-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("");
+}
+
 export default function AboutPage() {
   return (
     <>
@@ -54,11 +58,17 @@ export default function AboutPage() {
       <section className="bg-ecm-cream py-20">
         <Container>
           <SectionHeading eyebrow="Our team" title="Leadership" />
-          <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="flex flex-wrap justify-center gap-6">
             {about.leaders.map((l, i) => (
-              <li key={i} className="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-gray-100">
+              <li key={i} className="w-full overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-gray-100 sm:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.125rem)]">
                 <div className="relative aspect-[4/5]">
-                  <Image src={l.image} alt={l.name} fill sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="object-cover" />
+                  {l.image ? (
+                    <Image src={l.image} alt={l.name} fill sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" className="object-cover object-top" />
+                  ) : (
+                    <div className="flex h-full items-center justify-center bg-gradient-to-br from-ecm-green to-ecm-navy" aria-hidden="true">
+                      <span className="font-display text-7xl text-white/90">{initials(l.name)}</span>
+                    </div>
+                  )}
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-ecm-navy">{l.name}</h3>

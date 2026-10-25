@@ -131,8 +131,11 @@ export default function Home() {
         <Container>
           <SectionHeading eyebrow="Get involved" title="Our ministries" intro="There is a place for everyone at ECM. Find your people, use your gifts and grow in faith." />
           <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {ministries.map((m) => <li key={m.slug}><MinistryCard ministry={m} /></li>)}
+            {ministries.slice(0, 8).map((m) => <li key={m.slug}><MinistryCard ministry={m} /></li>)}
           </ul>
+          <div className="mt-10 text-center">
+            <ButtonLink href="/ministries" variant="green">See all ministries</ButtonLink>
+          </div>
         </Container>
       </section>
 

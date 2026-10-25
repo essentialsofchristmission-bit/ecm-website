@@ -10,7 +10,11 @@
     "leader": "[MINISTRY LEADER]",
     "meetingTime": "[MEETING DAY AND TIME]",
     "image": "/images/ministry-go-ye.jpg",
-    "photos": ["/images/outreach-go-ye-train-1.jpg", "/images/outreach-go-ye-train-2.jpg", "/images/outreach-go-ye-train-3.jpg"]
+    "photos": [
+      "/images/outreach-go-ye-train-1.jpg",
+      "/images/outreach-go-ye-train-2.jpg",
+      "/images/outreach-go-ye-train-3.jpg"
+    ]
   },
   {
     "slug": "children",
@@ -20,10 +24,13 @@
       "Our Children's Ministry provides a safe, joyful place for children to learn about God through Bible stories, songs, crafts and games.",
       "We partner with parents to raise children who love Jesus and grow in wisdom and stature."
     ],
-    "leader": "[MINISTRY LEADER]",
+    "leader": "Mrs. Magareth Tandoh",
     "meetingTime": "Sundays during service",
     "image": "/images/ministry-children.jpg",
-    "photos": ["/images/gallery-01.jpg", "/images/gallery-02.jpg"]
+    "photos": [
+      "/images/gallery-01.jpg",
+      "/images/gallery-02.jpg"
+    ]
   },
   {
     "slug": "youth",
@@ -36,7 +43,10 @@
     "leader": "[MINISTRY LEADER]",
     "meetingTime": "[MEETING DAY AND TIME]",
     "image": "/images/ministry-youth.jpg",
-    "photos": ["/images/gallery-03.jpg", "/images/gallery-04.jpg"]
+    "photos": [
+      "/images/gallery-03.jpg",
+      "/images/gallery-04.jpg"
+    ]
   },
   {
     "slug": "women",
@@ -49,7 +59,10 @@
     "leader": "[MINISTRY LEADER]",
     "meetingTime": "[MEETING DAY AND TIME]",
     "image": "/images/ministry-women.jpg",
-    "photos": ["/images/gallery-05.jpg", "/images/gallery-06.jpg"]
+    "photos": [
+      "/images/gallery-05.jpg",
+      "/images/gallery-06.jpg"
+    ]
   },
   {
     "slug": "men",
@@ -62,7 +75,10 @@
     "leader": "[MINISTRY LEADER]",
     "meetingTime": "[MEETING DAY AND TIME]",
     "image": "/images/ministry-men.jpg",
-    "photos": ["/images/gallery-07.jpg", "/images/gallery-08.jpg"]
+    "photos": [
+      "/images/gallery-07.jpg",
+      "/images/gallery-08.jpg"
+    ]
   },
   {
     "slug": "choir",
@@ -72,10 +88,13 @@
       "Our choir and music team lead the congregation in joyful, Spirit filled worship every service.",
       "If you sing or play an instrument and love to worship, we would love to have you."
     ],
-    "leader": "[MINISTRY LEADER]",
+    "leader": "Mr. Enoch Tetteh",
     "meetingTime": "[REHEARSAL DAY AND TIME]",
     "image": "/images/ministry-choir.jpg",
-    "photos": ["/images/gallery-09.jpg", "/images/gallery-01.jpg"]
+    "photos": [
+      "/images/gallery-09.jpg",
+      "/images/gallery-01.jpg"
+    ]
   },
   {
     "slug": "media",
@@ -85,9 +104,76 @@
       "The Media Ministry runs our livestreams, sound, projection, photography and social media.",
       "Join us if you have skills in cameras, sound, design or social media, or simply a willingness to learn."
     ],
-    "leader": "[MINISTRY LEADER]",
+    "leader": "Mr. Scofray N. Y. Yeboah",
     "meetingTime": "[MEETING DAY AND TIME]",
     "image": "/images/ministry-media.jpg",
-    "photos": ["/images/gallery-02.jpg", "/images/gallery-03.jpg"]
+    "photos": [
+      "/images/gallery-02.jpg",
+      "/images/gallery-03.jpg"
+    ]
+  },
+  {
+    "slug": "evangelism",
+    "name": "Evangelism Ministry",
+    "summary": "Sharing the good news of Jesus Christ in our community and beyond.",
+    "description": [
+      "The Evangelism Ministry takes the gospel beyond the walls of the church. Through street outreach, visitation and personal witnessing, we invite people to know Jesus Christ the Way, the Truth and the Life.",
+      "If you have a heart for souls, join us as we go out to share the love of God."
+    ],
+    "leader": "Mr. Jonathan Otoo",
+    "meetingTime": "[MEETING DAY AND TIME]",
+    "image": "/images/ministry-evangelism.jpg",
+    "photos": [
+      "/images/outreach-go-ye-train-1.jpg",
+      "/images/outreach-go-ye-train-3.jpg"
+    ]
+  },
+  {
+    "slug": "prayer",
+    "name": "Prayer Ministry",
+    "summary": "Standing in the gap for the church, our families and the nation.",
+    "description": [
+      "The Prayer Ministry leads the church in intercession. We pray for the needs of members, the work of the ministry and the nations, believing that prayer changes things.",
+      "Everyone is welcome to join us at the Friday Prayer Meeting."
+    ],
+    "leader": "Mr. Jonathan Otoo",
+    "meetingTime": "Fridays, 7:30 - 8:30 PM",
+    "image": "/images/ministry-prayer.jpg",
+    "photos": [
+      "/images/gallery-01.jpg",
+      "/images/gallery-02.jpg"
+    ]
+  },
+  {
+    "slug": "welfare",
+    "name": "Welfare Ministry",
+    "summary": "Caring for one another in times of joy and in times of need.",
+    "description": [
+      "The Welfare Ministry makes sure no member walks alone. We celebrate with those who celebrate, support those who are going through difficult seasons and visit the sick and bereaved.",
+      "Speak to the Welfare team if you or someone you know needs support."
+    ],
+    "leader": "Mrs. Rebecca Yeboah",
+    "meetingTime": "[MEETING DAY AND TIME]",
+    "image": "/images/ministry-welfare.jpg",
+    "photos": [
+      "/images/gallery-03.jpg",
+      "/images/gallery-04.jpg"
+    ]
+  },
+  {
+    "slug": "finance",
+    "name": "Finance Team",
+    "summary": "Faithful stewardship of the gifts and resources God provides.",
+    "description": [
+      "The Finance Team oversees the tithes, offerings and gifts entrusted to the church with integrity and transparency, so that every cedi serves the work of the gospel.",
+      "For questions about giving, please contact the Finance Team through the church office."
+    ],
+    "leader": "Mrs. Pamela Otoo",
+    "meetingTime": "[MEETING DAY AND TIME]",
+    "image": "/images/ministry-finance.jpg",
+    "photos": [
+      "/images/gallery-05.jpg",
+      "/images/gallery-02.jpg"
+    ]
   }
 ]
