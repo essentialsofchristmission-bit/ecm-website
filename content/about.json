@@ -40,9 +40,15 @@
     },
     {
       "name": "Mr. Jonathan Otoo",
-      "role": "Evangelism and Prayer",
+      "role": "Evangelism (Go Ye) and Prayer",
       "image": "",
-      "bio": "Leads the Evangelism and Prayer ministries."
+      "bio": "Leads the Go Ye evangelism ministry and the Prayer Ministry."
+    },
+    {
+      "name": "Dr. Joseph Bremang Tandoh",
+      "role": "Youth",
+      "image": "",
+      "bio": "Leads the Youth Ministry."
     },
     {
       "name": "Mr. Enoch Tetteh",
@@ -63,7 +69,7 @@
       "bio": "Leads the Welfare Ministry."
     },
     {
-      "name": "Mrs. Magareth Tandoh",
+      "name": "Mrs. Margaret Tandoh",
       "role": "Children's Ministry",
       "image": "",
       "bio": "Leads the Children's Ministry."
