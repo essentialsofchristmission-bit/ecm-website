@@ -53,7 +53,7 @@
     {
       "name": "Mr. Enoch Tetteh",
       "role": "Choir",
-      "image": "",
+      "image": "/images/leader-enoch-tetteh.jpg",
       "bio": "Leads the Choir and Music Ministry."
     },
     {
@@ -83,7 +83,7 @@
     {
       "name": "Mrs. Pamela Otoo",
       "role": "Finance Team",
-      "image": "",
+      "image": "/images/leader-pamela-otoo.jpg",
       "bio": "Leads the Finance Team."
     }
   ]
