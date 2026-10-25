@@ -82,6 +82,22 @@
     ]
   },
   {
+    "slug": "technical",
+    "name": "Technical Team",
+    "summary": "Keeping our sound, lighting and equipment running so every service flows smoothly.",
+    "description": [
+      "The Technical Team looks after the sound, lighting, instruments and equipment that support worship at ECM, both in the auditorium and on our livestream.",
+      "If you have technical skills or are willing to learn, the team would love to serve with you."
+    ],
+    "leader": "Mr. Eric Avetu",
+    "meetingTime": "[MEETING DAY AND TIME]",
+    "image": "/images/ministry-technical.jpg",
+    "photos": [
+      "/images/live-banner.jpg",
+      "/images/hero-worship.jpg"
+    ]
+  },
+  {
     "slug": "prayer",
     "name": "Prayer Ministry",
     "summary": "Standing in the gap for the church, our families and the nation.",

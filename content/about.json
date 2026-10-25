@@ -41,7 +41,7 @@
     {
       "name": "Mr. Jonathan Otoo",
       "role": "Evangelism and Prayer",
-      "image": "",
+      "image": "/images/leader-jonathan-otoo.jpg",
       "bio": "Leads the Evangelism Ministry and the Prayer Ministry."
     },
     {
@@ -63,9 +63,15 @@
       "bio": "Leads the Media Ministry."
     },
     {
+      "name": "Mr. Eric Avetu",
+      "role": "Technical Team",
+      "image": "/images/leader-eric-avetu.jpg",
+      "bio": "Leads the Technical Team."
+    },
+    {
       "name": "Mrs. Rebecca Yeboah",
       "role": "Welfare",
-      "image": "",
+      "image": "/images/leader-rebecca-yeboah.jpg",
       "bio": "Leads the Welfare Ministry."
     },
     {
