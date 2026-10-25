@@ -76,5 +76,3 @@ if __name__ == "__main__":
         placeholder(f"outreach-go-ye-train-{i}.jpg", 1200, 800, f"Go Ye Train photo {i}", i + 1)
     for i in range(1, 10):
         placeholder(f"gallery-{i:02d}.jpg", 1200, 900, f"Gallery photo {i}", i)
-    for e in ["thanksgiving-service", "youth-conference", "go-ye-train-2026", "christmas-carols"]:
-        placeholder(f"event-{e}.jpg", 1080, 1350, "Event flyer", hash(e) % 5)

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ChurchEvent } from "@/lib/content";
+import { formatEventDate } from "@/lib/format";
 import { ClockIcon, PinIcon } from "./Icons";
 
 export function DateBadge({ date, className = "" }: { date: string; className?: string }) {
@@ -24,7 +25,7 @@ export default function EventCard({ event }: { event: ChurchEvent }) {
         <h3 className="text-lg font-bold text-ecm-navy">{event.title}</h3>
         <p className="mt-2 text-sm text-gray-600">{event.summary}</p>
         <div className="mt-auto space-y-1 pt-4 text-sm text-gray-600">
-          <p className="flex items-center gap-2"><ClockIcon className="h-4 w-4 text-ecm-green" />{event.time}</p>
+          <p className="flex items-center gap-2"><ClockIcon className="h-4 w-4 text-ecm-green" />{event.time ? `${formatEventDate(event)}, ${event.time}` : formatEventDate(event)}</p>
           <p className="flex items-center gap-2"><PinIcon className="h-4 w-4 text-ecm-green" />{event.venue}</p>
         </div>
       </div>

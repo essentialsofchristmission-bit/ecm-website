@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 import { DateBadge } from "@/components/EventCard";
 import { ClockIcon, PinIcon } from "@/components/Icons";
 import { ButtonLink, Container } from "@/components/ui";
-import { formatDate, getEvent, getEvents } from "@/lib/content";
+import { getEvent, getEvents } from "@/lib/content";
+import { formatEventDate } from "@/lib/format";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -34,8 +35,8 @@ export default async function EventPage({ params }: Props) {
             <DateBadge date={event.date} />
             <h1 className="mt-6 font-display text-5xl uppercase leading-tight text-ecm-navy">{event.title}</h1>
             <ul className="mt-6 space-y-3 text-gray-800">
-              <li className="flex items-center gap-3 font-semibold">{formatDate(event.date, { weekday: "long", day: "numeric", month: "long", year: "numeric" })}</li>
-              <li className="flex items-center gap-3"><ClockIcon className="h-5 w-5 text-ecm-green" />{event.time}</li>
+              <li className="flex items-center gap-3 font-semibold">{formatEventDate(event)}</li>
+              {event.time && <li className="flex items-center gap-3"><ClockIcon className="h-5 w-5 text-ecm-green" />{event.time}</li>}
               <li className="flex items-center gap-3"><PinIcon className="h-5 w-5 text-ecm-green" />{event.venue}</li>
             </ul>
             <div className="mt-6 space-y-4 text-lg leading-relaxed text-gray-700">

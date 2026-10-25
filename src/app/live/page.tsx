@@ -17,17 +17,13 @@ export default async function LivePage() {
       <PageHero title="ECM Live" subtitle="Worship with us from wherever you are." image="/images/live-banner.jpg" />
       <section className="py-16 sm:py-20">
         <Container className="max-w-5xl">
-          <div className="mb-6 flex items-center justify-center gap-3">
-            {live.isLive ? (
+          {live.isLive && (
+            <div className="mb-6 flex items-center justify-center gap-3">
               <p className="inline-flex items-center gap-3 rounded-full bg-ecm-red-dark px-5 py-2 font-bold uppercase tracking-wider text-white">
                 <span className="live-dot h-3 w-3 rounded-full bg-white" aria-hidden="true" /> We are live
               </p>
-            ) : (
-              <p className="rounded-full bg-ecm-cream px-5 py-2 text-sm font-semibold text-ecm-navy">
-                We are not live right now. Here is our most recent service.
-              </p>
-            )}
-          </div>
+            </div>
+          )}
           {latest ? (
             <>
               <YouTubeEmbed src={videoEmbedUrl(latest.youtubeId)} title={latest.title} />

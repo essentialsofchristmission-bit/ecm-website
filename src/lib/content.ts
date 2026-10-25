@@ -24,7 +24,8 @@ export type ChurchEvent = {
   slug: string;
   title: string;
   date: string;
-  time: string;
+  endDate?: string;
+  time?: string;
   venue: string;
   image: string;
   summary: string;
@@ -79,7 +80,7 @@ export function getEvents(): ChurchEvent[] {
 
 export function getUpcomingEvents(): ChurchEvent[] {
   const today = todayISO();
-  return getEvents().filter((e) => e.date >= today);
+  return getEvents().filter((e) => (e.endDate ?? e.date) >= today);
 }
 
 export function getEvent(slug: string) {

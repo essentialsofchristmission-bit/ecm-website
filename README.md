@@ -42,7 +42,7 @@ The easiest way is to edit files directly on GitHub:
   - `give` : Mobile Money and bank details
 - **`content/about.json`** : our story, vision, mission, statement of faith and leaders
 - **`content/sermons.json`** : the sermon list. To add a sermon, copy one block and change it. The `youtubeId` is the part after `v=` in a YouTube link. Example: for `https://www.youtube.com/watch?v=D0mW9TLUt1Q` the ID is `D0mW9TLUt1Q`. The newest date is automatically shown as the "Latest sermon" on the homepage.
-- **`content/events.json`** : events. Dates must be written as `YYYY-MM-DD` (for example `2026-12-20`). Past events disappear automatically. The `slug` is the web address of the event page, so use lowercase words joined by hyphens, for example `youth-conference-2026`.
+- **`content/events.json`** : events. Dates must be written as `YYYY-MM-DD` (for example `2026-12-20`). Past events disappear automatically. For an event lasting several days, add `"endDate"` (also `YYYY-MM-DD`). If there is no set time, leave `"time"` empty (`""`) and only the date is shown. The `slug` is the web address of the event page, so use lowercase words joined by hyphens, for example `youth-conference-2026`.
 - **`content/ministries.json`** : one block per ministry
 - **`content/gallery.json`** : the photos in the homepage gallery, with a short description for each one (this helps blind visitors and Google)
 - **`content/devotionals/`** : Moment With Jesus devotionals, one file per day

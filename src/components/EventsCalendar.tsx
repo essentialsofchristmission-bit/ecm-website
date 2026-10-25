@@ -15,7 +15,13 @@ export default function EventsCalendar({ events }: { events: ChurchEvent[] }) {
 
   const byDate = useMemo(() => {
     const m = new Map<string, ChurchEvent[]>();
-    events.forEach((e) => m.set(e.date, [...(m.get(e.date) ?? []), e]));
+    events.forEach((e) => {
+      const day = new Date(`${e.date}T12:00:00`);
+      const last = e.endDate && e.endDate > e.date ? e.endDate : e.date;
+      for (let key = e.date; key <= last; day.setDate(day.getDate() + 1), key = day.toLocaleDateString("en-CA")) {
+        m.set(key, [...(m.get(key) ?? []), e]);
+      }
+    });
     return m;
   }, [events]);
 
