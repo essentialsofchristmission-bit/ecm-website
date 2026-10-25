@@ -39,7 +39,8 @@ export default function Home() {
             Our {site.theme.year} theme
           </p>
           <h1 className="max-w-4xl font-display text-5xl uppercase leading-[1.05] sm:text-7xl lg:text-8xl">{site.theme.headline}</h1>
-          <p className="mt-4 text-xl font-semibold text-white/90 sm:text-2xl">{site.theme.scripture}</p>
+          {site.theme.scriptureText && <p className="mt-5 max-w-2xl text-base italic leading-relaxed text-white/90 sm:text-lg">&ldquo;{site.theme.scriptureText}&rdquo;</p>}
+          <p className="mt-3 text-xl font-semibold text-white/90 sm:text-2xl">{site.theme.scripture}</p>
           <ul className="mt-8 flex flex-wrap gap-3">
             {site.serviceTimes.map((s) => (
               <li key={s.name} className="rounded-2xl bg-white/10 px-4 py-3 backdrop-blur">
