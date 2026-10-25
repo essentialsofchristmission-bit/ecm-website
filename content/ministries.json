@@ -1,0 +1,93 @@
+[
+  {
+    "slug": "go-ye",
+    "name": "Go Ye Ministry",
+    "summary": "Outreach and missions, carrying the gospel to prisons, communities and the nations.",
+    "description": [
+      "Go Ye Ministry is the outreach and missions arm of ECM, inspired by the Great Commission in Mark 16:15: Go ye into all the world, and preach the gospel to every creature.",
+      "The ministry organises evangelism, community outreaches and our annual Go Ye Train to Akuse Prisons, where we share the gospel, pray with inmates and provide practical support."
+    ],
+    "leader": "[MINISTRY LEADER]",
+    "meetingTime": "[MEETING DAY AND TIME]",
+    "image": "/images/ministry-go-ye.jpg",
+    "photos": ["/images/outreach-go-ye-train-1.jpg", "/images/outreach-go-ye-train-2.jpg", "/images/outreach-go-ye-train-3.jpg"]
+  },
+  {
+    "slug": "children",
+    "name": "Children's Ministry",
+    "summary": "Helping our children know and love Jesus through fun, age appropriate Bible teaching.",
+    "description": [
+      "Our Children's Ministry provides a safe, joyful place for children to learn about God through Bible stories, songs, crafts and games.",
+      "We partner with parents to raise children who love Jesus and grow in wisdom and stature."
+    ],
+    "leader": "[MINISTRY LEADER]",
+    "meetingTime": "Sundays during service",
+    "image": "/images/ministry-children.jpg",
+    "photos": ["/images/gallery-01.jpg", "/images/gallery-02.jpg"]
+  },
+  {
+    "slug": "youth",
+    "name": "Youth Ministry",
+    "summary": "Raising a generation of young people on fire for God and ready to lead.",
+    "description": [
+      "The Youth Ministry gathers teenagers and young adults for worship, Bible study, mentorship and fellowship.",
+      "We help young people build a strong foundation in Christ and discover their purpose."
+    ],
+    "leader": "[MINISTRY LEADER]",
+    "meetingTime": "[MEETING DAY AND TIME]",
+    "image": "/images/ministry-youth.jpg",
+    "photos": ["/images/gallery-03.jpg", "/images/gallery-04.jpg"]
+  },
+  {
+    "slug": "women",
+    "name": "Women's Ministry",
+    "summary": "Women growing together in faith, prayer and purpose.",
+    "description": [
+      "The Women's Ministry is a sisterhood of prayer, teaching and support, helping women flourish in every season of life.",
+      "Through fellowship meetings, retreats and outreach, we encourage one another to walk in God's purpose."
+    ],
+    "leader": "[MINISTRY LEADER]",
+    "meetingTime": "[MEETING DAY AND TIME]",
+    "image": "/images/ministry-women.jpg",
+    "photos": ["/images/gallery-05.jpg", "/images/gallery-06.jpg"]
+  },
+  {
+    "slug": "men",
+    "name": "Men's Ministry",
+    "summary": "Building godly men who lead with integrity at home, at work and in church.",
+    "description": [
+      "The Men's Ministry brings men together for prayer, Bible study and accountability.",
+      "We equip men to be faithful husbands, fathers and leaders who reflect Christ in everything."
+    ],
+    "leader": "[MINISTRY LEADER]",
+    "meetingTime": "[MEETING DAY AND TIME]",
+    "image": "/images/ministry-men.jpg",
+    "photos": ["/images/gallery-07.jpg", "/images/gallery-08.jpg"]
+  },
+  {
+    "slug": "choir",
+    "name": "Choir and Music Ministry",
+    "summary": "Leading the church into the presence of God through song.",
+    "description": [
+      "Our choir and music team lead the congregation in joyful, Spirit filled worship every service.",
+      "If you sing or play an instrument and love to worship, we would love to have you."
+    ],
+    "leader": "[MINISTRY LEADER]",
+    "meetingTime": "[REHEARSAL DAY AND TIME]",
+    "image": "/images/ministry-choir.jpg",
+    "photos": ["/images/gallery-09.jpg", "/images/gallery-01.jpg"]
+  },
+  {
+    "slug": "media",
+    "name": "Media Ministry",
+    "summary": "Sharing the message of ECM online through livestreams, video and design.",
+    "description": [
+      "The Media Ministry runs our livestreams, sound, projection, photography and social media.",
+      "Join us if you have skills in cameras, sound, design or social media, or simply a willingness to learn."
+    ],
+    "leader": "[MINISTRY LEADER]",
+    "meetingTime": "[MEETING DAY AND TIME]",
+    "image": "/images/ministry-media.jpg",
+    "photos": ["/images/gallery-02.jpg", "/images/gallery-03.jpg"]
+  }
+]

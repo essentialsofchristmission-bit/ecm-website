@@ -1,0 +1,54 @@
+[
+  {
+    "slug": "thanksgiving-service-2026",
+    "title": "Thanksgiving Service",
+    "date": "2026-11-29",
+    "time": "8:30 AM - 12:00 PM",
+    "venue": "ECM Auditorium, Lashibi",
+    "image": "/images/event-thanksgiving-service.jpg",
+    "summary": "A special service of praise and thanksgiving for all God has done this year.",
+    "description": [
+      "Come and join us as we lift our voices in gratitude to God for His faithfulness throughout the year.",
+      "Bring your family and friends, and come ready to dance and give thanks."
+    ]
+  },
+  {
+    "slug": "youth-conference-2026",
+    "title": "Youth Conference",
+    "date": "2026-12-05",
+    "time": "9:00 AM - 3:00 PM",
+    "venue": "ECM Auditorium, Lashibi",
+    "image": "/images/event-youth-conference.jpg",
+    "summary": "A day of worship, teaching and fellowship for young people.",
+    "description": [
+      "Young people from across Tema and beyond are invited to a day of powerful worship, practical teaching and fun fellowship.",
+      "Admission is free. Invite a friend."
+    ]
+  },
+  {
+    "slug": "christmas-carols-2026",
+    "title": "Christmas Carols Night",
+    "date": "2026-12-20",
+    "time": "6:00 PM - 9:00 PM",
+    "venue": "ECM Auditorium, Lashibi",
+    "image": "/images/event-christmas-carols.jpg",
+    "summary": "Celebrate the birth of Jesus with carols, readings and joy.",
+    "description": [
+      "An evening of carols, scripture readings and celebration as we remember the birth of our Saviour.",
+      "Everyone is welcome."
+    ]
+  },
+  {
+    "slug": "go-ye-train-2027",
+    "title": "Go Ye Train: Akuse Prisons Outreach",
+    "date": "2027-03-14",
+    "time": "6:00 AM departure",
+    "venue": "Akuse Prisons, Eastern Region",
+    "image": "/images/event-go-ye-train-2026.jpg",
+    "summary": "Our annual outreach to Akuse Prisons. Volunteers and donations welcome.",
+    "description": [
+      "The Go Ye Train returns to Akuse Prisons for the fifth year. We will share the gospel, pray with inmates and donate food, toiletries and clothing.",
+      "To volunteer or donate, please contact the church office or give through the Give page, using Go Ye as your reference."
+    ]
+  }
+]

@@ -1,0 +1,107 @@
+{
+  "siteUrl": "https://essentialsofchristmission.vercel.app",
+  "name": "Essentials of Christ Mission",
+  "shortName": "ECM",
+  "tagline": "Jesus Christ the Way, the Truth and the Life",
+  "description": "Essentials of Christ Mission (ECM) is a Christ centred church in Lashibi, Tema, Ghana. Join us for worship, the Word and fellowship.",
+  "theme": {
+    "year": "2026",
+    "headline": "[2026 THEME]",
+    "scripture": "[SCRIPTURE REFERENCE]"
+  },
+  "serviceTimes": [
+    {
+      "name": "Sunday Service",
+      "day": "Sunday",
+      "time": "8:30 - 11:30 AM"
+    },
+    {
+      "name": "Midweek Service",
+      "day": "Wednesday",
+      "time": "7:30 - 8:00 PM"
+    },
+    {
+      "name": "Friday Prayer Meeting",
+      "day": "Friday",
+      "time": "7:30 - 8:30 PM"
+    }
+  ],
+  "contact": {
+    "address": "Behind Emefs Estate, Lashibi, Tema",
+    "region": "Greater Accra, Ghana",
+    "phone": "+233208177742",
+    "phoneDisplay": "+233 20 817 7742",
+    "email": "essentialsofchristmission@gmail.com",
+    "whatsapp": "233208177742",
+    "mapQuery": "Emefs Estate, Lashibi, Tema, Ghana"
+  },
+  "social": {
+    "youtube": "https://www.youtube.com/@essentialsofchristmission",
+    "facebook": "https://web.facebook.com/EssentialsOfChristMission",
+    "instagram": "https://www.instagram.com/essentialsofchristmission/",
+    "tiktok": "https://www.tiktok.com/@essentialsofchrist"
+  },
+  "live": {
+    "isLive": false,
+    "youtubeChannelId": "UCZIz2r3qGKHp9JuuVZk-DUQ",
+    "liveVideoId": "",
+    "facebookLive": "https://web.facebook.com/EssentialsOfChristMission/live",
+    "schedule": [
+      {
+        "day": "Sunday",
+        "time": "8:30 AM",
+        "what": "Sunday Service"
+      },
+      {
+        "day": "Wednesday",
+        "time": "7:30 PM",
+        "what": "Midweek Service"
+      },
+      {
+        "day": "Friday",
+        "time": "7:30 PM",
+        "what": "Friday Prayer Meeting"
+      }
+    ]
+  },
+  "forms": {
+    "contactFormspreeId": "",
+    "prayerFormspreeId": "",
+    "newsletterFormspreeId": ""
+  },
+  "welcome": {
+    "heading": "You are welcome home",
+    "pastorName": "Pastor Dr. Samuel E. Tandoh",
+    "pastorTitle": "Senior Pastor",
+    "pastorImage": "/images/pastor-samuel-tandoh.jpg",
+    "message": "Welcome to Essentials of Christ Mission. We are a family that believes the teachings of Jesus Christ are the foundation of every Christian life. Whether you are new to faith or have walked with God for years, there is a seat for you here. Come as you are, worship with us, grow in the Word and discover the life Jesus offers."
+  },
+  "outreach": {
+    "title": "Go Ye Train",
+    "subtitle": "Annual outreach to Akuse Prisons",
+    "years": 4,
+    "text": "Every year our Go Ye Ministry boards the Go Ye Train to Akuse Prisons, bringing the gospel, prayer, food, toiletries and encouragement to inmates and officers. For four years running, God has used this outreach to restore hope and transform lives. You can be part of the next journey.",
+    "images": [
+      "/images/outreach-go-ye-train-1.jpg",
+      "/images/outreach-go-ye-train-2.jpg",
+      "/images/outreach-go-ye-train-3.jpg"
+    ]
+  },
+  "give": {
+    "intro": "Thank you for partnering with us to spread the gospel and serve our community. Every gift, big or small, helps us reach more people with the love of Jesus.",
+    "scripture": "Each one must give as he has decided in his heart, not reluctantly or under compulsion, for God loves a cheerful giver. 2 Corinthians 9:7",
+    "momo": {
+      "network": "MTN Mobile Money",
+      "number": "0595 818 651",
+      "name": "Essentials of Christ Mission",
+      "merchantId": "127755"
+    },
+    "bank": {
+      "bankName": "UBA",
+      "accountName": "Essentials of Christ Mission",
+      "accountNumber": "00121933401510",
+      "branch": "Head Office"
+    },
+    "reference": "Please use your name and the purpose of your gift (for example Tithe, Offering, Go Ye) as the reference."
+  }
+}
