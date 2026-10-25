@@ -66,8 +66,6 @@ if __name__ == "__main__":
     placeholder("hero-worship.jpg", 1920, 1080, "Worship photo", 0)
     placeholder("og-image.jpg", 1200, 630, "Essentials of Christ Mission", 0)
     placeholder("pastor-samuel-tandoh.jpg", 800, 1000, "Pastor Dr. Samuel E. Tandoh", 1)
-    placeholder("leader-2.jpg", 800, 1000, "Leader photo", 3)
-    placeholder("leader-3.jpg", 800, 1000, "Leader photo", 4)
     placeholder("about-church.jpg", 1600, 1000, "Church family photo", 1)
     placeholder("live-banner.jpg", 1600, 900, "Livestream photo", 2)
     placeholder("give-banner.jpg", 1600, 900, "Giving photo", 3)

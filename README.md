@@ -81,10 +81,11 @@ All images are in `public/images`. Placeholder images say **"Replace: public/ima
 Tips:
 - Use `.jpg` for photos. Keep each photo under about 500 KB (use https://squoosh.app to shrink large photos).
 - Landscape photos (wider than tall) work best, except leader photos, which should be portrait.
+- Leader photos: upload the photo (for example `leader-jonathan-otoo.jpg`), then in `content/about.json` set that leader's `"image"` to `"/images/leader-jonathan-otoo.jpg"`. Leaders with an empty `"image"` show their initials instead.
 - `logo.png` is used in the header, the footer and as the browser tab icon.
 - `og-image.jpg` (1200 x 630) is the picture shown when someone shares the website on WhatsApp or Facebook.
 
-Main image names: `hero-worship.jpg`, `pastor-samuel-tandoh.jpg`, `leader-2.jpg`, `leader-3.jpg`, `about-church.jpg`, `live-banner.jpg`, `give-banner.jpg`, `contact-banner.jpg`, `ministry-*.jpg`, `outreach-go-ye-train-1/2/3.jpg`, `gallery-01.jpg` to `gallery-09.jpg`, `event-*.jpg`.
+Main image names: `hero-worship.jpg`, `pastor-samuel-tandoh.jpg`, `about-church.jpg`, `live-banner.jpg`, `give-banner.jpg`, `contact-banner.jpg`, `ministry-*.jpg`, `outreach-go-ye-train-1/2/3.jpg`, `gallery-01.jpg` to `gallery-09.jpg`, `event-*.jpg`.
 
 You can also use a brand new file name, as long as you update the matching path in the `content` file (for example `"image": "/images/my-new-photo.jpg"`).
 
