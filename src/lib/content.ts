@@ -136,3 +136,45 @@ export function mapDirectionsUrl() {
 export function whatsappUrl(text = "Hello ECM, ") {
   return `https://wa.me/${site.contact.whatsapp}?text=${encodeURIComponent(text)}`;
 }
+
+export type LatestVideo = { youtubeId: string; title: string; date: string; preacher: string; service: string };
+
+function tidyYouTubeTitle(raw: string) {
+  const parts = raw
+    .normalize("NFKC")
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .split("||")
+    .map((p) => p.trim())
+    .filter(Boolean);
+  const small = new Set(["a", "an", "and", "at", "by", "for", "in", "of", "on", "or", "the", "through", "to", "with"]);
+  const titleCase = (s: string) =>
+    s === s.toUpperCase()
+      ? s
+          .toLowerCase()
+          .split(" ")
+          .map((w, i) => (i > 0 && small.has(w) ? w : w.replace(/\p{L}/u, (c) => c.toUpperCase())))
+          .join(" ")
+      : s;
+  return { title: titleCase(parts[0] ?? raw), service: parts.find((p) => /service|prayer|conference|program/i.test(p)) };
+}
+
+export async function getLatestVideo(): Promise<LatestVideo | undefined> {
+  const fallback = getSermons()[0];
+  try {
+    const res = await fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${site.live.youtubeChannelId}`, { next: { revalidate: 900 } });
+    if (!res.ok) throw new Error(`YouTube feed ${res.status}`);
+    const entry = (await res.text()).split("<entry>")[1];
+    const id = entry?.match(/<yt:videoId>([^<]+)<\/yt:videoId>/)?.[1];
+    const rawTitle = entry?.match(/<title>([^<]+)<\/title>/)?.[1];
+    const published = entry?.match(/<published>([^<]+)<\/published>/)?.[1];
+    if (!id || !rawTitle || !published) throw new Error("YouTube feed has no videos");
+    const known = getSermons().find((s) => s.youtubeId === id);
+    if (known) return known;
+    const { title, service } = tidyYouTubeTitle(rawTitle);
+    return { youtubeId: id, title, date: published.slice(0, 10), preacher: fallback?.preacher ?? "", service: service ? tidyYouTubeTitle(service).title : "Recent service" };
+  } catch {
+    return fallback;
+  }
+}

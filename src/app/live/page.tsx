@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import { FacebookIcon, YouTubeIcon } from "@/components/Icons";
-import YouTubeEmbed, { liveEmbedUrl } from "@/components/YouTubeEmbed";
+import YouTubeEmbed, { liveEmbedUrl, videoEmbedUrl } from "@/components/YouTubeEmbed";
 import { ButtonLink, Container, PageHero, SectionHeading } from "@/components/ui";
-import { site } from "@/lib/content";
+import { getLatestVideo, site } from "@/lib/content";
+import { formatDate } from "@/lib/format";
 
 export const metadata: Metadata = { title: "ECM Live", description: "Watch Essentials of Christ Mission services live on YouTube and Facebook." };
 
-export default function LivePage() {
+export const revalidate = 900;
+
+export default async function LivePage() {
   const { live } = site;
+  const latest = live.isLive ? undefined : await getLatestVideo();
   return (
     <>
       <PageHero title="ECM Live" subtitle="Worship with us from wherever you are." image="/images/live-banner.jpg" />
@@ -20,11 +24,22 @@ export default function LivePage() {
               </p>
             ) : (
               <p className="rounded-full bg-ecm-cream px-5 py-2 text-sm font-semibold text-ecm-navy">
-                We are not live right now. Catch our next service below, or watch a recent sermon.
+                We are not live right now. Here is our most recent service.
               </p>
             )}
           </div>
-          <YouTubeEmbed src={liveEmbedUrl(live.youtubeChannelId, live.liveVideoId)} title="ECM live stream" />
+          {latest ? (
+            <>
+              <YouTubeEmbed src={videoEmbedUrl(latest.youtubeId)} title={latest.title} />
+              <div className="mt-5 text-center">
+                <p className="text-sm font-bold uppercase tracking-[0.2em] text-ecm-red-dark">Latest sermon</p>
+                <h2 className="mt-1 font-display text-3xl uppercase text-ecm-navy sm:text-4xl">{latest.title}</h2>
+                <p className="mt-1 text-gray-600">{[latest.preacher, latest.service, formatDate(latest.date)].filter(Boolean).join(" \u00b7 ")}</p>
+              </div>
+            </>
+          ) : (
+            <YouTubeEmbed src={liveEmbedUrl(live.youtubeChannelId, live.liveVideoId)} title="ECM live stream" />
+          )}
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <ButtonLink href={`${site.social.youtube}?sub_confirmation=1`} variant="red"><YouTubeIcon /> Subscribe on YouTube</ButtonLink>
             <ButtonLink href={site.social.facebook} variant="navy"><FacebookIcon /> Follow on Facebook</ButtonLink>

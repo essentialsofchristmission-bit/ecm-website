@@ -70,7 +70,7 @@ if __name__ == "__main__":
     placeholder("live-banner.jpg", 1600, 900, "Livestream photo", 2)
     placeholder("give-banner.jpg", 1600, 900, "Giving photo", 3)
     placeholder("contact-banner.jpg", 1600, 900, "Church building photo", 1)
-    for i, m in enumerate(["go-ye", "children", "youth", "choir", "media"]):
+    for i, m in enumerate(["evangelism", "children", "youth", "choir", "media"]):
         placeholder(f"ministry-{m}.jpg", 1200, 800, f"{m.replace('-', ' ').title()} Ministry", i)
     for i in range(1, 4):
         placeholder(f"outreach-go-ye-train-{i}.jpg", 1200, 800, f"Go Ye Train photo {i}", i + 1)

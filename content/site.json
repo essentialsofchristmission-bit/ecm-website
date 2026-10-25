@@ -34,7 +34,7 @@
     "phoneDisplay": "+233 20 817 7742",
     "email": "essentialsofchristmission@gmail.com",
     "whatsapp": "233208177742",
-    "mapQuery": "Emefs Estate, Lashibi, Tema, Ghana"
+    "mapQuery": "Essentials of Christ Mission, Lashibi, Tema"
   },
   "social": {
     "youtube": "https://www.youtube.com/@essentialsofchristmission",
@@ -81,7 +81,7 @@
     "title": "Go Ye Train",
     "subtitle": "Annual outreach to Akuse Prisons",
     "years": 4,
-    "text": "Every year our Go Ye Ministry boards the Go Ye Train to Akuse Prisons, bringing the gospel, prayer, food, toiletries and encouragement to inmates and officers. For four years running, God has used this outreach to restore hope and transform lives. You can be part of the next journey.",
+    "text": "Every year our Evangelism Ministry boards the Go Ye Train to Akuse Prisons, bringing the gospel, prayer, food, toiletries and encouragement to inmates and officers. For four years running, God has used this outreach to restore hope and transform lives. You can be part of the next journey.",
     "images": [
       "/images/outreach-go-ye-train-1.jpg",
       "/images/outreach-go-ye-train-2.jpg",
@@ -103,6 +103,6 @@
       "accountNumber": "00121933401510",
       "branch": "Head Office"
     },
-    "reference": "Please use your name and the purpose of your gift (for example Tithe, Offering, Go Ye) as the reference."
+    "reference": "Please use your name and the purpose of your gift (for example Tithe, Offering, Evangelism) as the reference."
   }
 }

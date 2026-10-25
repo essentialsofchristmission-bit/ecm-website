@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Ministries", description: "Find your
 export default function MinistriesPage() {
   return (
     <>
-      <PageHero title="Ministries" subtitle="Find your people, use your gifts and grow in faith." image="/images/ministry-go-ye.jpg" />
+      <PageHero title="Ministries" subtitle="Find your people, use your gifts and grow in faith." image="/images/ministry-evangelism.jpg" />
       <section className="py-16 sm:py-20">
         <Container>
           <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

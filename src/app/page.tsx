@@ -13,7 +13,7 @@ import {
   formatDate,
   gallery,
   getMinistries,
-  getSermons,
+  getLatestVideo,
   getTodaysDevotional,
   getUpcomingEvents,
   mapDirectionsUrl,
@@ -22,8 +22,8 @@ import {
 
 export const revalidate = 3600;
 
-export default function Home() {
-  const latest = getSermons()[0];
+export default async function Home() {
+  const latest = await getLatestVideo();
   const devotional = getTodaysDevotional();
   const events = getUpcomingEvents().slice(0, 3);
   const ministries = getMinistries();
@@ -143,7 +143,7 @@ export default function Home() {
       <section className="py-20 sm:py-24">
         <Container className="grid items-center gap-12 lg:grid-cols-2">
           <div>
-            <p className="mb-2 text-sm font-bold uppercase tracking-[0.2em] text-ecm-red-dark">Go Ye Ministry</p>
+            <p className="mb-2 text-sm font-bold uppercase tracking-[0.2em] text-ecm-red-dark">Evangelism Ministry</p>
             <h2 className="font-display text-4xl uppercase leading-tight text-ecm-navy sm:text-5xl">{site.outreach.title}</h2>
             <p className="mt-2 text-xl font-semibold text-ecm-green">{site.outreach.subtitle}</p>
             <div className="mt-6 inline-flex items-center gap-3 rounded-2xl bg-ecm-cream px-5 py-3">
@@ -153,7 +153,7 @@ export default function Home() {
             <p className="mt-6 text-lg leading-relaxed text-gray-700">{site.outreach.text}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href="/give#partner" variant="red">Support our outreach</ButtonLink>
-              <ButtonLink href="/ministries/go-ye" variant="outline">About Go Ye</ButtonLink>
+              <ButtonLink href="/ministries/evangelism" variant="outline">About Evangelism Ministry</ButtonLink>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">

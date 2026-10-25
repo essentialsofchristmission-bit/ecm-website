@@ -52,15 +52,15 @@ export default function GivePage() {
       <section id="partner" className="scroll-mt-20 bg-ecm-green py-16 text-white sm:py-20">
         <Container className="grid items-center gap-12 lg:grid-cols-2">
           <div>
-            <SectionHeading eyebrow="Go Ye Ministry" title="Partner with us" align="left" light intro={`Help us take the gospel to Akuse Prisons and beyond. Your gifts provide food, toiletries, Bibles and transport for the ${site.outreach.title}.`} />
+            <SectionHeading eyebrow="Evangelism Ministry" title="Partner with us" align="left" light intro={`Help us take the gospel to Akuse Prisons and beyond. Your gifts provide food, toiletries, Bibles and transport for the ${site.outreach.title}.`} />
             <ul className="space-y-2 text-white/90">
-              <li>Give with the reference <strong className="text-white">Go Ye</strong> using the details above</li>
+              <li>Give with the reference <strong className="text-white">Evangelism</strong> using the details above</li>
               <li>Donate items such as toiletries, clothing and Bibles</li>
               <li>Volunteer to join the next outreach team</li>
             </ul>
             <div className="mt-8 flex flex-wrap gap-3">
-              <ButtonLink href={whatsappUrl("Hello ECM, I would like to partner with the Go Ye outreach.")} variant="white">Become a partner</ButtonLink>
-              <ButtonLink href="/ministries/go-ye" variant="outlineLight">Learn about Go Ye</ButtonLink>
+              <ButtonLink href={whatsappUrl("Hello ECM, I would like to partner with the Evangelism Ministry outreach.")} variant="white">Become a partner</ButtonLink>
+              <ButtonLink href="/ministries/evangelism" variant="outlineLight">Learn about Evangelism Ministry</ButtonLink>
             </div>
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-xl">
