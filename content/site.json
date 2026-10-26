@@ -74,7 +74,8 @@
     "heading": "You are welcome home",
     "pastorName": "Pastor Dr. Samuel E. Tandoh",
     "pastorTitle": "Senior Pastor",
-    "pastorImage": "/images/pastor-samuel-tandoh.jpg",
+    "pastorImage": "/images/pastor-welcome.jpg",
+    "pastorImageAlt": "Pastor Dr. Samuel E. Tandoh and his wife",
     "message": "Welcome to Essentials of Christ Mission. We are a family that believes the teachings of Jesus Christ are the foundation of every Christian life. Whether you are new to faith or have walked with God for years, there is a seat for you here. Come as you are, worship with us, grow in the Word and discover the life Jesus offers."
   },
   "outreach": {

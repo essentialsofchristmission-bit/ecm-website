@@ -85,8 +85,8 @@ export default async function Home() {
         <Container className="grid items-center gap-12 md:grid-cols-2">
           <div className="relative mx-auto w-full max-w-md pl-4 pt-4">
             <div className="absolute left-0 top-0 h-[calc(100%-1rem)] w-[calc(100%-1rem)] rounded-3xl bg-ecm-green" aria-hidden="true" />
-            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-xl">
-              <Image src={site.welcome.pastorImage} alt={site.welcome.pastorName} fill sizes="(min-width: 768px) 40vw, 90vw" className="object-cover object-top" />
+            <div className="relative aspect-square overflow-hidden rounded-3xl shadow-xl">
+              <Image src={site.welcome.pastorImage} alt={site.welcome.pastorImageAlt ?? site.welcome.pastorName} fill sizes="(min-width: 768px) 40vw, 90vw" className="object-cover object-top" />
             </div>
           </div>
           <div>
