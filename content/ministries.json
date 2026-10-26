@@ -9,6 +9,7 @@
       "The ministry organises evangelism, community outreaches and our annual Go Ye Train to Akuse Prisons, where we share the gospel, pray with inmates and provide practical support."
     ],
     "leader": "Mr. Jonathan Otoo",
+    "phone": "+233244096956",
     "meetingTime": "[MEETING DAY AND TIME]",
     "image": "/images/ministry-evangelism.jpg",
     "photos": [
@@ -29,6 +30,7 @@
       "We partner with parents to raise children who love Jesus and grow in wisdom and stature."
     ],
     "leader": "Mrs. Margaret Tandoh",
+    "phone": "+233245065634",
     "meetingTime": "Sundays during service",
     "image": "/images/ministry-children.jpg",
     "photos": [
@@ -47,6 +49,7 @@
       "We help young people build a strong foundation in Christ and discover their purpose."
     ],
     "leader": "Dr. Joseph Bremang Tandoh",
+    "phone": "+233249994894",
     "meetingTime": "[MEETING DAY AND TIME]",
     "image": "/images/ministry-youth.jpg",
     "photos": [
@@ -63,6 +66,7 @@
       "If you sing or play an instrument and love to worship, we would love to have you."
     ],
     "leader": "Mr. Enoch Tetteh",
+    "phone": "+233244688029",
     "meetingTime": "Saturdays, 3:00 - 5:00 PM",
     "image": "/images/ministry-choir.jpg",
     "photos": [
@@ -81,6 +85,7 @@
       "Join us if you have skills in cameras, sound, design or social media, or simply a willingness to learn."
     ],
     "leader": "Mr. Scofray N. Y. Yeboah",
+    "phone": "+233243085932",
     "meetingTime": "[MEETING DAY AND TIME]",
     "image": "/images/ministry-media.jpg",
     "photos": [
@@ -97,6 +102,7 @@
       "If you have technical skills or are willing to learn, the team would love to serve with you."
     ],
     "leader": "Mr. Eric Avetu",
+    "phone": "+233506278658",
     "meetingTime": "[MEETING DAY AND TIME]",
     "image": "/images/ministry-technical.jpg",
     "photos": [
@@ -113,6 +119,7 @@
       "Everyone is welcome to join us at the Friday Prayer Meeting."
     ],
     "leader": "Mr. Jonathan Otoo",
+    "phone": "+233244096956",
     "meetingTime": "Fridays, 7:30 - 8:30 PM",
     "image": "/images/ministry-prayer.jpg",
     "photos": [
@@ -129,11 +136,28 @@
       "Speak to the Welfare team if you or someone you know needs support."
     ],
     "leader": "Mrs. Rebecca Yeboah",
+    "phone": "+233243161282",
     "meetingTime": "[MEETING DAY AND TIME]",
     "image": "/images/ministry-welfare.jpg",
     "photos": [
       "/images/gallery-03.jpg",
       "/images/gallery-04.jpg"
+    ]
+  },
+  {
+    "slug": "ushering",
+    "name": "Ushering Team",
+    "summary": "Welcoming everyone who walks through our doors and keeping every service orderly.",
+    "description": [
+      "The Ushering Team is the first smile many people see at ECM. Ushers welcome members and visitors, help everyone find a seat and keep the service running in order.",
+      "If you love serving people and making them feel at home, the Ushering Team would love to have you."
+    ],
+    "leader": "Mr. Frank Amo",
+    "phone": "+233242321640",
+    "meetingTime": "[MEETING DAY AND TIME]",
+    "image": "/images/hero-worship.jpg",
+    "photos": [
+      "/images/live-banner.jpg"
     ]
   },
   {
@@ -145,6 +169,7 @@
       "For questions about giving, please contact the Finance Team through the church office."
     ],
     "leader": "Mrs. Pamela Otoo",
+    "phone": "+233244589805",
     "meetingTime": "[MEETING DAY AND TIME]",
     "image": "/images/ministry-finance.jpg",
     "photos": [

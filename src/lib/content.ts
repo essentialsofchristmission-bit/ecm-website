@@ -38,6 +38,7 @@ export type Ministry = {
   summary: string;
   description: string[];
   leader: string;
+  phone?: string;
   meetingTime: string;
   image: string;
   photos: string[];
@@ -134,8 +135,14 @@ export function mapDirectionsUrl() {
   return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(site.contact.mapQuery)}`;
 }
 
-export function whatsappUrl(text = "Hello ECM, ") {
-  return `https://wa.me/${site.contact.whatsapp}?text=${encodeURIComponent(text)}`;
+export function whatsappUrl(text = "Hello ECM, ", phone: string = site.contact.whatsapp) {
+  return `https://wa.me/${phone.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
+}
+
+export function formatPhone(phone: string) {
+  const d = phone.replace(/\D/g, "");
+  const local = d.startsWith("233") ? d.slice(3) : d.replace(/^0/, "");
+  return local.length === 9 ? `+233 ${local.slice(0, 2)} ${local.slice(2, 5)} ${local.slice(5)}` : phone;
 }
 
 export type LatestVideo = { youtubeId: string; title: string; date: string; preacher: string; service: string };
