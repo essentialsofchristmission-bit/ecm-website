@@ -47,10 +47,11 @@ export default function Gallery({
               <button
                 type="button"
                 onClick={() => setIndex(i)}
-                className="group block w-full overflow-hidden rounded-2xl"
+                className="group relative block w-full overflow-hidden rounded-2xl"
                 aria-label={`Open photo: ${p.alt}`}
               >
                 <Image src={p.src} alt={p.alt} width={p.width ?? 1200} height={p.height ?? 900} sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw" className="h-auto w-full transition duration-500 group-hover:scale-105" />
+                <span aria-hidden="true" className="absolute bottom-2 right-2 rounded-full bg-black/50 p-1.5 text-white"><svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" /></svg></span>
               </button>
             </li>
           ))}
@@ -66,6 +67,7 @@ export default function Gallery({
                 aria-label={`Open photo: ${p.alt}`}
               >
                 <Image src={p.src} alt={p.alt} fill sizes="(min-width: 768px) 33vw, 50vw" className="object-cover transition duration-500 group-hover:scale-105" />
+              <span aria-hidden="true" className="absolute bottom-2 right-2 rounded-full bg-black/50 p-1.5 text-white"><svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" /></svg></span>
               </button>
             </li>
           ))}

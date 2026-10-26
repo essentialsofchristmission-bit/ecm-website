@@ -23,9 +23,10 @@ export default function SermonBrowser({ sermons }: { sermons: Sermon[] }) {
   return (
     <div>
       <div className="mb-8 grid gap-3 rounded-2xl bg-ecm-cream p-4 sm:grid-cols-3">
-        <div>
+        <div className="relative">
           <label htmlFor="s-search" className="sr-only">Search sermons</label>
-          <input id="s-search" type="search" placeholder="Search sermons..." value={query} onChange={(e) => setQuery(e.target.value)} className={select} />
+          <svg aria-hidden="true" viewBox="0 0 24 24" className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2.2"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
+          <input id="s-search" type="search" placeholder="Search sermons..." value={query} onChange={(e) => setQuery(e.target.value)} className={`${select} pl-10`} />
         </div>
         <div>
           <label htmlFor="s-preacher" className="sr-only">Filter by preacher</label>

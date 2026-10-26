@@ -8,10 +8,10 @@ export const metadata: Metadata = { title: "Ministries", description: "Find your
 export default function MinistriesPage() {
   return (
     <>
-      <PageHero title="Ministries" subtitle="Find your people, use your gifts and grow in faith." image="/images/ministry-evangelism.jpg" />
+      <PageHero title="Ministries" subtitle="Find your people, use your gifts and grow in faith." image="/images/banner-ministries.jpg" />
       <section className="py-16 sm:py-20">
         <Container>
-          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:[&>li:last-child:nth-child(3n+1)]:col-start-2">
             {getMinistries().map((m) => <li key={m.slug}><MinistryCard ministry={m} /></li>)}
           </ul>
         </Container>

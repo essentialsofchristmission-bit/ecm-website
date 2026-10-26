@@ -118,7 +118,7 @@ export default async function Home() {
                 </div>
                 <div className="flex flex-col gap-3 lg:items-end">
                   <ButtonLink href={`/devotionals/${devotional.slug}`} variant="red" className="px-8 py-4">Read today&apos;s devotional</ButtonLink>
-                  <Link href="/devotionals" className="text-sm font-semibold text-white/85 underline underline-offset-4 hover:text-white">Past devotionals</Link>
+                  <Link href="/devotionals" className="inline-block py-3 text-sm font-semibold text-white/85 underline underline-offset-4 hover:text-white">Past devotionals</Link>
                 </div>
               </div>
             </div>

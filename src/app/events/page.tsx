@@ -11,7 +11,7 @@ export default function EventsPage() {
   const events = getUpcomingEvents();
   return (
     <>
-      <PageHero title="Events" subtitle="There is always something happening at ECM. Come and be part of it." image="/images/gallery-04.jpg" />
+      <PageHero title="Events" subtitle="There is always something happening at ECM. Come and be part of it." image="/images/banner-events.jpg" />
       <section className="py-16 sm:py-20">
         <Container>
           <SectionHeading eyebrow="Coming up" title="Upcoming events" />

@@ -28,6 +28,9 @@ export default function EventCard({ event }: { event: ChurchEvent }) {
           <p className="flex items-center gap-2"><ClockIcon className="h-4 w-4 text-ecm-green" />{event.time ? `${formatEventDate(event)}, ${event.time}` : formatEventDate(event)}</p>
           <p className="flex items-center gap-2"><PinIcon className="h-4 w-4 text-ecm-green" />{event.venue}</p>
         </div>
+        <span className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-ecm-green group-hover:underline">
+          View details <span aria-hidden="true">&rarr;</span>
+        </span>
       </div>
     </Link>
   );

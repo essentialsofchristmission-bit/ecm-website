@@ -52,10 +52,13 @@ function StatusMessage({ status, email, success }: { status: Status; email: stri
   return null;
 }
 
-function Field({ id, text, children }: { id: string; text: string; children: ReactNode }) {
+function Field({ id, text, required, children }: { id: string; text: string; required?: boolean; children: ReactNode }) {
   return (
     <div>
-      <label htmlFor={id} className={label}>{text}</label>
+      <label htmlFor={id} className={label}>
+        {text}
+        {required && <span className="ml-1 font-normal text-ecm-red-dark">(required)</span>}
+      </label>
       {children}
     </div>
   );
@@ -67,11 +70,11 @@ export function ContactForm({ formId, email }: { formId: string; email: string }
     <form onSubmit={onSubmit} className="space-y-4">
       <input type="hidden" name="_subject" value="New message from the ECM website" />
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field id="c-name" text="Name"><input id="c-name" name="name" required autoComplete="name" className={input} /></Field>
-        <Field id="c-phone" text="Phone"><input id="c-phone" name="phone" type="tel" autoComplete="tel" className={input} /></Field>
+        <Field id="c-name" text="Name" required><input id="c-name" name="name" required autoComplete="name" className={input} /></Field>
+        <Field id="c-phone" text="Phone (optional)"><input id="c-phone" name="phone" type="tel" autoComplete="tel" className={input} /></Field>
       </div>
-      <Field id="c-email" text="Email"><input id="c-email" name="email" type="email" required autoComplete="email" className={input} /></Field>
-      <Field id="c-message" text="Message"><textarea id="c-message" name="message" rows={5} required className={input} /></Field>
+      <Field id="c-email" text="Email" required><input id="c-email" name="email" type="email" required autoComplete="email" className={input} /></Field>
+      <Field id="c-message" text="Message" required><textarea id="c-message" name="message" rows={5} required className={input} /></Field>
       <StatusMessage status={status} email={email} success="Thank you! Your message has been sent. We will get back to you soon." />
       <button type="submit" disabled={status === "sending"} className="rounded-full bg-ecm-green px-8 py-3 text-sm font-bold uppercase tracking-wide text-white hover:bg-ecm-green-dark disabled:opacity-60">
         {status === "sending" ? "Sending..." : "Send message"}
@@ -87,9 +90,9 @@ export function PrayerForm({ formId, email }: { formId: string; email: string })
       <input type="hidden" name="_subject" value="New prayer request from the ECM website" />
       <Field id="p-name" text="Name (optional)"><input id="p-name" name="name" autoComplete="name" className={input} /></Field>
       <Field id="p-contact" text="Email or phone (optional)"><input id="p-contact" name="contact" className={input} /></Field>
-      <Field id="p-request" text="Prayer request"><textarea id="p-request" name="request" rows={5} required className={input} /></Field>
-      <label className="flex items-start gap-3 text-sm text-gray-700">
-        <input type="checkbox" name="confidential" value="yes" className="mt-1 h-4 w-4 accent-ecm-green" />
+      <Field id="p-request" text="Prayer request" required><textarea id="p-request" name="request" rows={5} required className={input} /></Field>
+      <label className="flex cursor-pointer items-start gap-3 py-2 text-sm text-gray-700">
+        <input type="checkbox" name="confidential" value="yes" className="mt-0.5 h-5 w-5 shrink-0 accent-ecm-green" />
         Please keep my request confidential (pastors only)
       </label>
       <StatusMessage status={status} email={email} success="Thank you. Our prayer team will be praying with you." />

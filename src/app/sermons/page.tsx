@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Sermons", description: "Watch recent
 export default function SermonsPage() {
   return (
     <>
-      <PageHero title="Sermons" subtitle="Be blessed by recent messages from ECM." image="/images/gallery-03.jpg" />
+      <PageHero title="Sermons" subtitle="Be blessed by recent messages from ECM." image="/images/banner-sermons.jpg" />
       <section className="py-16 sm:py-20">
         <Container>
           <SermonBrowser sermons={getSermons()} />

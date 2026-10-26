@@ -12,7 +12,7 @@ export default function ContactPage() {
   const { contact, forms } = site;
   return (
     <>
-      <PageHero title="Contact Us" subtitle="We would love to hear from you." image="/images/contact-banner.jpg" />
+      <PageHero title="Contact Us" subtitle="We would love to hear from you." image="/images/contact-hero.jpg" />
       <section className="py-16 sm:py-20">
         <Container className="grid gap-10 lg:grid-cols-3">
           <div className="space-y-6">

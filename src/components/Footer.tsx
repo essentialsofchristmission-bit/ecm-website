@@ -32,9 +32,9 @@ export default function Footer() {
 
         <div>
           <h2 className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-white/70">Quick links</h2>
-          <ul className="grid grid-cols-2 gap-2 text-sm sm:grid-cols-1">
+          <ul className="grid grid-cols-2 gap-x-2 text-sm sm:grid-cols-1">
             {quickLinks.map((l) => (
-              <li key={l.href}><Link href={l.href} className="text-white/90 hover:text-white hover:underline">{l.label}</Link></li>
+              <li key={l.href}><Link href={l.href} className="inline-block py-2 text-white/90 hover:text-white hover:underline sm:py-1">{l.label}</Link></li>
             ))}
           </ul>
         </div>
@@ -50,11 +50,11 @@ export default function Footer() {
             ))}
           </ul>
           <h2 className="mb-3 mt-8 text-sm font-bold uppercase tracking-[0.2em] text-white/70">Contact</h2>
-          <ul className="space-y-2 text-sm text-white/90">
+          <ul className="space-y-1 text-sm text-white/90">
             <li className="flex gap-2"><PinIcon className="h-5 w-5 shrink-0" />{site.contact.address}</li>
-            <li><a className="flex gap-2 hover:underline" href={`tel:${site.contact.phone}`}><PhoneIcon className="h-5 w-5 shrink-0" />{site.contact.phoneDisplay}</a></li>
-            <li><a className="flex gap-2 hover:underline" href={`mailto:${site.contact.email}`}><MailIcon className="h-5 w-5 shrink-0" /><span className="min-w-0">{site.contact.email.split("@")[0]}<wbr />@{site.contact.email.split("@")[1]}</span></a></li>
-            <li><a className="flex gap-2 hover:underline" href={`https://wa.me/${site.contact.whatsapp}`} target="_blank" rel="noopener noreferrer"><WhatsAppIcon className="h-5 w-5 shrink-0" />WhatsApp us</a></li>
+            <li><a className="flex gap-2 py-2 hover:underline sm:py-1" href={`tel:${site.contact.phone}`}><PhoneIcon className="h-5 w-5 shrink-0" />{site.contact.phoneDisplay}</a></li>
+            <li><a className="flex gap-2 py-2 hover:underline sm:py-1" href={`mailto:${site.contact.email}`}><MailIcon className="h-5 w-5 shrink-0" /><span className="min-w-0">{site.contact.email.split("@")[0]}<wbr />@{site.contact.email.split("@")[1]}</span></a></li>
+            <li><a className="flex gap-2 py-2 hover:underline sm:py-1" href={`https://wa.me/${site.contact.whatsapp}`} target="_blank" rel="noopener noreferrer"><WhatsAppIcon className="h-5 w-5 shrink-0" />WhatsApp us</a></li>
           </ul>
         </div>
 

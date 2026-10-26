@@ -1,15 +1,19 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ButtonLink, Container, PageHero, SectionHeading } from "@/components/ui";
+import CopyButton from "@/components/CopyButton";
 import { site, whatsappUrl } from "@/lib/content";
 
 export const metadata: Metadata = { title: "Give", description: "Support the work of Essentials of Christ Mission through Mobile Money or bank transfer." };
 
-function Detail({ label, value }: { label: string; value: string }) {
+function Detail({ label, value, copy }: { label: string; value: string; copy?: boolean }) {
   return (
     <div className="flex flex-col border-b border-gray-200 py-3 last:border-0 sm:flex-row sm:justify-between">
       <dt className="text-sm font-semibold text-gray-600">{label}</dt>
-      <dd className="font-bold text-ecm-navy select-all">{value}</dd>
+      <dd className="flex items-center gap-3 font-bold text-ecm-navy sm:justify-end">
+          <span className="select-all">{value}</span>
+          {copy && <CopyButton value={value} label={label} />}
+        </dd>
     </div>
   );
 }
@@ -36,9 +40,9 @@ export default function GivePage() {
                 )}
               </h2>
               <dl className="mt-4">
-                <Detail label="Number" value={give.momo.number} />
+                <Detail label="Number" value={give.momo.number} copy />
                 <Detail label="Name" value={give.momo.name} />
-                {give.momo.merchantId && <Detail label="Merchant ID" value={give.momo.merchantId} />}
+                {give.momo.merchantId && <Detail label="Merchant ID" value={give.momo.merchantId} copy />}
               </dl>
             </div>
             <div className="rounded-3xl bg-white p-8 shadow-sm ring-1 ring-gray-100">
@@ -52,7 +56,7 @@ export default function GivePage() {
               </h2>
               <dl className="mt-4">
                 <Detail label="Account name" value={give.bank.accountName} />
-                <Detail label="Account number" value={give.bank.accountNumber} />
+                <Detail label="Account number" value={give.bank.accountNumber} copy />
                 <Detail label="Branch" value={give.bank.branch} />
               </dl>
             </div>

@@ -53,7 +53,7 @@ export default function EventsCalendar({ events }: { events: ChurchEvent[] }) {
             <div key={i} className={`min-h-16 rounded-lg p-1 text-left text-sm sm:min-h-24 sm:p-2 ${d ? (evs ? "bg-ecm-green/10" : "bg-gray-50") : ""}`}>
               {d && <span className={`text-xs font-semibold ${evs ? "text-ecm-green" : "text-gray-500"}`}>{d}</span>}
               {evs?.map((e) => (
-                <Link key={e.slug} href={`/events/${e.slug}`} className="mt-1 block truncate rounded bg-ecm-green px-1 py-0.5 text-[10px] font-semibold text-white hover:bg-ecm-green-dark sm:text-xs" title={e.title}>
+                <Link key={e.slug} href={`/events/${e.slug}`} className="mt-1 block truncate rounded bg-ecm-green px-1 py-1.5 text-[10px] font-semibold text-white hover:bg-ecm-green-dark sm:text-xs" title={e.title}>
                   {e.title}
                 </Link>
               ))}

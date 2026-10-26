@@ -51,10 +51,12 @@
     "leader": "Dr. Joseph Bremang Tandoh",
     "phone": "+233249994894",
     "meetingTime": "[MEETING DAY AND TIME]",
-    "image": "/images/ministry-youth.jpg",
+    "image": "/images/m-youth.jpg",
     "photos": [
-      "/images/gallery-03.jpg",
-      "/images/gallery-04.jpg"
+      "/images/about/ecm-01.jpg",
+      "/images/about/ecm-26.jpg",
+      "/images/about/ecm-21.jpg",
+      "/images/about/ecm-22.jpg"
     ]
   },
   {
@@ -87,10 +89,9 @@
     "leader": "Mr. Scofray N. Y. Yeboah",
     "phone": "+233243085932",
     "meetingTime": "[MEETING DAY AND TIME]",
-    "image": "/images/ministry-media.jpg",
+    "image": "/images/m-media.jpg",
     "photos": [
-      "/images/gallery-02.jpg",
-      "/images/gallery-03.jpg"
+      "/images/about/ecm-07.jpg"
     ]
   },
   {
@@ -104,10 +105,10 @@
     "leader": "Mr. Eric Avetu",
     "phone": "+233506278658",
     "meetingTime": "[MEETING DAY AND TIME]",
-    "image": "/images/ministry-technical.jpg",
+    "image": "/images/m-technical.jpg",
     "photos": [
-      "/images/live-banner.jpg",
-      "/images/hero-worship.jpg"
+      "/images/about/ecm-05.jpg",
+      "/images/about/ecm-19.jpg"
     ]
   },
   {
@@ -121,10 +122,12 @@
     "leader": "Mr. Jonathan Otoo",
     "phone": "+233244096956",
     "meetingTime": "Fridays, 7:30 - 8:30 PM",
-    "image": "/images/ministry-prayer.jpg",
+    "image": "/images/m-prayer.jpg",
     "photos": [
-      "/images/gallery-01.jpg",
-      "/images/gallery-02.jpg"
+      "/images/about/ecm-06.jpg",
+      "/images/about/ecm-11.jpg",
+      "/images/about/ecm-18.jpg",
+      "/images/about/ecm-17.jpg"
     ]
   },
   {
@@ -138,10 +141,11 @@
     "leader": "Mrs. Rebecca Yeboah",
     "phone": "+233243161282",
     "meetingTime": "[MEETING DAY AND TIME]",
-    "image": "/images/ministry-welfare.jpg",
+    "image": "/images/m-welfare.jpg",
     "photos": [
-      "/images/gallery-03.jpg",
-      "/images/gallery-04.jpg"
+      "/images/about/ecm-12.jpg",
+      "/images/about/ecm-13.jpg",
+      "/images/about/ecm-33.jpg"
     ]
   },
   {
@@ -155,9 +159,9 @@
     "leader": "Mr. Frank Amo",
     "phone": "+233242321640",
     "meetingTime": "[MEETING DAY AND TIME]",
-    "image": "/images/hero-worship.jpg",
+    "image": "/images/m-ushering.jpg",
     "photos": [
-      "/images/live-banner.jpg"
+      "/images/about/ecm-32.jpg"
     ]
   },
   {
@@ -176,10 +180,10 @@
     "linkButton": "Giving details",
     "linkHref": "/give",
     "meetingTime": "",
-    "image": "/images/ministry-finance.jpg",
+    "image": "/images/m-finance.jpg",
     "photos": [
-      "/images/gallery-05.jpg",
-      "/images/gallery-02.jpg"
+      "/images/about/ecm-02.jpg",
+      "/images/about/ecm-03.jpg"
     ]
   }
 ]
