@@ -44,10 +44,12 @@ export default async function MinistryPage({ params }: Props) {
               <p className="text-xs font-bold uppercase tracking-wider text-ecm-red-dark">Leader</p>
               <p className="text-lg font-bold text-ecm-navy">{m.leader}</p>
             </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-ecm-red-dark">We meet</p>
-              <p className="flex items-center gap-2 text-lg font-bold text-ecm-navy"><ClockIcon className="h-5 w-5 text-ecm-green" />{m.meetingTime}</p>
-            </div>
+            {m.meetingTime && (
+              <div>
+                <p className="text-xs font-bold uppercase tracking-wider text-ecm-red-dark">We meet</p>
+                <p className="flex items-center gap-2 text-lg font-bold text-ecm-navy"><ClockIcon className="h-5 w-5 text-ecm-green" />{m.meetingTime}</p>
+              </div>
+            )}
             {m.canJoin === false ? (
               <>
                 <ButtonLink href={m.phone ? whatsappUrl(m.contactMessage ?? `Hello ${m.leader}, I am contacting you about the ${m.name}.`, m.phone) : "/contact"} variant="red" className="w-full">{m.contactButton ?? "Contact us"}</ButtonLink>
