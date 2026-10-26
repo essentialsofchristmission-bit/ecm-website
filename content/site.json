@@ -100,6 +100,7 @@
     },
     "bank": {
       "bankName": "UBA",
+      "logo": "/images/uba-logo.png",
       "accountName": "Essentials of Christ Mission",
       "accountNumber": "00121933401510",
       "branch": "Head Office"

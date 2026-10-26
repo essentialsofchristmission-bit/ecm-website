@@ -37,7 +37,13 @@ export default function GivePage() {
             </div>
             <div className="rounded-3xl bg-white p-8 shadow-sm ring-1 ring-gray-100">
               <p className="inline-block rounded-full bg-ecm-navy px-3 py-1 text-xs font-bold uppercase text-white">Bank transfer</p>
-              <h2 className="mt-4 font-display text-3xl uppercase text-ecm-navy">{give.bank.bankName}</h2>
+              <h2 className="mt-4 font-display text-3xl uppercase text-ecm-navy">
+                {give.bank.logo ? (
+                  <Image src={give.bank.logo} alt={`${give.bank.bankName}, United Bank for Africa`} width={600} height={270} className="h-14 w-auto sm:h-16" />
+                ) : (
+                  give.bank.bankName
+                )}
+              </h2>
               <dl className="mt-4">
                 <Detail label="Account name" value={give.bank.accountName} />
                 <Detail label="Account number" value={give.bank.accountNumber} />
