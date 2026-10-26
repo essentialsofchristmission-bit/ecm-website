@@ -165,11 +165,16 @@
     "name": "Finance Team",
     "summary": "Faithful stewardship of the gifts and resources God provides.",
     "description": [
-      "The Finance Team oversees the tithes, offerings and gifts entrusted to the church with integrity and transparency, so that every cedi serves the work of the gospel.",
-      "For questions about giving, please contact the Finance Team through the church office."
+      "The Finance Team oversees the tithes, offerings and gifts entrusted to the church with integrity and transparency, so that every cedi serves the work of the gospel. Members of the team are appointed by the church.",
+      "If you would like to make a donation, tap Make a donation to reach the Finance Team on WhatsApp, or see the Give page for Mobile Money and bank details."
     ],
     "leader": "Mrs. Pamela Otoo",
     "phone": "+233244589805",
+    "canJoin": false,
+    "contactButton": "Make a donation",
+    "contactMessage": "Hello Mrs. Pamela Otoo, I would like to make a donation to Essentials of Christ Mission.",
+    "linkButton": "Giving details",
+    "linkHref": "/give",
     "meetingTime": "[MEETING DAY AND TIME]",
     "image": "/images/ministry-finance.jpg",
     "photos": [

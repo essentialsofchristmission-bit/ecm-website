@@ -39,6 +39,11 @@ export type Ministry = {
   description: string[];
   leader: string;
   phone?: string;
+  canJoin?: boolean;
+  contactButton?: string;
+  contactMessage?: string;
+  linkButton?: string;
+  linkHref?: string;
   meetingTime: string;
   image: string;
   photos: string[];

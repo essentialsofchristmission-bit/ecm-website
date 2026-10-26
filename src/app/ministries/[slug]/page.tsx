@@ -48,8 +48,17 @@ export default async function MinistryPage({ params }: Props) {
               <p className="text-xs font-bold uppercase tracking-wider text-ecm-red-dark">We meet</p>
               <p className="flex items-center gap-2 text-lg font-bold text-ecm-navy"><ClockIcon className="h-5 w-5 text-ecm-green" />{m.meetingTime}</p>
             </div>
-            <ButtonLink href={whatsappUrl(`Hello ${m.leader}, I would like to join the ${m.name}.`, m.phone)} variant="red" className="w-full">Join this ministry</ButtonLink>
-            <ButtonLink href={m.phone ? whatsappUrl(`Hello ${m.leader}, I am contacting you about the ${m.name}.`, m.phone) : "/contact"} variant="outline" className="w-full">Contact us</ButtonLink>
+            {m.canJoin === false ? (
+              <>
+                <ButtonLink href={m.phone ? whatsappUrl(m.contactMessage ?? `Hello ${m.leader}, I am contacting you about the ${m.name}.`, m.phone) : "/contact"} variant="red" className="w-full">{m.contactButton ?? "Contact us"}</ButtonLink>
+                {m.linkButton && m.linkHref && <ButtonLink href={m.linkHref} variant="outline" className="w-full">{m.linkButton}</ButtonLink>}
+              </>
+            ) : (
+              <>
+                <ButtonLink href={whatsappUrl(`Hello ${m.leader}, I would like to join the ${m.name}.`, m.phone)} variant="red" className="w-full">Join this ministry</ButtonLink>
+                <ButtonLink href={m.phone ? whatsappUrl(m.contactMessage ?? `Hello ${m.leader}, I am contacting you about the ${m.name}.`, m.phone) : "/contact"} variant="outline" className="w-full">{m.contactButton ?? "Contact us"}</ButtonLink>
+              </>
+            )}
           </aside>
         </Container>
       </section>
