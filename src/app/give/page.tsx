@@ -28,7 +28,13 @@ export default function GivePage() {
           <div className="mt-12 grid gap-6 md:grid-cols-2">
             <div className="rounded-3xl bg-white p-8 shadow-sm ring-1 ring-gray-100">
               <p className="inline-block rounded-full bg-yellow-300 px-3 py-1 text-xs font-bold uppercase text-gray-900">Mobile Money</p>
-              <h2 className="mt-4 font-display text-3xl uppercase text-ecm-navy">{give.momo.network}</h2>
+              <h2 className="mt-4 font-display text-3xl uppercase text-ecm-navy">
+                {give.momo.logo ? (
+                  <Image src={give.momo.logo} alt={give.momo.network} width={640} height={255} className="h-14 w-auto rounded-lg sm:h-16" />
+                ) : (
+                  give.momo.network
+                )}
+              </h2>
               <dl className="mt-4">
                 <Detail label="Number" value={give.momo.number} />
                 <Detail label="Name" value={give.momo.name} />
