@@ -7,6 +7,7 @@ import sermonsData from "../../content/sermons.json";
 import eventsData from "../../content/events.json";
 import ministriesData from "../../content/ministries.json";
 import galleryData from "../../content/gallery.json";
+import aboutGalleryData from "../../content/about-gallery.json";
 
 export { formatDate, youtubeThumb } from "./format";
 
@@ -63,6 +64,7 @@ export type Devotional = {
 export const site = siteData;
 export const about = aboutData;
 export const gallery = galleryData;
+export const aboutGallery = aboutGalleryData;
 
 export function getSermons(): Sermon[] {
   return [...(sermonsData as Sermon[])].sort((a, b) => b.date.localeCompare(a.date));

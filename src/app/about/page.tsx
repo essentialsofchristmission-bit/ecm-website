@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ButtonLink, Container, PageHero, SectionHeading } from "@/components/ui";
-import { about, site } from "@/lib/content";
+import Gallery from "@/components/Gallery";
+import { about, aboutGallery, site } from "@/lib/content";
 
 export const metadata: Metadata = { title: "About Us", description: `Our story, vision, mission, beliefs and leadership at ${site.name}.` };
 
@@ -22,8 +23,15 @@ export default function AboutPage() {
               {about.story.map((p, i) => <p key={i}>{p}</p>)}
             </div>
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-xl">
-            <Image src="/images/about-church.jpg" alt="The ECM church family" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+          <div>
+            <div className="grid grid-cols-2 grid-rows-2 gap-3 sm:gap-4">
+              {aboutGallery.slice(0, 4).map((p, i) => (
+                <div key={p.src} className={`relative overflow-hidden rounded-3xl shadow-xl ${i === 0 ? "row-span-2 aspect-[3/4] sm:aspect-auto" : "aspect-[4/3]"}`}>
+                  <Image src={p.src} alt={p.alt} fill sizes="(min-width: 1024px) 25vw, 50vw" className="object-cover" />
+                </div>
+              ))}
+            </div>
+            <a href="#gallery" className="mt-4 inline-block font-bold text-ecm-green underline-offset-4 hover:underline">See more photos of life at ECM</a>
           </div>
         </Container>
       </section>
@@ -52,6 +60,13 @@ export default function AboutPage() {
               </li>
             ))}
           </ul>
+        </Container>
+      </section>
+
+      <section id="gallery" className="scroll-mt-20 py-20">
+        <Container>
+          <SectionHeading eyebrow="Life at ECM" title="Our church in pictures" />
+          <Gallery photos={aboutGallery} layout="masonry" initialCount={16} />
         </Container>
       </section>
 
