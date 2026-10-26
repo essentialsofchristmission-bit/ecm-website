@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ClockIcon, PhoneIcon, WhatsAppIcon } from "@/components/Icons";
+import { ClockIcon } from "@/components/Icons";
 import { ButtonLink, Container, PageHero } from "@/components/ui";
-import { formatPhone, getMinistries, getMinistry, whatsappUrl } from "@/lib/content";
+import { getMinistries, getMinistry, whatsappUrl } from "@/lib/content";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -43,22 +43,13 @@ export default async function MinistryPage({ params }: Props) {
             <div>
               <p className="text-xs font-bold uppercase tracking-wider text-ecm-red-dark">Leader</p>
               <p className="text-lg font-bold text-ecm-navy">{m.leader}</p>
-              {m.phone && (
-                <a href={`tel:${m.phone}`} className="mt-1 flex items-center gap-2 font-semibold text-ecm-green hover:underline">
-                  <PhoneIcon className="h-4 w-4" />{formatPhone(m.phone)}
-                </a>
-              )}
             </div>
             <div>
               <p className="text-xs font-bold uppercase tracking-wider text-ecm-red-dark">We meet</p>
               <p className="flex items-center gap-2 text-lg font-bold text-ecm-navy"><ClockIcon className="h-5 w-5 text-ecm-green" />{m.meetingTime}</p>
             </div>
-            <ButtonLink href={whatsappUrl(`Hello ${m.leader}, I would like to join the ${m.name}.`, m.phone)} variant="red" className="w-full"><WhatsAppIcon />Join this ministry</ButtonLink>
-            {m.phone ? (
-              <ButtonLink href={`tel:${m.phone}`} variant="outline" className="w-full"><PhoneIcon />Call the leader</ButtonLink>
-            ) : (
-              <ButtonLink href="/contact" variant="outline" className="w-full">Contact us</ButtonLink>
-            )}
+            <ButtonLink href={whatsappUrl(`Hello ${m.leader}, I would like to join the ${m.name}.`, m.phone)} variant="red" className="w-full">Join this ministry</ButtonLink>
+            <ButtonLink href={m.phone ? whatsappUrl(`Hello ${m.leader}, I am contacting you about the ${m.name}.`, m.phone) : "/contact"} variant="outline" className="w-full">Contact us</ButtonLink>
           </aside>
         </Container>
       </section>

@@ -4,7 +4,7 @@ import { MailIcon, PhoneIcon, PinIcon, WhatsAppIcon } from "@/components/Icons";
 import MapEmbed from "@/components/MapEmbed";
 import ServiceTimes from "@/components/ServiceTimes";
 import { ButtonLink, Container, PageHero } from "@/components/ui";
-import { formatPhone, getMinistries, mapDirectionsUrl, site, whatsappUrl } from "@/lib/content";
+import { mapDirectionsUrl, site, whatsappUrl } from "@/lib/content";
 
 export const metadata: Metadata = { title: "Contact", description: "Get in touch with Essentials of Christ Mission, send a prayer request or find directions." };
 
@@ -41,24 +41,6 @@ export default function ContactPage() {
             <p className="mb-6 text-gray-600">Our prayer team would be honoured to pray with you.</p>
             <PrayerForm formId={forms.prayerFormspreeId} email={contact.email} />
           </div>
-        </Container>
-      </section>
-      <section className="pb-16 sm:pb-20">
-        <Container>
-          <h2 className="mb-2 font-display text-3xl uppercase text-ecm-navy">Ministry contacts</h2>
-          <p className="mb-6 text-gray-600">Reach a ministry leader directly by phone or WhatsApp.</p>
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {getMinistries().filter((m) => m.phone).map((m) => (
-              <li key={m.slug} className="flex flex-col rounded-2xl bg-ecm-cream p-5">
-                <h3 className="font-bold text-ecm-navy">{m.name}</h3>
-                <p className="text-sm text-gray-700">{m.leader}</p>
-                <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
-                  <a href={`tel:${m.phone}`} className="flex items-center gap-2 text-ecm-green hover:underline"><PhoneIcon className="h-4 w-4" />{formatPhone(m.phone!)}</a>
-                  <a href={whatsappUrl(`Hello ${m.leader}, `, m.phone)} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-[#1a7f45] hover:underline"><WhatsAppIcon className="h-4 w-4" />WhatsApp</a>
-                </div>
-              </li>
-            ))}
-          </ul>
         </Container>
       </section>
       <section className="pb-20">
