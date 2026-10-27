@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type PointerEvent, type ReactNode } from "react";
 
 type Slide = { src: string; alt: string };
 
-const SLIDE_MS = 6000;
+const SLIDE_MS = 4000;
 
 export default function HeroCarousel({
   slides,
@@ -46,6 +46,11 @@ export default function HeroCarousel({
   );
 
   const paused = hovered || focused;
+  // Pause only while the mouse is on the arrows or dots: the hero fills the screen, so pausing on the whole hero would stop it almost always.
+  const pauseOnHover = {
+    onPointerEnter: (e: PointerEvent) => e.pointerType === "mouse" && setHovered(true),
+    onPointerLeave: () => setHovered(false),
+  };
   const active = motion && count > 1;
   const index = active ? state.index : 0;
 
@@ -65,8 +70,6 @@ export default function HeroCarousel({
   return (
     <section
       className={`group touch-pan-y ${className}`}
-      onPointerEnter={(e) => e.pointerType === "mouse" && setHovered(true)}
-      onPointerLeave={() => setHovered(false)}
       onFocus={(e) => e.target.matches(":focus-visible") && setFocused(true)}
       onBlur={(e) => !e.currentTarget.contains(e.relatedTarget) && setFocused(false)}
       onTouchStart={(e) => {
@@ -124,6 +127,7 @@ export default function HeroCarousel({
           <button
             type="button"
             onClick={() => go(state.index - 1)}
+            {...pauseOnHover}
             className="absolute bottom-5 left-3 z-10 rounded-full bg-white/15 p-2.5 text-white backdrop-blur transition hover:bg-white/30 focus-visible:opacity-100 sm:left-6 2xl:bottom-auto 2xl:top-1/2 2xl:-translate-y-1/2 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100"
             aria-label="Previous slide"
           >
@@ -132,12 +136,13 @@ export default function HeroCarousel({
           <button
             type="button"
             onClick={() => go(state.index + 1)}
+            {...pauseOnHover}
             className="absolute bottom-5 right-3 z-10 rounded-full bg-white/15 p-2.5 text-white backdrop-blur transition hover:bg-white/30 focus-visible:opacity-100 sm:right-6 2xl:bottom-auto 2xl:top-1/2 2xl:-translate-y-1/2 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100"
             aria-label="Next slide"
           >
             <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M9 18l6-6-6-6" /></svg>
           </button>
-          <ul className="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2">
+          <ul className="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2" {...pauseOnHover}>
             {slides.map((slide, i) => (
               <li key={slide.src}>
                 <button

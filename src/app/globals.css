@@ -43,7 +43,7 @@ body {
 }
 
 .hero-zoom {
-  animation-duration: 7.2s;
+  animation-duration: 5.2s;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
   will-change: transform;

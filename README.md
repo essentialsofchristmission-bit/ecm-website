@@ -102,7 +102,7 @@ You can also use a brand new file name, as long as you update the matching path 
 
 ### Changing the homepage slideshow
 
-The photos that fade behind the yearly theme at the top of the homepage live in `public/images/hero`, and the list of slides is in `content/hero.json`. Each slide shows for 6 seconds, then fades to the next one.
+The photos that fade behind the yearly theme at the top of the homepage live in `public/images/hero`, and the list of slides is in `content/hero.json`. Each slide shows for 4 seconds, then fades to the next one.
 
 **Replace a photo:** upload your new photo to `public/images/hero` with exactly the same name (for example `hero-3.jpg`). Nothing else needs to change.
 
