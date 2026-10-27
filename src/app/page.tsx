@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import EventCard from "@/components/EventCard";
 import Gallery from "@/components/Gallery";
+import HeroCarousel from "@/components/HeroCarousel";
 import { MailIcon, PhoneIcon, PinIcon } from "@/components/Icons";
 import LiveBanner from "@/components/LiveBanner";
 import MapEmbed from "@/components/MapEmbed";
@@ -16,6 +17,7 @@ import {
   getLatestVideo,
   getTodaysDevotional,
   getUpcomingEvents,
+  hero,
   mapDirectionsUrl,
   site,
 } from "@/lib/content";
@@ -31,8 +33,7 @@ export default async function Home() {
   return (
     <>
       {/* 1. Hero */}
-      <section className="relative isolate flex min-h-[calc(100svh-5rem)] items-center overflow-hidden">
-        <Image src="/images/hero-worship.jpg" alt="Worship at Essentials of Christ Mission" fill priority sizes="100vw" className="-z-10 object-cover" />
+      <HeroCarousel slides={hero} className="relative isolate flex min-h-[calc(100svh-5rem)] items-center overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ecm-green/95 via-ecm-green/75 to-ecm-navy/40" />
         <Container className="py-20 text-white">
           <p className="mb-4 inline-block rounded-full bg-white/15 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.25em] backdrop-blur">
@@ -54,7 +55,7 @@ export default async function Home() {
             <ButtonLink href="/live" variant="outlineLight" className="px-8 py-4">Watch Online</ButtonLink>
           </div>
         </Container>
-      </section>
+      </HeroCarousel>
 
       {/* 2. Live banner */}
       <LiveBanner />

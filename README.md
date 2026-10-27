@@ -44,6 +44,7 @@ The easiest way is to edit files directly on GitHub:
 - **`content/sermons.json`** : the sermon list. To add a sermon, copy one block and change it. The `youtubeId` is the part after `v=` in a YouTube link. Example: for `https://www.youtube.com/watch?v=D0mW9TLUt1Q` the ID is `D0mW9TLUt1Q`. The newest date is automatically shown as the "Latest sermon" on the homepage.
 - **`content/events.json`** : events. Dates must be written as `YYYY-MM-DD` (for example `2026-12-20`). Past events disappear automatically. For an event lasting several days, add `"endDate"` (also `YYYY-MM-DD`). If there is no set time, leave `"time"` empty (`""`) and only the date is shown. The `slug` is the web address of the event page, so use lowercase words joined by hyphens, for example `youth-conference-2026`.
 - **`content/ministries.json`** : one block per ministry. `phone` is the ministry leader's WhatsApp number (for example `+233244096956`). It is not shown on the site; the Join this ministry and Contact us buttons on that ministry's page open WhatsApp to this number. Leave it out to use the main church contact. Leave `meetingTime` empty (`""`) to hide the We meet line. Optional extras: `"canJoin": false` hides the Join this ministry button (used for the Finance Team), `contactButton` changes the button text `contactMessage` sets the WhatsApp message, and `linkButton` with `linkHref` adds an extra button to another page (for example Giving details to `/give`).
+- **`content/hero.json`** : the slideshow photos behind the yearly theme at the top of the homepage (see "Changing the homepage slideshow" below)
 - **`content/gallery.json`** : the photos in the homepage gallery, with a short description for each one (this helps blind visitors and Google)
 - **`content/devotionals/`** : Moment With Jesus devotionals, one file per day
 
@@ -85,9 +86,38 @@ Tips:
 - `logo.png` is used in the header, the footer and as the browser tab icon.
 - `og-image.jpg` (1200 x 630) is the picture shown when someone shares the website on WhatsApp or Facebook.
 
-Main image names: `hero-worship.jpg`, `pastor-samuel-tandoh.jpg`, `about-church.jpg`, `live-banner.jpg`, `give-banner.jpg`, `contact-banner.jpg`, `ministry-*.jpg`, `outreach-go-ye-train-1/2/3.jpg`, `gallery-01.jpg` to `gallery-09.jpg`, `event-*.jpg`.
+Main image names: `hero/hero-1.jpg` to `hero/hero-5.jpg` (homepage slideshow), `pastor-samuel-tandoh.jpg`, `about-church.jpg`, `live-banner.jpg`, `give-banner.jpg`, `contact-banner.jpg`, `ministry-*.jpg`, `outreach-go-ye-train-1/2/3.jpg`, `gallery-01.jpg` to `gallery-09.jpg`, `event-*.jpg`.
 
 You can also use a brand new file name, as long as you update the matching path in the `content` file (for example `"image": "/images/my-new-photo.jpg"`).
+
+### Changing the homepage slideshow
+
+The photos that fade behind the yearly theme at the top of the homepage live in `public/images/hero`, and the list of slides is in `content/hero.json`. Each slide shows for 6 seconds, then fades to the next one.
+
+**Replace a photo:** upload your new photo to `public/images/hero` with exactly the same name (for example `hero-3.jpg`). Nothing else needs to change.
+
+**Add a photo:**
+1. Upload it to `public/images/hero`, for example `hero-6.jpg`.
+2. In `content/hero.json`, copy one block, paste it at the end and change it:
+
+```
+  {
+    "src": "/images/hero/hero-6.jpg",
+    "alt": "Short description of the photo"
+  }
+```
+
+Remember the comma between blocks, and no comma after the last one.
+
+**Remove a photo:** delete its block from `content/hero.json` (and fix the commas). You can delete the photo file too, but you do not have to.
+
+**Change the order:** move the blocks around in `content/hero.json`. The first block is the photo visitors see first, so make it a strong one.
+
+Tips for slideshow photos:
+- Use landscape photos (wider than tall), at least 1400 pixels wide, under about 300 KB.
+- The left side of the photo sits behind the green shade and the text, so photos with the main subject on the right side look best.
+- The website automatically converts the photos to a smaller format (WebP) for phones, so you only need to upload a normal `.jpg`.
+- Visitors who have turned on "reduce motion" on their phone or computer only see the first photo, with no movement.
 
 ---
 

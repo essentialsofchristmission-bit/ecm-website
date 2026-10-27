@@ -30,6 +30,25 @@ body {
   animation: live-pulse 1.6s infinite;
 }
 
+/* Homepage hero slideshow: slow zoom while a photo is showing. Two identical
+   keyframes let the zoom restart each time a slide comes back round. */
+@keyframes hero-zoom-a {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+
+@keyframes hero-zoom-b {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+
+.hero-zoom {
+  animation-duration: 7.2s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  will-change: transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .live-dot { animation: none; }
