@@ -1,0 +1,49 @@
+# Pages CMS (https://pagescms.org): the simple editing screen for daily devotionals.
+media:
+  input: public/images/devotionals
+  output: /images/devotionals
+
+content:
+  - name: devotionals
+    label: Moment With Jesus
+    type: collection
+    path: content/devotionals
+    filename: "{fields.date}.md"
+    view:
+      fields: [title, date]
+      primary: title
+      sort: [date]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: date
+        label: Date
+        description: The day this devotional appears on the website. Future dates stay hidden until that day.
+        type: date
+        required: true
+      - name: image
+        label: Devotional image (PNG)
+        description: Shown on the devotional page with a Download button.
+        type: image
+      - name: keyVerse
+        label: Key verse reference
+        description: For example Proverbs 28:13 (KJV)
+        type: string
+      - name: keyVerseText
+        label: Key verse text
+        type: text
+      - name: body
+        label: Daily Meal
+        description: Leave an empty line between paragraphs.
+        type: text
+      - name: prayer
+        label: Prayer
+        type: text
+      - name: proclamation
+        label: Proclamation
+        type: text

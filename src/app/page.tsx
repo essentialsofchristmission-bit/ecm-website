@@ -112,10 +112,12 @@ export default async function Home() {
                 <div className="lg:col-span-2">
                   <p className="text-sm font-bold uppercase tracking-[0.2em] text-white/75">Moment With Jesus &middot; {formatDate(devotional.date, { weekday: "long", day: "numeric", month: "long" })}</p>
                   <h2 className="mt-3 font-display text-4xl uppercase leading-tight sm:text-5xl">{devotional.title}</h2>
-                  <blockquote className="mt-6 border-l-4 border-ecm-red pl-5 text-lg italic text-white/90">
-                    &ldquo;{devotional.keyVerseText}&rdquo;
-                    <footer className="mt-2 text-sm font-bold not-italic text-white">{devotional.keyVerse}</footer>
-                  </blockquote>
+                  {devotional.keyVerseText && (
+                    <blockquote className="mt-6 border-l-4 border-ecm-red pl-5 text-lg italic text-white/90">
+                      &ldquo;{devotional.keyVerseText}&rdquo;
+                      <footer className="mt-2 text-sm font-bold not-italic text-white">{devotional.keyVerse}</footer>
+                    </blockquote>
+                  )}
                 </div>
                 <div className="flex flex-col gap-3 lg:items-end">
                   <ButtonLink href={`/devotionals/${devotional.slug}`} variant="red" className="px-8 py-4">Read today&apos;s devotional</ButtonLink>

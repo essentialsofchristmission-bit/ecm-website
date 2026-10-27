@@ -50,14 +50,24 @@ The easiest way is to edit files directly on GitHub:
 
 ### Adding a new daily devotional
 
-1. In the `content/devotionals` folder, click **Add file > Create new file**.
-2. Name it with the date, for example `2026-10-26.md`.
-3. Copy this template, fill it in and commit:
+**The easy way (Pages CMS):** go to https://app.pagescms.org, sign in, open the website and click **Moment With Jesus**. Click **Add an entry**, fill in the title and date, upload the devotional PNG, and fill in the text boxes if you have the text. Click **Save**. The website updates in about 2 minutes.
+
+Only the title and date are required. If you upload the PNG, it is shown on the devotional page with a **Download devotional** button, and it becomes the picture shown when the link is shared on WhatsApp or Facebook. Typing the text as well is recommended: it helps people with poor eyesight, people on slow phones, and Google.
+
+Giving someone access: in Pages CMS, open the website's settings and invite them as a collaborator by email. They can then edit content without seeing the code.
+
+**The manual way (GitHub):**
+
+1. Upload the PNG to `public/images/devotionals`, for example `2026-10-26.png`.
+2. In the `content/devotionals` folder, click **Add file > Create new file**.
+3. Name it with the date, for example `2026-10-26.md`.
+4. Copy this template, fill it in and commit. Every line except `title` and `date` is optional; delete any you do not need.
 
 ```
 ---
 title: "Title of the devotional"
 date: "2026-10-26"
+image: "/images/devotionals/2026-10-26.png"
 keyVerse: "John 14:6"
 keyVerseText: "Jesus saith unto him, I am the way, the truth, and the life."
 prayer: "Write the prayer here."

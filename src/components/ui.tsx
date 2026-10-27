@@ -50,14 +50,23 @@ export function ButtonLink({
   variant = "green",
   className = "",
   external = false,
+  download,
 }: {
   href: string;
   children: ReactNode;
   variant?: Variant;
   className?: string;
   external?: boolean;
+  download?: string;
 }) {
   const cls = `inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold uppercase tracking-wide transition-colors ${variants[variant]} ${className}`;
+  if (download) {
+    return (
+      <a href={href} download={download} className={cls}>
+        {children}
+      </a>
+    );
+  }
   if (external || href.startsWith("http") || href.startsWith("tel:") || href.startsWith("mailto:")) {
     return (
       <a href={href} className={cls} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">

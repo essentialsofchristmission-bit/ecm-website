@@ -55,6 +55,7 @@ export type Devotional = {
   slug: string;
   title: string;
   date: string;
+  image?: string;
   keyVerse: string;
   keyVerseText: string;
   prayer: string;
@@ -109,7 +110,9 @@ export function getDevotionals(): Devotional[] {
       return {
         slug: file.replace(/\.md$/, ""),
         title: String(data.title ?? ""),
-        date: String(data.date ?? file.replace(/\.md$/, "")),
+        // An unquoted date (as the CMS may save it) is read as a Date, so turn it back into YYYY-MM-DD.
+        date: data.date instanceof Date ? data.date.toISOString().slice(0, 10) : String(data.date ?? file.replace(/\.md$/, "")),
+        image: data.image ? String(data.image) : undefined,
         keyVerse: String(data.keyVerse ?? ""),
         keyVerseText: String(data.keyVerseText ?? ""),
         prayer: String(data.prayer ?? ""),
