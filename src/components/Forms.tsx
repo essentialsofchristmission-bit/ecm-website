@@ -4,19 +4,21 @@ import { useState, type FormEvent, type ReactNode } from "react";
 
 type Status = "idle" | "sending" | "sent" | "error" | "notConfigured";
 
-function useFormspree(formId: string) {
+// formUrl is the form's Formspree link from content/site.json; a bare form ID also works.
+function useFormspree(formUrl: string) {
   const [status, setStatus] = useState<Status>("idle");
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!formId) {
+    const url = formUrl.trim();
+    if (!url) {
       setStatus("notConfigured");
       return;
     }
     setStatus("sending");
     const form = e.currentTarget;
     try {
-      const res = await fetch(`https://formspree.io/f/${formId}`, {
+      const res = await fetch(url.startsWith("http") ? url : `https://formspree.io/f/${url}`, {
         method: "POST",
         body: new FormData(form),
         headers: { Accept: "application/json" },
@@ -52,6 +54,13 @@ function StatusMessage({ status, email, success }: { status: Status; email: stri
   return null;
 }
 
+// Spam trap: hidden from people, but bots fill it in and Formspree then drops the submission.
+function Honeypot() {
+  return <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ display: "none" }} />;
+}
+
+const SUCCESS = "Thank you, your message has been received. We will get back to you soon.";
+
 function Field({ id, text, required, children }: { id: string; text: string; required?: boolean; children: ReactNode }) {
   return (
     <div>
@@ -64,18 +73,19 @@ function Field({ id, text, required, children }: { id: string; text: string; req
   );
 }
 
-export function ContactForm({ formId, email }: { formId: string; email: string }) {
-  const { status, onSubmit } = useFormspree(formId);
+export function ContactForm({ formUrl, email }: { formUrl: string; email: string }) {
+  const { status, onSubmit } = useFormspree(formUrl);
   return (
     <form onSubmit={onSubmit} className="space-y-4">
-      <input type="hidden" name="_subject" value="New message from the ECM website" />
+      <input type="hidden" name="_subject" value="New message from ECM website" />
+      <Honeypot />
       <div className="grid gap-4 sm:grid-cols-2">
         <Field id="c-name" text="Name" required><input id="c-name" name="name" required autoComplete="name" className={input} /></Field>
         <Field id="c-phone" text="Phone (optional)"><input id="c-phone" name="phone" type="tel" autoComplete="tel" className={input} /></Field>
       </div>
       <Field id="c-email" text="Email" required><input id="c-email" name="email" type="email" required autoComplete="email" className={input} /></Field>
       <Field id="c-message" text="Message" required><textarea id="c-message" name="message" rows={5} required className={input} /></Field>
-      <StatusMessage status={status} email={email} success="Thank you! Your message has been sent. We will get back to you soon." />
+      <StatusMessage status={status} email={email} success={SUCCESS} />
       <button type="submit" disabled={status === "sending"} className="rounded-full bg-ecm-green px-8 py-3 text-sm font-bold uppercase tracking-wide text-white hover:bg-ecm-green-dark disabled:opacity-60">
         {status === "sending" ? "Sending..." : "Send message"}
       </button>
@@ -83,19 +93,21 @@ export function ContactForm({ formId, email }: { formId: string; email: string }
   );
 }
 
-export function PrayerForm({ formId, email }: { formId: string; email: string }) {
-  const { status, onSubmit } = useFormspree(formId);
+export function PrayerForm({ formUrl, email }: { formUrl: string; email: string }) {
+  const { status, onSubmit } = useFormspree(formUrl);
   return (
     <form onSubmit={onSubmit} className="space-y-4">
-      <input type="hidden" name="_subject" value="New prayer request from the ECM website" />
+      <input type="hidden" name="_subject" value="New prayer request from ECM website" />
+      <Honeypot />
       <Field id="p-name" text="Name (optional)"><input id="p-name" name="name" autoComplete="name" className={input} /></Field>
-      <Field id="p-contact" text="Email or phone (optional)"><input id="p-contact" name="contact" className={input} /></Field>
+      <Field id="p-email" text="Email (optional)"><input id="p-email" name="email" type="email" autoComplete="email" className={input} /></Field>
+      <Field id="p-phone" text="Phone (optional)"><input id="p-phone" name="phone" type="tel" autoComplete="tel" className={input} /></Field>
       <Field id="p-request" text="Prayer request" required><textarea id="p-request" name="request" rows={5} required className={input} /></Field>
       <label className="flex cursor-pointer items-start gap-3 py-2 text-sm text-gray-700">
-        <input type="checkbox" name="confidential" value="yes" className="mt-0.5 h-5 w-5 shrink-0 accent-ecm-green" />
+        <input type="checkbox" name="keep_private" value="Yes" className="mt-0.5 h-5 w-5 shrink-0 accent-ecm-green" />
         Please keep my request confidential (pastors only)
       </label>
-      <StatusMessage status={status} email={email} success="Thank you. Our prayer team will be praying with you." />
+      <StatusMessage status={status} email={email} success={SUCCESS} />
       <button type="submit" disabled={status === "sending"} className="rounded-full bg-ecm-red-dark px-8 py-3 text-sm font-bold uppercase tracking-wide text-white hover:bg-ecm-red disabled:opacity-60">
         {status === "sending" ? "Sending..." : "Send prayer request"}
       </button>
@@ -103,11 +115,12 @@ export function PrayerForm({ formId, email }: { formId: string; email: string })
   );
 }
 
-export function NewsletterForm({ formId, email }: { formId: string; email: string }) {
-  const { status, onSubmit } = useFormspree(formId);
+export function NewsletterForm({ formUrl, email }: { formUrl: string; email: string }) {
+  const { status, onSubmit } = useFormspree(formUrl);
   return (
     <form onSubmit={onSubmit} className="space-y-3">
       <input type="hidden" name="_subject" value="New newsletter signup" />
+      <Honeypot />
       <label htmlFor="n-email" className="sr-only">Email address</label>
       <div className="flex flex-col gap-2 sm:flex-row xl:flex-col">
         <input id="n-email" name="email" type="email" required placeholder="Your email address" autoComplete="email" className="w-full rounded-full border border-white/20 bg-white/10 px-4 py-3 text-white placeholder:text-white/70 focus:outline-none focus:ring-2 focus:ring-white/60" />

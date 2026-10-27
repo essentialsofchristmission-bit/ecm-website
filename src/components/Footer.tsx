@@ -61,7 +61,7 @@ export default function Footer() {
         <div>
           <h2 className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-white/70">Stay connected</h2>
           <p className="mb-4 text-sm text-white/80">Get news, events and devotionals in your inbox.</p>
-          <NewsletterForm formId={site.forms.newsletterFormspreeId} email={site.contact.email} />
+          <NewsletterForm formUrl={site.forms.newsletter} email={site.contact.email} />
         </div>
       </Container>
       <div className="border-t border-white/10">

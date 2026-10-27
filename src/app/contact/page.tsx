@@ -34,12 +34,12 @@ export default function ContactPage() {
           </div>
           <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-gray-100 sm:p-8">
             <h2 className="mb-6 font-display text-3xl uppercase text-ecm-navy">Send a message</h2>
-            <ContactForm formId={forms.contactFormspreeId} email={contact.email} />
+            <ContactForm formUrl={forms.contact} email={contact.email} />
           </div>
           <div id="prayer" className="scroll-mt-24 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-gray-100 sm:p-8">
             <h2 className="mb-2 font-display text-3xl uppercase text-ecm-navy">Prayer request</h2>
             <p className="mb-6 text-gray-600">Our prayer team would be honoured to pray with you.</p>
-            <PrayerForm formId={forms.prayerFormspreeId} email={contact.email} />
+            <PrayerForm formUrl={forms.prayer} email={contact.email} />
           </div>
         </Container>
       </section>

@@ -66,9 +66,9 @@
     ]
   },
   "forms": {
-    "contactFormspreeId": "",
-    "prayerFormspreeId": "",
-    "newsletterFormspreeId": ""
+    "contact": "https://formspree.io/f/mqppqobz",
+    "prayer": "",
+    "newsletter": ""
   },
   "welcome": {
     "heading": "You are welcome home",

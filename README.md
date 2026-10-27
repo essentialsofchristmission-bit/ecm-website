@@ -36,7 +36,7 @@ The easiest way is to edit files directly on GitHub:
   - `contact` : address, phone, email and WhatsApp number (WhatsApp number in international format, no plus sign or spaces)
   - `social` : YouTube, Facebook, Instagram and TikTok links
   - `live` : set `"isLive": true` when you are streaming to show the red **WE ARE LIVE** banner. Set it back to `false` afterwards. If YouTube does not pick up the live stream automatically, paste the live video ID into `liveVideoId`.
-  - `forms` : Formspree form IDs (see section 4)
+  - `forms` : Formspree form links (see section 4)
   - `welcome` : the pastor's welcome message on the homepage
   - `outreach` : the Go Ye Train highlight on the homepage
   - `give` : Mobile Money and bank details
@@ -140,10 +140,20 @@ The contact form, prayer request form and newsletter signup send to your email t
 
 1. Create a free account at https://formspree.io using the church email.
 2. Create three forms: "Contact", "Prayer Requests" and "Newsletter".
-3. Each form has an ID like `xyzabcd` (from the form URL `https://formspree.io/f/xyzabcd`).
-4. Paste the IDs into `content/site.json` under `forms`.
+3. Each form has a link like `https://formspree.io/f/xyzabcd`.
+4. Paste each link into `content/site.json` under `forms`:
 
-Until the IDs are added, the forms show a friendly message asking visitors to email the church directly.
+```
+  "forms": {
+    "contact": "https://formspree.io/f/xyzabcd",
+    "prayer": "https://formspree.io/f/abcdxyz",
+    "newsletter": "https://formspree.io/f/qwerty1"
+  },
+```
+
+`contact` is the Send a Message form, `prayer` is the Prayer Request form (both on the Contact page) and `newsletter` is the signup in the footer. To move a form to a different Formspree account later, just replace its link.
+
+Until a link is added, that form shows a friendly message asking visitors to email the church directly. Each form also has a hidden spam trap, so most robot submissions are blocked automatically.
 
 ---
 
