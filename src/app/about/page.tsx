@@ -24,8 +24,8 @@ export default function AboutPage() {
             </div>
           </div>
           <div>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-xl">
-              <Image src="/images/about/ecm-25.jpg" alt="Pastor Dr. Samuel E. Tandoh with the children of ECM" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+            <div className="overflow-hidden rounded-3xl shadow-xl">
+              <Image src="/images/about/our-story.jpg" alt="Young members of ECM smiling together at church" width={1600} height={739} sizes="(min-width: 1024px) 50vw, 100vw" className="h-auto w-full" />
             </div>
             <a href="#gallery" className="mt-4 inline-block font-bold text-ecm-green underline-offset-4 hover:underline">See more photos of life at ECM</a>
           </div>
