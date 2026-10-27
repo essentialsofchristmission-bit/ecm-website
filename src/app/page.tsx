@@ -60,29 +60,8 @@ export default async function Home() {
       {/* 2. Live banner */}
       <LiveBanner />
 
-      {/* 3. Latest sermon */}
-      {latest && (
-        <section className="py-20 sm:py-24">
-          <Container className="grid items-center gap-10 lg:grid-cols-5">
-            <div className="lg:col-span-3">
-              <YouTubeEmbed src={videoEmbedUrl(latest.youtubeId)} title={latest.title} />
-            </div>
-            <div className="lg:col-span-2">
-              <p className="mb-2 text-sm font-bold uppercase tracking-[0.2em] text-ecm-red-dark">Latest sermon</p>
-              <h2 className="font-display text-4xl uppercase leading-tight text-ecm-navy sm:text-5xl">{latest.title}</h2>
-              <p className="mt-4 text-lg font-semibold text-gray-800">{latest.preacher}</p>
-              <p className="text-gray-600">{latest.service} &middot; {formatDate(latest.date)}</p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <ButtonLink href="/sermons">More sermons</ButtonLink>
-                <ButtonLink href={site.social.youtube} variant="outline">Subscribe on YouTube</ButtonLink>
-              </div>
-            </div>
-          </Container>
-        </section>
-      )}
-
-      {/* 4. Welcome */}
-      <section className="bg-ecm-cream py-20 sm:py-24">
+      {/* 3. Welcome */}
+      <section className="py-20 sm:py-24">
         <Container className="grid items-center gap-12 md:grid-cols-2">
           <div className="relative mx-auto w-full max-w-md pl-4 pt-4">
             <div className="absolute left-0 top-0 h-[calc(100%-1rem)] w-[calc(100%-1rem)] rounded-3xl bg-ecm-green" aria-hidden="true" />
@@ -100,6 +79,27 @@ export default async function Home() {
           </div>
         </Container>
       </section>
+
+      {/* 4. Latest sermon */}
+      {latest && (
+        <section className="bg-ecm-cream py-20 sm:py-24">
+          <Container className="grid items-center gap-10 lg:grid-cols-5">
+            <div className="lg:col-span-3">
+              <YouTubeEmbed src={videoEmbedUrl(latest.youtubeId)} title={latest.title} />
+            </div>
+            <div className="lg:col-span-2">
+              <p className="mb-2 text-sm font-bold uppercase tracking-[0.2em] text-ecm-red-dark">Latest sermon</p>
+              <h2 className="font-display text-4xl uppercase leading-tight text-ecm-navy sm:text-5xl">{latest.title}</h2>
+              <p className="mt-4 text-lg font-semibold text-gray-800">{latest.preacher}</p>
+              <p className="text-gray-600">{latest.service} &middot; {formatDate(latest.date)}</p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <ButtonLink href="/sermons">More sermons</ButtonLink>
+                <ButtonLink href={site.social.youtube} variant="outline">Subscribe on YouTube</ButtonLink>
+              </div>
+            </div>
+          </Container>
+        </section>
+      )}
 
       {/* 5. Moment With Jesus */}
       {devotional && (
