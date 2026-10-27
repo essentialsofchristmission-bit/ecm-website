@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -81,15 +82,37 @@ export function ButtonLink({
   );
 }
 
-export function PageHero({ title, subtitle, image }: { title: string; subtitle?: string; image?: string }) {
+export function PageHero({
+  title,
+  subtitle,
+  image,
+  photos,
+}: {
+  title: string;
+  subtitle?: string;
+  image?: string;
+  photos?: { src: string; alt: string }[];
+}) {
+  const collage = photos && photos.length > 0;
   return (
-    <section className="relative isolate overflow-hidden bg-ecm-green">
-      {image && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={image} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover" />
+    <section className={`relative isolate flex items-center overflow-hidden bg-ecm-green ${collage ? "min-h-[28rem] lg:min-h-[30rem]" : ""}`}>
+      {collage ? (
+        // Layout in globals.css (.hero-collage): 3 photos stacked on phones, 4 on tablets, 6 on desktop.
+        <ul className="hero-collage absolute inset-0 -z-10">
+          {photos.map((p, i) => (
+            <li key={p.src} className="relative overflow-hidden">
+              <Image src={p.src} alt={p.alt} fill priority={i < 3} sizes={i === 1 || i === 5 ? "(min-width: 1024px) 40vw, (min-width: 640px) 67vw, 100vw" : "(min-width: 1024px) 20vw, (min-width: 640px) 33vw, 100vw"} className="object-cover" />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        image && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={image} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover" />
+        )
       )}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-ecm-green/90 via-ecm-green/75 to-ecm-navy/60" />
-      <Container className="py-20 text-center sm:py-28">
+      <div className={`absolute inset-0 -z-10 bg-gradient-to-br ${collage ? "from-ecm-green/85 via-ecm-green/65 to-ecm-navy/55" : "from-ecm-green/90 via-ecm-green/75 to-ecm-navy/60"}`} />
+      <Container className={`py-20 text-center sm:py-28 ${collage ? "[text-shadow:0_2px_14px_rgb(0_0_0/0.55)]" : ""}`}>
         <h1 className="font-display text-5xl uppercase text-white sm:text-6xl lg:text-7xl">{title}</h1>
         {subtitle && <p className="mx-auto mt-4 max-w-2xl text-lg text-white/90">{subtitle}</p>}
       </Container>

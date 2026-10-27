@@ -3,36 +3,30 @@
     "Essentials of Christ Mission (ECM) began with a simple conviction: that the teachings of Jesus Christ are the essentials of every Christian faith. What started as a small gathering of believers hungry for the Word has grown into a vibrant church family in Lashibi, Tema.",
     "Under the leadership of Pastor Dr. Samuel E. Tandoh, ECM has become a place where people encounter God through heartfelt worship, sound Bible teaching and genuine fellowship. Through ministries like our Evangelism Ministry, we carry the love of Christ beyond our walls to prisons, communities and anyone in need."
   ],
-  "storyPhotos": [
+  "heroPhotos": [
     {
       "src": "/images/about/ecm-06.jpg",
-      "alt": "Members worshipping with hands raised during service",
-      "label": "Worship"
+      "alt": "Members worshipping with hands raised during service"
+    },
+    {
+      "src": "/images/about/ecm-04.jpg",
+      "alt": "Go Ye Train team with donations at Akuse Prisons"
     },
     {
       "src": "/images/about/ecm-25.jpg",
-      "alt": "Pastor Dr. Samuel E. Tandoh with the children of ECM",
-      "label": "Children"
+      "alt": "Pastor Dr. Samuel E. Tandoh with the children of ECM"
     },
     {
-      "src": "/images/about/ecm-35.jpg",
-      "alt": "Serving meals at the Go Ye Train outreach",
-      "label": "Outreach"
-    },
-    {
-      "src": "/images/about/ecm-32.jpg",
-      "alt": "Church family after service",
-      "label": "Fellowship"
+      "src": "/images/about/ecm-23.jpg",
+      "alt": "Pastor Dr. Samuel E. Tandoh preaching"
     },
     {
       "src": "/images/about/ecm-26.jpg",
-      "alt": "Youth after service",
-      "label": "Youth"
+      "alt": "Youth after service"
     },
     {
-      "src": "/images/about/ecm-07.jpg",
-      "alt": "Media Team at work during service",
-      "label": "Serving"
+      "src": "/images/about/ecm-32.jpg",
+      "alt": "Church family after service"
     }
   ],
   "vision": "To raise a people who know Christ, live like Christ and make Christ known in every sphere of life.",

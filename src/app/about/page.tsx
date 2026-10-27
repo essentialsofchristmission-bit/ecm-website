@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { ButtonLink, Container, PageHero, SectionHeading } from "@/components/ui";
 import Gallery from "@/components/Gallery";
-import PhotoCollage from "@/components/PhotoCollage";
 import { about, aboutGallery, site } from "@/lib/content";
 
 export const metadata: Metadata = { title: "About Us", description: `Our story, vision, mission, beliefs and leadership at ${site.name}.` };
@@ -14,7 +13,7 @@ function initials(name: string) {
 export default function AboutPage() {
   return (
     <>
-      <PageHero title="About Us" subtitle={site.tagline} image="/images/about-church.jpg" />
+      <PageHero title="About Us" subtitle={site.tagline} photos={about.heroPhotos} />
 
       <section className="py-20">
         <Container className="grid items-center gap-12 lg:grid-cols-2">
@@ -25,7 +24,9 @@ export default function AboutPage() {
             </div>
           </div>
           <div>
-            <PhotoCollage photos={about.storyPhotos} />
+            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-xl">
+              <Image src="/images/about/ecm-25.jpg" alt="Pastor Dr. Samuel E. Tandoh with the children of ECM" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+            </div>
             <a href="#gallery" className="mt-4 inline-block font-bold text-ecm-green underline-offset-4 hover:underline">See more photos of life at ECM</a>
           </div>
         </Container>
