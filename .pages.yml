@@ -28,7 +28,7 @@ content:
         required: true
       - name: image
         label: Devotional image (PNG)
-        description: Shown on the devotional page with a Download button.
+        description: Offered as a Download button on the devotional page. If no text is typed in, the image is shown instead.
         type: image
       - name: keyVerse
         label: Key verse reference

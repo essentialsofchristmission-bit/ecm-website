@@ -27,6 +27,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function DevotionalPage({ params }: Props) {
   const d = getDevotional((await params).slug);
   if (!d) notFound();
+  const hasText = Boolean(d.keyVerseText || d.message.length || d.prayer || d.proclamation);
+  const download = d.image && (
+    <ButtonLink href={d.image} download={`ECM-Moment-With-Jesus-${d.date}${d.image.slice(d.image.lastIndexOf("."))}`}>
+      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 20h14" /></svg>
+      Download devotional
+    </ButtonLink>
+  );
   return (
     <article className="py-12 sm:py-16">
       <Container className="max-w-3xl">
@@ -34,16 +41,16 @@ export default async function DevotionalPage({ params }: Props) {
         <p className="mt-8 text-sm font-bold uppercase tracking-[0.2em] text-ecm-red-dark">Moment With Jesus &middot; {formatDate(d.date, { weekday: "long", day: "numeric", month: "long", year: "numeric" })}</p>
         <h1 className="mt-2 font-display text-5xl uppercase leading-tight text-ecm-navy sm:text-6xl">{d.title}</h1>
 
-        {d.image && (
+        {/* With the text typed in, the text is the devotional and the image is only a download. */}
+        {download && hasText && <div className="mt-6">{download}</div>}
+
+        {d.image && !hasText && (
           <figure className="mt-8">
             <a href={d.image} target="_blank" rel="noopener noreferrer" className="block overflow-hidden rounded-3xl shadow-lg ring-1 ring-gray-100">
               <Image src={d.image} alt={`${d.title}, Moment With Jesus devotional for ${formatDate(d.date)}`} width={1414} height={2000} sizes="(min-width: 768px) 768px, 100vw" className="h-auto w-full" priority />
             </a>
             <figcaption className="mt-4 flex flex-wrap items-center gap-4">
-              <ButtonLink href={d.image} download={`ECM-Moment-With-Jesus-${d.date}${d.image.slice(d.image.lastIndexOf("."))}`}>
-                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 20h14" /></svg>
-                Download devotional
-              </ButtonLink>
+              {download}
               <span className="text-sm text-gray-600">Tap the image to view it full size.</span>
             </figcaption>
           </figure>

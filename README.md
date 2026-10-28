@@ -115,11 +115,11 @@ A guest with no block in this file still appears, using the name from the YouTub
 
 That is all. A devotional with a future date stays hidden (not listed, and its page cannot be opened) until that day in Ghana. On its day it becomes the homepage devotional and is added to the Moment With Jesus page within about an hour. If two images have the same date, only the first one (in alphabetical order) is used.
 
-Want the text too (key verse, Daily Meal, prayer, proclamation) or a title with characters a file name cannot hold, such as `?` or `:`? Add a text file for that date as shown below. It uses the image with the same date automatically, so you can leave out the `image` line.
+Until the text is added, the page shows the image itself. Want the text (key verse, Daily Meal, prayer, proclamation) or a title with characters a file name cannot hold, such as `?` or `:`? Add a text file for that date as shown below. It uses the image with the same date automatically, so you can leave out the `image` line.
 
 **The easy way (Pages CMS):** go to https://app.pagescms.org, sign in, open the website and click **Moment With Jesus**. Click **Add an entry**, fill in the title and date, upload the devotional PNG, and fill in the text boxes if you have the text. Click **Save**. The website updates in about 2 minutes.
 
-Only the title and date are required. If you upload the PNG, it is shown on the devotional page with a **Download devotional** button, and it becomes the picture shown when the link is shared on WhatsApp or Facebook. Typing the text as well is recommended: it helps people with poor eyesight, people on slow phones, and Google.
+Only the title and date are required. When the text is typed in, the devotional page shows the text, and the PNG is offered as a **Download devotional** button (it is also the picture shown when the link is shared on WhatsApp or Facebook). If there is no text yet, the page shows the PNG itself instead, so it is never empty. Typing the text is recommended: it helps people with poor eyesight, people on slow phones, and Google.
 
 Giving someone access: in Pages CMS, open the website's settings and invite them as a collaborator by email. They can then edit content without seeing the code.
 
