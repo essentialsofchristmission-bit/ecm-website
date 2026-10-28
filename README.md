@@ -54,7 +54,7 @@ New videos on the church YouTube channel appear on the Sermons page by themselve
 
 The website reads each video's YouTube title, for example `DAYS OF NOAH || WEDNESDAY SERVICE || PS. DR. SAMUEL TANDOH`:
 - **Preacher:** a name after `||` or `|` (usually at the end, such as `|| MR. MAXWELL AZAFOKPE`) is the preacher. Only when there is no name is the video listed under Pastor Dr. Samuel E. Tandoh. Their role (Resident Pastor, ECM Leadership or Guest Preacher) comes from `content/preachers.json`. Anyone not in that file counts as a guest preacher.
-- **Tab:** every video is in one tab on the Sermons page: **Sermons** (Pastor Tandoh), **ECM Leadership**, **Guest Preachers**, **Forum Discussions** (titles with "Panel Discussion" or "Forum Discussion", shown with "Panel" as the preacher) or **Outreach** (titles with "Outreach").
+- **Tab:** every video is in one tab on the Sermons page: **Sermons** (Pastor Tandoh), **ECM Leadership**, **Guest Preachers**, **Forum Discussions** (titles with "Panel Discussion" or "Forum Discussion", shown with "Panel" as the preacher), **Prayer Meetings** (titles with "Prayer Meeting") or **Outreach** (titles with "Outreach").
 - **Series:** titles that start the same way before a colon (`Foundations of Our Walk: Humility`) or that have a part number (`Part 2`, `Pt 3`, `Episode 1`, `Day 4`) are grouped into a series automatically.
 - **Hidden:** birthday wishes, hashtag clips, Shorts and repeat rebroadcasts are left out.
 
@@ -86,7 +86,8 @@ This file already lists every video on the channel up to October 2026. You can a
 
 - `note` is just a reminder for you of which video it is.
 - `preacher` is the person's name (use the same name as in `preachers.json`), or `Panel` for a discussion.
-- `category` is the tab: `Sermons`, `ECM Leadership`, `Guest Preachers`, `Forum Discussions` or `Outreach`. Leave it out to use the tab that matches the preacher's role.
+- `leader` is used for prayer meetings: type the name of who led it between the quotes, for example `"leader": "Mrs. Eva O. Tandoh"`. While it is empty the card says "Led by: To be updated" (prayer meetings are never given to Pastor Tandoh automatically). Once a name is filled in, the prayer meeting also appears on that person's page.
+- `category` is the tab: `Sermons`, `ECM Leadership`, `Guest Preachers`, `Forum Discussions`, `Prayer Meetings` or `Outreach`. Leave it out to use the tab that matches the preacher's role.
 - `series` puts the video in a series.
 - `event` links the video to an event in `content/events.json` (use the event's `slug`). The event page then shows a "Watch ... service" button.
 

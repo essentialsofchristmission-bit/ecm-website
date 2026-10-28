@@ -3,7 +3,7 @@ import { formatDate } from "@/lib/format";
 import { PlayIcon } from "./Icons";
 
 // Small label on the picture for videos that are not by our pastor.
-const BADGE: Partial<Record<Sermon["category"], string>> = { "ECM Leadership": "ECM Leadership", "Guest Preachers": "Guest", "Forum Discussions": "Forum", Outreach: "Outreach" };
+const BADGE: Partial<Record<Sermon["category"], string>> = { "ECM Leadership": "ECM Leadership", "Guest Preachers": "Guest", "Forum Discussions": "Forum", "Prayer Meetings": "Prayer Meeting", Outreach: "Outreach" };
 
 export default function SermonCard({ sermon }: { sermon: Sermon }) {
   const badge = BADGE[sermon.category];
@@ -25,7 +25,9 @@ export default function SermonCard({ sermon }: { sermon: Sermon }) {
       <div className="flex flex-1 flex-col p-5">
         {sermon.series && <p className="text-xs font-bold uppercase tracking-wider text-ecm-red-dark">{sermon.series}</p>}
         <h3 className="mt-1 text-lg font-bold text-ecm-navy">{sermon.title}</h3>
-        <p className="mt-auto pt-3 text-sm text-gray-600">{sermon.preacher}</p>
+        <p className="mt-auto pt-3 text-sm text-gray-600">
+          {sermon.category === "Prayer Meetings" ? `Led by: ${sermon.preacher || "To be updated"}` : sermon.preacher}
+        </p>
         <p className="text-sm text-gray-500">{[sermon.service, sermon.date && formatDate(sermon.date)].filter(Boolean).join(" · ")}</p>
       </div>
     </a>

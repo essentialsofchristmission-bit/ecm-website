@@ -22,9 +22,9 @@ export type Sermon = {
   youtubeId: string;
   title: string;
   date: string; // YYYY-MM-DD, or "" if unknown
-  preacher: string;
+  preacher: string; // "" for a prayer meeting whose leader is not known yet
   preacherSlug: string;
-  role: Role | ""; // "" for a panel
+  role: Role | ""; // "" for a panel, or a prayer meeting whose leader is not known yet
   category: Category;
   series: string; // "" if not part of a series
   service: string; // for example "Sunday Service", or ""
@@ -37,7 +37,7 @@ export type Preacher = { name: string; slug: string; photo: string; role: Role; 
 type ExtraEntry = { url: string; title?: string; date?: string; preacher?: string; series?: string };
 type PreacherEntry = { name: string; role?: string; photo?: string; aliases?: string[] };
 type SeriesEntry = { name: string; titles?: string[]; videos?: string[] };
-type Override = { preacher?: string; category?: string; series?: string; event?: string };
+type Override = { preacher?: string; leader?: string; category?: string; series?: string; event?: string };
 type RawVideo = { id: string; title: string; date: string; thumbnail?: string; preacher?: string; series?: string };
 
 const extras = extraData as ExtraEntry[];
@@ -85,7 +85,8 @@ function titleCase(s: string) {
     .split(" ")
     .map((w, i, all) => (i > 0 && SMALL_WORDS.has(w) && !all[i - 1].endsWith(":") ? w : w.replace(/\p{L}/u, (c) => c.toUpperCase())))
     .join(" ")
-    .replace(/\b(Ii|Iii|Iv|Vi|Vii|Ecm)\b/g, (m) => m.toUpperCase());
+    .replace(/\b(Ii|Iii|Iv|Vi|Vii|Ecm)\b/g, (m) => m.toUpperCase())
+    .replace(/\b(?:\p{L}\.)+\p{L}\b/gu, (m) => m.toUpperCase()); // initials such as "E.C.M"
 }
 
 // Titles people put before a name, and how to show them.
@@ -184,6 +185,7 @@ export function parseTitle(raw: string) {
     service: service ? titleCase(service.replace(/\bse?r?v+ice\b/i, (w) => (w === w.toUpperCase() ? "SERVICE" : "Service"))) : "",
     forum: /\b(panel|forum) discussion\b/i.test(raw.normalize("NFKC")),
     outreach: /\boutreach\b/i.test(raw.normalize("NFKC")),
+    prayer: /\bprayer\s*meeting\b/i.test(raw.normalize("NFKC")),
   };
 }
 
@@ -362,8 +364,12 @@ export async function getSermons(): Promise<Sermon[]> {
       const parsed = parseTitle(v.title);
       const fix = overrides[v.id] ?? {};
       // Preacher: the override, then extra-sermons.json, then the title. A discussion with no name is a panel.
-      const who = resolvePreacher(fix.preacher || v.preacher || parsed.preacher || (parsed.forum ? PANEL : ""));
-      const category = pick(CATEGORIES, fix.category) ?? (parsed.forum ? "Forum Discussions" : parsed.outreach ? "Outreach" : who.role ? ROLE_CATEGORY[who.role] : "Forum Discussions");
+      // A prayer meeting's leader is only what is written in ("leader" in the overrides, or a name in the title), never assumed.
+      const name = fix.leader || fix.preacher || v.preacher || parsed.preacher || (parsed.forum ? PANEL : "");
+      const who: { preacher: string; role: Role | "" } = !name && parsed.prayer ? { preacher: "", role: "" } : resolvePreacher(name);
+      const category =
+        pick(CATEGORIES, fix.category) ??
+        (parsed.forum ? "Forum Discussions" : parsed.prayer ? "Prayer Meetings" : parsed.outreach ? "Outreach" : who.role ? ROLE_CATEGORY[who.role] : "Forum Discussions");
       return {
         youtubeId: v.id,
         title: parsed.title,
