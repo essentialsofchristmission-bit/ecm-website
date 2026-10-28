@@ -3,12 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ButtonLink, Container } from "@/components/ui";
-import { formatDate, getDevotional, getDevotionals } from "@/lib/content";
+import { formatDate, getDevotional, getPublishedDevotionals } from "@/lib/content";
 
 type Props = { params: Promise<{ slug: string }> };
 
+// Refresh every hour, so a devotional prepared in advance appears on its day.
+export const revalidate = 3600;
+
 export function generateStaticParams() {
-  return getDevotionals().map((d) => ({ slug: d.slug }));
+  return getPublishedDevotionals().map((d) => ({ slug: d.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

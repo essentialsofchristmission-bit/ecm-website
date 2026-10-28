@@ -23,7 +23,7 @@ content:
         required: true
       - name: date
         label: Date
-        description: The day this devotional appears on the website. Future dates stay hidden until that day.
+        description: The day this devotional appears on the website. Future dates stay hidden until that day, so you can prepare weeks ahead.
         type: date
         required: true
       - name: image

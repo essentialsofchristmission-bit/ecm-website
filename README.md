@@ -108,6 +108,15 @@ A guest with no block in this file still appears, using the name from the YouTub
 
 ### Adding a new daily devotional
 
+**Many at once (a week, a month or more):** name each devotional image with its date and title, then upload them all together. Each one appears on the website by itself on its date, so nobody has to update the website every day.
+
+1. Name each image like this: `2026-11-02 Walking in Love.png` (year-month-day, a space, then the title). `2026-11-02-walking-in-love.png` also works. PNG, JPG and WEBP are accepted.
+2. On GitHub, open `public/images/devotionals`, click **Add file > Upload files**, drag in all the images at once and click **Commit changes**.
+
+That is all. A devotional with a future date stays hidden (not listed, and its page cannot be opened) until that day in Ghana. On its day it becomes the homepage devotional and is added to the Moment With Jesus page within about an hour. If two images have the same date, only the first one (in alphabetical order) is used.
+
+Want the text too (key verse, Daily Meal, prayer, proclamation) or a title with characters a file name cannot hold, such as `?` or `:`? Add a text file for that date as shown below. It uses the image with the same date automatically, so you can leave out the `image` line.
+
 **The easy way (Pages CMS):** go to https://app.pagescms.org, sign in, open the website and click **Moment With Jesus**. Click **Add an entry**, fill in the title and date, upload the devotional PNG, and fill in the text boxes if you have the text. Click **Save**. The website updates in about 2 minutes.
 
 Only the title and date are required. If you upload the PNG, it is shown on the devotional page with a **Download devotional** button, and it becomes the picture shown when the link is shared on WhatsApp or Facebook. Typing the text as well is recommended: it helps people with poor eyesight, people on slow phones, and Google.
@@ -136,7 +145,7 @@ Write the Daily Meal message here.
 Leave an empty line between paragraphs.
 ```
 
-The homepage always shows the devotional for today's date (or the most recent one). You can prepare devotionals in advance: files with a future date stay hidden until that day.
+The homepage always shows the devotional for today's date (or the most recent one). You can prepare devotionals in advance: anything with a future date stays hidden until that day.
 
 ---
 

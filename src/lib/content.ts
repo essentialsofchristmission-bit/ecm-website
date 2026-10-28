@@ -92,8 +92,53 @@ export function getEvent(slug: string) {
 }
 
 const devotionalsDir = path.join(process.cwd(), "content", "devotionals");
+const devotionalImagesDir = path.join(process.cwd(), "public", "images", "devotionals");
+// "2026-11-02 Walking in Love.png": the date, then (optionally) the title.
+const DATED_IMAGE = /^(\d{4}-\d{2}-\d{2})(?:[\s_-]+(.*?))?\.(png|jpe?g|webp)$/i;
 
+/** Devotional images in public/images/devotionals whose file name starts with a date, by date. */
+function datedDevotionalImages() {
+  const byDate = new Map<string, { image: string; title: string }>();
+  if (!fs.existsSync(devotionalImagesDir)) return byDate;
+  for (const file of fs.readdirSync(devotionalImagesDir).sort()) {
+    const m = file.match(DATED_IMAGE);
+    if (!m || byDate.has(m[1])) continue;
+    let title = (m[2] ?? "").replace(/_+|\s+-\s+/g, " ");
+    if (!title.includes(" ")) title = title.replace(/-+/g, " "); // walking-in-love
+    title = title.replace(/\s+/g, " ").trim();
+    if (title === title.toLowerCase()) title = title.replace(/\b\w/g, (c) => c.toUpperCase());
+    byDate.set(m[1], { image: `/images/devotionals/${encodeURIComponent(file)}`, title });
+  }
+  return byDate;
+}
+
+/**
+ * Every devotional, newest first. A devotional is either a text file in content/devotionals,
+ * or just an image named with its date (and title) in public/images/devotionals, so a whole
+ * month can be uploaded in one go. A text file for the same date picks up that image.
+ */
 export function getDevotionals(): Devotional[] {
+  const images = datedDevotionalImages();
+  const fromFiles = readDevotionalFiles().map((d) => {
+    const img = images.get(d.date);
+    images.delete(d.date);
+    return d.image || !img ? d : { ...d, image: img.image };
+  });
+  const fromImages = [...images].map(([date, img]): Devotional => ({
+    slug: date,
+    title: img.title || "Moment With Jesus",
+    date,
+    image: img.image,
+    keyVerse: "",
+    keyVerseText: "",
+    prayer: "",
+    proclamation: "",
+    message: [],
+  }));
+  return [...fromFiles, ...fromImages].sort((a, b) => b.date.localeCompare(a.date));
+}
+
+function readDevotionalFiles(): Devotional[] {
   if (!fs.existsSync(devotionalsDir)) return [];
   return fs
     .readdirSync(devotionalsDir)
@@ -115,10 +160,10 @@ export function getDevotionals(): Devotional[] {
           .map((p) => p.trim())
           .filter(Boolean),
       };
-    })
-    .sort((a, b) => b.date.localeCompare(a.date));
+    });
 }
 
+/** Devotionals whose date has come (Ghana time). Future ones stay hidden until their day. */
 export function getPublishedDevotionals() {
   const today = todayISO();
   return getDevotionals().filter((d) => d.date <= today);
@@ -128,8 +173,9 @@ export function getTodaysDevotional() {
   return getPublishedDevotionals()[0];
 }
 
+/** A published devotional by slug. One with a future date is not found until its day. */
 export function getDevotional(slug: string) {
-  return getDevotionals().find((d) => d.slug === slug);
+  return getPublishedDevotionals().find((d) => d.slug === slug);
 }
 
 export function mapEmbedUrl() {
