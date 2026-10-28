@@ -33,8 +33,7 @@ export default async function Home() {
   return (
     <>
       {/* 1. Hero */}
-      {/* On phones the hero is 4rem shorter, so the quick action bar at the bottom does not cover the slide dots. */}
-      <HeroCarousel slides={hero} className="relative isolate flex min-h-[calc(100svh-9rem)] items-center overflow-hidden md:min-h-[calc(100svh-5rem)]">
+      <HeroCarousel slides={hero} className="relative isolate flex min-h-[calc(100svh-5rem)] items-center overflow-hidden">
         {/* Scrim: the green brand tint, plus a dark shade behind the text, so the words stay readable on every photo. */}
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ecm-green/95 via-ecm-green/80 to-ecm-navy/60" />
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_90%_80%_at_20%_50%,rgba(0,0,0,0.5),transparent_75%)]" />
