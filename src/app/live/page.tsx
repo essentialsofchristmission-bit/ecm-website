@@ -30,7 +30,7 @@ export default async function LivePage() {
               <div className="mt-5 text-center">
                 <p className="text-sm font-bold uppercase tracking-[0.2em] text-ecm-red-dark">Latest sermon</p>
                 <h2 className="mt-1 font-display text-3xl uppercase text-ecm-navy sm:text-4xl">{latest.title}</h2>
-                <p className="mt-1 text-gray-600">{[latest.preacher, latest.service, formatDate(latest.date)].filter(Boolean).join(" \u00b7 ")}</p>
+                <p className="mt-1 text-gray-600">{[latest.preacher, latest.service, latest.date && formatDate(latest.date)].filter(Boolean).join(" \u00b7 ")}</p>
               </div>
             </>
           ) : (

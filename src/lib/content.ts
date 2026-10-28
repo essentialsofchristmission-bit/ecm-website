@@ -3,24 +3,15 @@ import path from "path";
 import matter from "gray-matter";
 import siteData from "../../content/site.json";
 import aboutData from "../../content/about.json";
-import sermonsData from "../../content/sermons.json";
 import eventsData from "../../content/events.json";
 import ministriesData from "../../content/ministries.json";
 import galleryData from "../../content/gallery.json";
 import aboutGalleryData from "../../content/about-gallery.json";
 import heroData from "../../content/hero.json";
+import { getSermons } from "./sermons";
 
 export { formatDate, youtubeThumb } from "./format";
-
-export type Sermon = {
-  title: string;
-  preacher: string;
-  series: string;
-  service: string;
-  date: string;
-  youtubeId: string;
-  description?: string;
-};
+export { getSermons, guestPreachers, residentPreacher, type Preacher, type Sermon } from "./sermons";
 
 export type ChurchEvent = {
   slug: string;
@@ -68,10 +59,6 @@ export const about = aboutData;
 export const gallery = galleryData;
 export const aboutGallery = aboutGalleryData;
 export const hero = heroData;
-
-export function getSermons(): Sermon[] {
-  return [...(sermonsData as Sermon[])].sort((a, b) => b.date.localeCompare(a.date));
-}
 
 export function getMinistries(): Ministry[] {
   return ministriesData as Ministry[];
@@ -151,44 +138,7 @@ export function whatsappUrl(text = "Hello ECM, ", phone: string = site.contact.w
   return `https://wa.me/${phone.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
 }
 
-export type LatestVideo = { youtubeId: string; title: string; date: string; preacher: string; service: string };
-
-function tidyYouTubeTitle(raw: string) {
-  const parts = raw
-    .normalize("NFKC")
-    .replace(/&amp;/g, "&")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .split("||")
-    .map((p) => p.trim())
-    .filter(Boolean);
-  const small = new Set(["a", "an", "and", "at", "by", "for", "in", "of", "on", "or", "the", "through", "to", "with"]);
-  const titleCase = (s: string) =>
-    s === s.toUpperCase()
-      ? s
-          .toLowerCase()
-          .split(" ")
-          .map((w, i) => (i > 0 && small.has(w) ? w : w.replace(/\p{L}/u, (c) => c.toUpperCase())))
-          .join(" ")
-      : s;
-  return { title: titleCase(parts[0] ?? raw), service: parts.find((p) => /service|prayer|conference|program/i.test(p)) };
-}
-
-export async function getLatestVideo(): Promise<LatestVideo | undefined> {
-  const fallback = getSermons()[0];
-  try {
-    const res = await fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${site.live.youtubeChannelId}`, { next: { revalidate: 900 } });
-    if (!res.ok) throw new Error(`YouTube feed ${res.status}`);
-    const entry = (await res.text()).split("<entry>")[1];
-    const id = entry?.match(/<yt:videoId>([^<]+)<\/yt:videoId>/)?.[1];
-    const rawTitle = entry?.match(/<title>([^<]+)<\/title>/)?.[1];
-    const published = entry?.match(/<published>([^<]+)<\/published>/)?.[1];
-    if (!id || !rawTitle || !published) throw new Error("YouTube feed has no videos");
-    const known = getSermons().find((s) => s.youtubeId === id);
-    if (known) return known;
-    const { title, service } = tidyYouTubeTitle(rawTitle);
-    return { youtubeId: id, title, date: published.slice(0, 10), preacher: fallback?.preacher ?? "", service: service ? tidyYouTubeTitle(service).title : "Recent service" };
-  } catch {
-    return fallback;
-  }
+/** The newest sermon (for the homepage and the Live page). */
+export async function getLatestVideo() {
+  return (await getSermons())[0];
 }

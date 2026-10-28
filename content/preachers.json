@@ -1,0 +1,25 @@
+[
+  {
+    "name": "Pastor Dr. Samuel E. Tandoh",
+    "resident": true,
+    "photo": "/images/pastor-samuel-tandoh.jpg"
+  },
+  {
+    "name": "Apostle Dr. Alfred Kodua",
+    "photo": ""
+  },
+  {
+    "name": "Dr. George Agyekum Donkor",
+    "photo": ""
+  },
+  {
+    "name": "Rev. Dr. Joe Kissinger Anokye",
+    "photo": "",
+    "aliases": ["Rev. Joe Anokye", "Rev. Dr. Kisinger Joe Anokye"]
+  },
+  {
+    "name": "Mrs. Eva O. Tandoh",
+    "photo": "",
+    "aliases": ["Mrs Eva Tandoh"]
+  }
+]

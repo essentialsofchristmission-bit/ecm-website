@@ -91,7 +91,7 @@ export default async function Home() {
               <p className="mb-2 text-sm font-bold uppercase tracking-[0.2em] text-ecm-red-dark">Latest sermon</p>
               <h2 className="font-display text-4xl uppercase leading-tight text-ecm-navy sm:text-5xl">{latest.title}</h2>
               <p className="mt-4 text-lg font-semibold text-gray-800">{latest.preacher}</p>
-              <p className="text-gray-600">{latest.service} &middot; {formatDate(latest.date)}</p>
+              <p className="text-gray-600">{[latest.service, latest.date && formatDate(latest.date)].filter(Boolean).join(" · ")}</p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <ButtonLink href="/sermons">More sermons</ButtonLink>
                 <ButtonLink href={site.social.youtube} variant="outline">Subscribe on YouTube</ButtonLink>
