@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import EventCard from "@/components/EventCard";
 import EventsCalendar from "@/components/EventsCalendar";
 import { Container, PageHero, SectionHeading } from "@/components/ui";
-import { getUpcomingEvents } from "@/lib/content";
+import { getPastEvents, getUpcomingEvents } from "@/lib/content";
 
 export const metadata: Metadata = { title: "Events", description: "Upcoming events at Essentials of Christ Mission." };
 export const revalidate = 3600;
 
 export default function EventsPage() {
   const events = getUpcomingEvents();
+  const past = getPastEvents();
   return (
     <>
       <PageHero title="Events" subtitle="There is always something happening at ECM. Come and be part of it." image="/images/banner-events.jpg" />
@@ -30,6 +31,16 @@ export default function EventsPage() {
           <EventsCalendar events={events} />
         </Container>
       </section>
+      {past.length > 0 && (
+        <section id="past-events" className="scroll-mt-20 py-16 sm:py-20">
+          <Container>
+            <SectionHeading eyebrow="Looking back" title="Past events" />
+            <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {past.map((e) => <li key={e.slug}><EventCard event={e} /></li>)}
+            </ul>
+          </Container>
+        </section>
+      )}
     </>
   );
 }

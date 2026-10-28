@@ -41,8 +41,8 @@ The easiest way is to edit files directly on GitHub:
   - `outreach` : the Go Ye Train highlight on the homepage
   - `give` : Mobile Money and bank details
 - **`content/about.json`** : our story, vision, mission, statement of faith and leaders. `heroPhotos` is the photo collage behind "About Us" in the green banner at the top of the About page. Each photo has a `src` and a short description (`alt`). Use six photos: phones show the first 3, tablets the first 4, and computers all 6. On computers the 1st and 4th photos are tall and the 2nd and 6th are wide, so put photos with people in the middle in those spots.
-- **Sermons** : see "Sermons" below (`extra-sermons.json`, `preachers.json`, `series.json`, `hidden-videos.json`)
-- **`content/events.json`** : events. Dates must be written as `YYYY-MM-DD` (for example `2026-12-20`). Past events disappear automatically. For an event lasting several days, add `"endDate"` (also `YYYY-MM-DD`). If there is no set time, leave `"time"` empty (`""`) and only the date is shown. The `slug` is the web address of the event page, so use lowercase words joined by hyphens, for example `youth-conference-2026`.
+- **Sermons** : see "Sermons" below (`extra-sermons.json`, `sermon-overrides.json`, `preachers.json`, `series.json`, `hidden-videos.json`)
+- **`content/events.json`** : events. Dates must be written as `YYYY-MM-DD` (for example `2026-12-20`). Past events move to the "Past events" list at the bottom of the Events page automatically. For an event lasting several days, add `"endDate"` (also `YYYY-MM-DD`). If there is no set time, leave `"time"` empty (`""`) and only the date is shown. The `slug` is the web address of the event page, so use lowercase words joined by hyphens, for example `youth-conference-2026`.
 - **`content/ministries.json`** : one block per ministry. `phone` is the ministry leader's WhatsApp number (for example `+233244096956`). It is not shown on the site; the Join this ministry and Contact us buttons on that ministry's page open WhatsApp to this number. Leave it out to use the main church contact. Leave `meetingTime` empty (`""`) to hide the We meet line. Optional extras: `"canJoin": false` hides the Join this ministry button (used for the Finance Team), `contactButton` changes the button text `contactMessage` sets the WhatsApp message, and `linkButton` with `linkHref` adds an extra button to another page (for example Giving details to `/give`).
 - **`content/hero.json`** : the slideshow photos behind the yearly theme at the top of the homepage (see "Changing the homepage slideshow" below)
 - **`content/gallery.json`** : the photos in the homepage gallery, with a short description for each one (this helps blind visitors and Google)
@@ -53,9 +53,12 @@ The easiest way is to edit files directly on GitHub:
 New videos on the church YouTube channel appear on the Sermons page by themselves (within about 15 minutes to an hour). No YouTube key or YouTube setting is needed. The newest one is shown as "Latest sermon" on the homepage.
 
 The website reads each video's YouTube title, for example `DAYS OF NOAH || WEDNESDAY SERVICE || PS. DR. SAMUEL TANDOH`:
-- **Preacher:** if the name is Pastor Samuel Tandoh (any spelling), or there is no name, the sermon is listed under Pastor Dr. Samuel E. Tandoh. Any other name (Rev., Apostle, Bishop, Prophet, Dr., Mrs. and so on) is listed as a **guest preacher**, with their own page.
+- **Preacher:** a name after `||` or `|` (usually at the end, such as `|| MR. MAXWELL AZAFOKPE`) is the preacher. Only when there is no name is the video listed under Pastor Dr. Samuel E. Tandoh. Their role (Resident Pastor, ECM Leadership or Guest Preacher) comes from `content/preachers.json`. Anyone not in that file counts as a guest preacher.
+- **Tab:** every video is in one tab on the Sermons page: **Sermons** (Pastor Tandoh), **ECM Leadership**, **Guest Preachers**, **Forum Discussions** (titles with "Panel Discussion" or "Forum Discussion", shown with "Panel" as the preacher) or **Outreach** (titles with "Outreach").
 - **Series:** titles that start the same way before a colon (`Foundations of Our Walk: Humility`) or that have a part number (`Part 2`, `Pt 3`, `Episode 1`, `Day 4`) are grouped into a series automatically.
 - **Hidden:** birthday wishes, hashtag clips, Shorts and repeat rebroadcasts are left out.
+
+Everyone in ECM Leadership and every guest preacher gets one page listing all their messages, linked from the cards at the bottom of the Sermons page.
 
 **Adding an old video (or any video):** open `content/extra-sermons.json` and add a block with the YouTube link. `preacher` and `series` are optional. The title, picture and date are fetched from YouTube automatically:
 
@@ -69,9 +72,30 @@ The website reads each video's YouTube title, for example `DAYS OF NOAH || WEDNE
 
 This file already lists every video on the channel up to October 2026. You can also add `"title"` or `"date"` (`YYYY-MM-DD`) to a block to correct what YouTube shows.
 
-**Fixing a preacher's name:** open `content/preachers.json`. Each block is one preacher:
+**Fixing one video's preacher, tab or series:** open `content/sermon-overrides.json`. Each block starts with the video's ID, the 11 characters after `v=` in its YouTube link (`https://www.youtube.com/watch?v=Iftw9CaVGOg` has the ID `Iftw9CaVGOg`). What you write here always wins over what the website reads from the title. Every field is optional:
+
+```
+  "Iftw9CaVGOg": {
+    "note": "The Responsible Father (21 Jun 2026)",
+    "preacher": "Mr. Maxwell Azafokpe",
+    "category": "ECM Leadership",
+    "series": "Faith Series",
+    "event": "childrens-day-celebration-2025"
+  },
+```
+
+- `note` is just a reminder for you of which video it is.
+- `preacher` is the person's name (use the same name as in `preachers.json`), or `Panel` for a discussion.
+- `category` is the tab: `Sermons`, `ECM Leadership`, `Guest Preachers`, `Forum Discussions` or `Outreach`. Leave it out to use the tab that matches the preacher's role.
+- `series` puts the video in a series.
+- `event` links the video to an event in `content/events.json` (use the event's `slug`). The event page then shows a "Watch ... service" button.
+
+Remember the comma between blocks, and no comma after the last one.
+
+**Fixing a preacher's name or role:** open `content/preachers.json`. Each block is one preacher:
 - `name` is how the name is shown. Change it to correct the spelling or add a title (Rev., Apostle and so on).
-- `aliases` lists other ways the name is written in YouTube titles, so they all count as the same person. For example, Rev. Dr. Joe Kissinger Anokye also appears as "Rev. Joe Anokye".
+- `role` is one of `Resident Pastor`, `ECM Leadership` or `Guest Preacher`. To move someone between groups, change this one word, and all their videos move with them (unless a video has its own `category` in `sermon-overrides.json`).
+- `aliases` lists other ways the name is written in YouTube titles, so they all count as the same person. For example, Rev. Dr. Kissinger Joe Anokye also appears as "Rev. Joe Anokye". Small differences are matched on their own: `Mr` and `Mr.`, titles such as Rev. or Dr., single initials, and doubled letters (`Scoffray` and `Scofray`).
 - `photo` is a picture for their card, for example `/images/preachers/john-mensah.jpg`, uploaded to `public/images/preachers`. Leave it empty to use their latest video's picture.
 
 A guest with no block in this file still appears, using the name from the YouTube title.

@@ -11,7 +11,7 @@ import heroData from "../../content/hero.json";
 import { getSermons } from "./sermons";
 
 export { formatDate, youtubeThumb } from "./format";
-export { getSermons, guestPreachers, residentPreacher, type Preacher, type Sermon } from "./sermons";
+export { CATEGORIES, getSermons, preacherPages, residentPreacher, sermonsForEvent, type Category, type Preacher, type Sermon } from "./sermons";
 
 export type ChurchEvent = {
   slug: string;
@@ -79,6 +79,12 @@ export function getEvents(): ChurchEvent[] {
 export function getUpcomingEvents(): ChurchEvent[] {
   const today = todayISO();
   return getEvents().filter((e) => (e.endDate ?? e.date) >= today);
+}
+
+/** Events that have finished, most recent first. */
+export function getPastEvents(): ChurchEvent[] {
+  const today = todayISO();
+  return getEvents().filter((e) => (e.endDate ?? e.date) < today).reverse();
 }
 
 export function getEvent(slug: string) {

@@ -1,23 +1,29 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { CATEGORIES } from "@/lib/sermon-groups";
 import type { Sermon } from "@/lib/sermons";
 import SermonCard from "./SermonCard";
 
-const PAGE = 24; // how many sermons to show before "Show more"
+const PAGE = 24; // how many videos to show before "Show more"
 
-// Preacher filter values: "" = everyone, "resident" = our pastor, "guests" = all guests, or one guest's slug.
+// Tabs pick a category ("" = all). The preacher filter is "" for everyone, "resident" for our pastor, or one preacher's slug.
 export default function SermonBrowser({ sermons, residentName }: { sermons: Sermon[]; residentName: string }) {
+  const [tab, setTab] = useState("");
   const [query, setQuery] = useState("");
   const [preacher, setPreacher] = useState("");
   const [series, setSeries] = useState("");
   const [year, setYear] = useState("");
   const [shown, setShown] = useState(PAGE);
 
-  const guests = useMemo(() => {
-    const map = new Map<string, string>();
-    for (const s of sermons) if (s.guest) map.set(s.preacherSlug, s.preacher);
-    return [...map].sort((a, b) => a[1].localeCompare(b[1]));
+  const tabs = useMemo(() => CATEGORIES.filter((c) => sermons.some((s) => s.category === c)), [sermons]);
+  const preachers = useMemo(() => {
+    const group = (role: string) => {
+      const map = new Map<string, string>();
+      for (const s of sermons) if (s.role === role) map.set(s.preacherSlug, s.preacher);
+      return [...map].sort((a, b) => a[1].localeCompare(b[1]));
+    };
+    return { leadership: group("ECM Leadership"), guests: group("Guest Preacher") };
   }, [sermons]);
   const seriesList = useMemo(() => [...new Set(sermons.map((s) => s.series).filter(Boolean))].sort(), [sermons]);
   const years = useMemo(() => [...new Set(sermons.map((s) => s.date.slice(0, 4)).filter(Boolean))].sort().reverse(), [sermons]);
@@ -25,8 +31,8 @@ export default function SermonBrowser({ sermons, residentName }: { sermons: Serm
   const q = query.trim().toLowerCase();
   const filtered = sermons.filter((s) => {
     const matchesQuery = !q || [s.title, s.preacher, s.series, s.service].join(" ").toLowerCase().includes(q);
-    const matchesPreacher = !preacher || (preacher === "resident" ? !s.guest : preacher === "guests" ? s.guest : s.preacherSlug === preacher);
-    return matchesQuery && matchesPreacher && (!series || s.series === series) && (!year || s.date.startsWith(year));
+    const matchesPreacher = !preacher || (preacher === "resident" ? s.role === "Resident Pastor" : s.preacherSlug === preacher);
+    return (!tab || s.category === tab) && matchesQuery && matchesPreacher && (!series || s.series === series) && (!year || s.date.startsWith(year));
   });
   const filtering = Boolean(q || preacher || series || year);
 
@@ -37,9 +43,19 @@ export default function SermonBrowser({ sermons, residentName }: { sermons: Serm
   };
 
   const select = "w-full rounded-full border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:border-ecm-green focus:outline-none focus:ring-2 focus:ring-ecm-green/30";
+  const tabClass = (active: boolean) =>
+    `shrink-0 rounded-full px-5 py-2.5 text-sm font-bold transition-colors ${active ? "bg-ecm-green text-white" : "bg-white text-ecm-navy ring-1 ring-gray-200 hover:bg-ecm-cream"}`;
 
   return (
     <div>
+      <div className="-mx-4 mb-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0" role="group" aria-label="Show">
+        {[["", "All"], ...tabs.map((c) => [c, c])].map(([value, label]) => (
+          <button key={value} type="button" aria-pressed={tab === value} onClick={() => update(setTab)(value)} className={tabClass(tab === value)}>
+            {label}
+          </button>
+        ))}
+      </div>
+
       <div className="mb-8 grid gap-3 rounded-2xl bg-ecm-cream p-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="relative">
           <label htmlFor="s-search" className="sr-only">Search sermons</label>
@@ -51,10 +67,14 @@ export default function SermonBrowser({ sermons, residentName }: { sermons: Serm
           <select id="s-preacher" value={preacher} onChange={(e) => update(setPreacher)(e.target.value)} className={select}>
             <option value="">All preachers</option>
             <option value="resident">{residentName}</option>
-            {guests.length > 0 && (
+            {preachers.leadership.length > 0 && (
+              <optgroup label="ECM Leadership">
+                {preachers.leadership.map(([slug, name]) => <option key={slug} value={slug}>{name}</option>)}
+              </optgroup>
+            )}
+            {preachers.guests.length > 0 && (
               <optgroup label="Guest preachers">
-                <option value="guests">All guest preachers</option>
-                {guests.map(([slug, name]) => <option key={slug} value={slug}>{name}</option>)}
+                {preachers.guests.map(([slug, name]) => <option key={slug} value={slug}>{name}</option>)}
               </optgroup>
             )}
           </select>
@@ -76,7 +96,7 @@ export default function SermonBrowser({ sermons, residentName }: { sermons: Serm
       </div>
 
       <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-1">
-        <p className="text-sm text-gray-600" aria-live="polite">{filtered.length} sermon{filtered.length === 1 ? "" : "s"}</p>
+        <p className="text-sm text-gray-600" aria-live="polite">{filtered.length} video{filtered.length === 1 ? "" : "s"}</p>
         {filtering && (
           <button
             type="button"
@@ -96,13 +116,13 @@ export default function SermonBrowser({ sermons, residentName }: { sermons: Serm
           {filtered.length > shown && (
             <div className="mt-10 text-center">
               <button type="button" onClick={() => setShown((n) => n + PAGE)} className="rounded-full border-2 border-ecm-green px-8 py-3 text-sm font-bold uppercase tracking-wide text-ecm-green transition-colors hover:bg-ecm-green hover:text-white">
-                Show more sermons ({filtered.length - shown} more)
+                Show more ({filtered.length - shown} more)
               </button>
             </div>
           )}
         </>
       ) : (
-        <p className="rounded-2xl bg-gray-50 p-10 text-center text-gray-600">No sermons match your search.</p>
+        <p className="rounded-2xl bg-gray-50 p-10 text-center text-gray-600">No videos match your search.</p>
       )}
     </div>
   );

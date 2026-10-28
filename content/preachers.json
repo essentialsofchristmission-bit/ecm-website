@@ -1,25 +1,88 @@
 [
   {
     "name": "Pastor Dr. Samuel E. Tandoh",
-    "resident": true,
+    "role": "Resident Pastor",
     "photo": "/images/pastor-samuel-tandoh.jpg"
+  },
+
+  {
+    "name": "Mrs. Eva O. Tandoh",
+    "role": "ECM Leadership",
+    "photo": "",
+    "aliases": ["Mrs Eva Tandoh"]
+  },
+  {
+    "name": "Mr. Maxwell Azafokpe",
+    "role": "ECM Leadership",
+    "photo": ""
+  },
+  {
+    "name": "Mrs. Pamela Otoo",
+    "role": "ECM Leadership",
+    "photo": ""
+  },
+  {
+    "name": "Coach Scofray N. Y. Yeboah",
+    "role": "ECM Leadership",
+    "photo": ""
+  },
+
+  {
+    "name": "Rev. Dr. Kissinger Joe Anokye",
+    "role": "Guest Preacher",
+    "photo": "",
+    "aliases": ["Rev. Joe Anokye", "Rev. Dr. Joe Kissinger Anokye"]
+  },
+  {
+    "name": "H.E. Dr. George Agyekum Donkor",
+    "role": "Guest Preacher",
+    "photo": ""
+  },
+  {
+    "name": "Elder (Rtd.) Nana Abrah Adjei Osiadan",
+    "role": "Guest Preacher",
+    "photo": ""
+  },
+  {
+    "name": "Prophet Jonathan E. Ameyaw",
+    "role": "Guest Preacher",
+    "photo": "",
+    "aliases": ["Prophet J. E. Ameyaw"]
+  },
+  {
+    "name": "Bishop Thomas K. Frimpong",
+    "role": "Guest Preacher",
+    "photo": "",
+    "aliases": ["Pastor Thomas K. Frimpong"]
+  },
+  {
+    "name": "Rev. Richard Korley",
+    "role": "Guest Preacher",
+    "photo": ""
+  },
+  {
+    "name": "Rev. Ben Owusu Sekyere",
+    "role": "Guest Preacher",
+    "photo": ""
+  },
+  {
+    "name": "Mr. Boateng",
+    "role": "Guest Preacher",
+    "photo": ""
   },
   {
     "name": "Apostle Dr. Alfred Kodua",
+    "role": "Guest Preacher",
     "photo": ""
   },
   {
-    "name": "Dr. George Agyekum Donkor",
+    "name": "Apostle John Appiah",
+    "role": "Guest Preacher",
     "photo": ""
   },
   {
-    "name": "Rev. Dr. Joe Kissinger Anokye",
-    "photo": "",
-    "aliases": ["Rev. Joe Anokye", "Rev. Dr. Kisinger Joe Anokye"]
-  },
-  {
-    "name": "Mrs. Eva O. Tandoh",
-    "photo": "",
-    "aliases": ["Mrs Eva Tandoh"]
+    "name": "Rt. Rev. Emmanuel Asare-Kusi",
+    "role": "Guest Preacher",
+    "photo": ""
   }
 ]

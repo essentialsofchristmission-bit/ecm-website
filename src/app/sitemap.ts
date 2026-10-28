@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getDevotionals, getEvents, getMinistries, getSermons, guestPreachers, site } from "@/lib/content";
+import { getDevotionals, getEvents, getMinistries, getSermons, preacherPages, site } from "@/lib/content";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = site.siteUrl.replace(/\/$/, "");
@@ -9,6 +9,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...getEvents().map((e) => ({ url: `${base}/events/${e.slug}`, priority: 0.6 })),
     ...getMinistries().map((m) => ({ url: `${base}/ministries/${m.slug}`, priority: 0.6 })),
     ...getDevotionals().map((d) => ({ url: `${base}/devotionals/${d.slug}`, priority: 0.5 })),
-    ...guestPreachers(await getSermons()).map((p) => ({ url: `${base}/sermons/preachers/${p.slug}`, priority: 0.5 })),
+    ...preacherPages(await getSermons()).map((p) => ({ url: `${base}/sermons/preachers/${p.slug}`, priority: 0.5 })),
   ];
 }

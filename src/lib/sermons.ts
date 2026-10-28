@@ -4,13 +4,19 @@
 //   1. content/extra-sermons.json: the saved list of videos (old and new).
 //   2. YouTube's free channel feed: the 15 newest uploads, so new sermons appear by themselves.
 // No YouTube API key is needed.
+//
+// Corrections in content/sermon-overrides.json (by video ID) always win over what is read from titles.
 
 import extraData from "../../content/extra-sermons.json";
 import hiddenData from "../../content/hidden-videos.json";
 import preachersData from "../../content/preachers.json";
+import overridesData from "../../content/sermon-overrides.json";
 import seriesData from "../../content/series.json";
 import siteData from "../../content/site.json";
 import { youtubeThumb } from "./format";
+import { CATEGORIES, ROLES, type Category, type Role } from "./sermon-groups";
+
+export { CATEGORIES, ROLES, type Category, type Role };
 
 export type Sermon = {
   youtubeId: string;
@@ -18,23 +24,34 @@ export type Sermon = {
   date: string; // YYYY-MM-DD, or "" if unknown
   preacher: string;
   preacherSlug: string;
-  guest: boolean;
+  role: Role | ""; // "" for a panel
+  category: Category;
   series: string; // "" if not part of a series
   service: string; // for example "Sunday Service", or ""
+  event: string; // slug of an event in events.json, or ""
   thumbnail: string;
 };
 
-export type Preacher = { name: string; slug: string; photo: string; resident: boolean; sermons: Sermon[] };
+export type Preacher = { name: string; slug: string; photo: string; role: Role; sermons: Sermon[] };
 
 type ExtraEntry = { url: string; title?: string; date?: string; preacher?: string; series?: string };
-type PreacherEntry = { name: string; resident?: boolean; photo?: string; aliases?: string[] };
+type PreacherEntry = { name: string; role?: string; photo?: string; aliases?: string[] };
 type SeriesEntry = { name: string; titles?: string[]; videos?: string[] };
+type Override = { preacher?: string; category?: string; series?: string; event?: string };
 type RawVideo = { id: string; title: string; date: string; thumbnail?: string; preacher?: string; series?: string };
 
 const extras = extraData as ExtraEntry[];
 const preacherList = preachersData as PreacherEntry[];
 const seriesList = seriesData as SeriesEntry[];
-const resident = preacherList.find((p) => p.resident) ?? { name: "Pastor Dr. Samuel E. Tandoh", resident: true };
+const overrides = overridesData as Record<string, Override>;
+const resident = preacherList.find((p) => p.role === "Resident Pastor") ?? { name: "Pastor Dr. Samuel E. Tandoh" };
+export const PANEL = "Panel";
+
+/** Reads a role or category written loosely ("guest preacher", "Forum Discussion") as one of the fixed values. */
+function pick<T extends string>(list: readonly T[], value?: string) {
+  const key = (s: string) => s.toLowerCase().replace(/\s+/g, " ").trim().replace(/s$/, "");
+  return value ? list.find((x) => key(x) === key(value)) : undefined;
+}
 
 // ---------- Small text helpers ----------
 
@@ -61,13 +78,14 @@ const SMALL_WORDS = new Set(["a", "an", "and", "as", "at", "by", "for", "in", "o
 
 /** Makes ALL-CAPS text read normally: "DAYS OF NOAH" becomes "Days of Noah". */
 function titleCase(s: string) {
-  if (s !== s.toUpperCase()) return s;
+  const caps = s.replace(/['’]s\b/g, ""); // "ECM's" still counts as all capitals
+  if (caps !== caps.toUpperCase()) return s;
   return s
     .toLowerCase()
     .split(" ")
     .map((w, i, all) => (i > 0 && SMALL_WORDS.has(w) && !all[i - 1].endsWith(":") ? w : w.replace(/\p{L}/u, (c) => c.toUpperCase())))
     .join(" ")
-    .replace(/\b(Ii|Iii|Iv|Vi|Vii)\b/g, (m) => m.toUpperCase());
+    .replace(/\b(Ii|Iii|Iv|Vi|Vii|Ecm)\b/g, (m) => m.toUpperCase());
 }
 
 // Titles people put before a name, and how to show them.
@@ -75,7 +93,7 @@ const HONORIFICS: Record<string, string> = {
   rt: "Rt.", rev: "Rev.", reverend: "Rev.", pastor: "Pastor", ps: "Pastor", apostle: "Apostle", bishop: "Bishop",
   prophet: "Prophet", prophetess: "Prophetess", evangelist: "Evangelist", dr: "Dr.", mrs: "Mrs.", mr: "Mr.",
   ms: "Ms.", elder: "Elder", deacon: "Deacon", deaconess: "Deaconess", minister: "Minister", min: "Minister",
-  overseer: "Overseer", lady: "Lady",
+  overseer: "Overseer", lady: "Lady", coach: "Coach", rtd: "(Rtd.)",
 };
 const HONORIFIC_START = new RegExp(`^(${Object.keys(HONORIFICS).join("|")})\\b\\.?`, "i");
 
@@ -85,7 +103,8 @@ function words(name: string) {
 
 /** Tidies a name: "PS.DR. SAMUEL TANDOH" becomes "Pastor Dr. Samuel Tandoh". */
 function formatName(name: string) {
-  return words(name)
+  const he = /^h\.\s?e\.?\s+/i.test(name) ? "H.E. " : ""; // His/Her Excellency
+  return he + words(name.replace(/^h\.\s?e\.?\s+/i, ""))
     .map((w) => HONORIFICS[w.replace(/\./g, "").toLowerCase()] ?? (w.length <= 2 && w.endsWith(".") ? w.toUpperCase() : w.toLowerCase().replace(/(^|[-'])\p{L}/gu, (c) => c.toUpperCase())))
     .join(" ");
 }
@@ -98,6 +117,11 @@ function nameKey(name: string) {
     .join(" ");
 }
 
+/** Like nameKey, but also ignores doubled letters, so "Scoffray" and "Scofray" count as the same name. */
+function sameNameKey(name: string) {
+  return nameKey(name).replace(/(\p{L})\1+/gu, "$1");
+}
+
 /** True if a name means our resident pastor (Pastor Samuel Tandoh, Ps. Dr. Samuel Tandoh, Pastor Tandoh...). */
 function isResident(name: string) {
   const key = nameKey(name).split(" ");
@@ -107,7 +131,16 @@ function isResident(name: string) {
 }
 
 function looksLikeName(s: string) {
-  return HONORIFIC_START.test(s) || /\btandoh\b/i.test(s);
+  return HONORIFIC_START.test(s) || /^h\.\s?e\b/i.test(s) || /\btandoh\b/i.test(s);
+}
+
+const SERVICE_WORDS = /se?r?v+ice|meeting|conference|program|convention|crusade|revival|retreat|vigil|camp/i;
+const NOT_A_NAME = /\b(sunday|monday|tuesday|wednesday|thursday|friday|saturday|easter|christmas|holy|new year|day|discussion|panel|forum|school|church|mission|ministry|outreach|celebration|prayer|worship)\b/i;
+
+/** The last part of a title, after "||", is a name if it is 2 to 6 plain words, such as "MAXWELL AZAFOKPE". */
+function looksLikeEndName(s: string) {
+  const w = s.split(/\s+/);
+  return w.length >= 2 && w.length <= 6 && /^[\p{L}.'’() -]+$/u.test(s) && !NOT_A_NAME.test(s) && !SERVICE_WORDS.test(s) && !w.some((x) => SMALL_WORDS.has(x.toLowerCase()));
 }
 
 function slugify(s: string) {
@@ -125,45 +158,51 @@ export function parseTitle(raw: string) {
   let title = parts[0] ?? "";
   let preacher = "";
   let service = "";
-  for (const part of parts.slice(1)) {
-    if (/^\d{1,2}[./-]\d{1,2}[./-]\d{2,4}$/.test(part)) continue; // a date such as 30/06/2024
+  parts.slice(1).forEach((part, i, rest) => {
+    if (/^\d{1,2}[./-]\d{1,2}[./-]\d{2,4}$/.test(part)) return; // a date such as 30/06/2024
     if (/^(part|pt\.?|episode|ep\.?|day)\s*\w+$/i.test(part)) title = `${title}, ${part}`;
     else if (!preacher && looksLikeName(part)) preacher = part;
-    else if (!service && /service|meeting|conference|program|convention|crusade|revival|retreat|vigil|camp/i.test(part)) service = part;
-  }
+    else if (!service && SERVICE_WORDS.test(part)) service = part;
+    else if (!preacher && i === rest.length - 1 && looksLikeEndName(part)) preacher = part;
+  });
   // Names written inside the title: "Title - Rev. John Mensah", "Title by Pastor ...", "Title with Apostle ...".
   if (!preacher) {
     const m = title.match(new RegExp(`^(.*?)\\s+(?:-|–|by|with)\\s+((?:${Object.keys(HONORIFICS).join("|")})\\b\\.?.*)$`, "i"));
     if (m) [title, preacher] = [m[1], m[2]];
   }
   // Labels that are not part of the sermon title: "Rebroadcast:", "Title:", "Sunday Service:" and a date at the end.
-  title = title.replace(/^(rebroadcast|title)\s*[:\-–]\s*/i, "").replace(/\s*\(?\d{1,2}[./-]\d{1,2}[./-]\d{2,4}\)?$/, "");
-  const lead = title.match(/^([\w' ]*service)\s*:\s*(.+)$/i);
-  if (lead) {
+  title = title.replace(/^(rebroadcast|title|panel discussion|forum discussion)\s*[:\-–]\s*/i, "").replace(/\s*\(?\d{1,2}[./-]\d{1,2}[./-]\d{2,4}\)?$/, "");
+  // Only a short label such as "Sunday Service:" counts, not a title like "Diligence in Service: ...".
+  const lead = title.match(/^((?:[\w']+ ){0,2}service)\s*:\s*(.+)$/i);
+  if (lead && !lead[1].split(" ").some((w) => SMALL_WORDS.has(w.toLowerCase()))) {
     service ||= lead[1];
     title = lead[2];
   }
   return {
     title: titleCase(title.replace(/[\s:,|-]+$/, "")),
     preacher: preacher ? formatName(preacher) : "",
-    service: service ? titleCase(service) : "",
+    service: service ? titleCase(service.replace(/\bse?r?v+ice\b/i, (w) => (w === w.toUpperCase() ? "SERVICE" : "Service"))) : "",
+    forum: /\b(panel|forum) discussion\b/i.test(raw.normalize("NFKC")),
+    outreach: /\boutreach\b/i.test(raw.normalize("NFKC")),
   };
 }
 
 // ---------- Preachers ----------
 
 function findPreacher(name: string) {
-  const key = nameKey(name);
-  return preacherList.find((p) => nameKey(p.name) === key || p.aliases?.some((a) => nameKey(a) === key));
+  const key = sameNameKey(name);
+  return preacherList.find((p) => sameNameKey(p.name) === key || p.aliases?.some((a) => sameNameKey(a) === key));
 }
 
-/** Decides who preached: our pastor, or a guest (with the name corrected from preachers.json). */
-function resolvePreacher(name: string) {
-  if (!name || isResident(name)) return { preacher: resident.name, guest: false };
+/** Decides who preached and their role. The name and role come from preachers.json when the person is listed there. */
+function resolvePreacher(name: string): { preacher: string; role: Role | "" } {
+  if (!name || isResident(name)) return { preacher: resident.name, role: "Resident Pastor" };
+  if (name.trim().toLowerCase() === PANEL.toLowerCase()) return { preacher: PANEL, role: "" };
   const entry = findPreacher(name);
-  if (entry?.resident) return { preacher: entry.name, guest: false };
-  return { preacher: entry?.name ?? name, guest: true };
+  return { preacher: entry?.name ?? name, role: pick(ROLES, entry?.role) ?? "Guest Preacher" };
 }
+
+const ROLE_CATEGORY: Record<Role, Category> = { "Resident Pastor": "Sermons", "ECM Leadership": "ECM Leadership", "Guest Preacher": "Guest Preachers" };
 
 export function preacherSlug(name: string) {
   return slugify(nameKey(name) || name);
@@ -321,17 +360,22 @@ export async function getSermons(): Promise<Sermon[]> {
     .filter((v) => !isHidden(v.id, v.title) && !isRepeat(v))
     .map((v) => {
       const parsed = parseTitle(v.title);
-      const who = resolvePreacher(v.preacher || parsed.preacher);
+      const fix = overrides[v.id] ?? {};
+      // Preacher: the override, then extra-sermons.json, then the title. A discussion with no name is a panel.
+      const who = resolvePreacher(fix.preacher || v.preacher || parsed.preacher || (parsed.forum ? PANEL : ""));
+      const category = pick(CATEGORIES, fix.category) ?? (parsed.forum ? "Forum Discussions" : parsed.outreach ? "Outreach" : who.role ? ROLE_CATEGORY[who.role] : "Forum Discussions");
       return {
         youtubeId: v.id,
         title: parsed.title,
         date: v.date,
         preacher: who.preacher,
         preacherSlug: preacherSlug(who.preacher),
-        guest: who.guest,
+        role: who.role,
+        category,
         series: "",
-        setSeries: v.series,
+        setSeries: fix.series || v.series,
         service: parsed.service,
+        event: fix.event ?? "",
         thumbnail: v.thumbnail || youtubeThumb(v.id),
       };
     });
@@ -339,16 +383,24 @@ export async function getSermons(): Promise<Sermon[]> {
   return sermons.sort((a, b) => b.date.localeCompare(a.date));
 }
 
-/** Guest preachers, each with their sermons (newest first), most recent guest first. */
-export function guestPreachers(sermons: Sermon[]): Preacher[] {
+/**
+ * Everyone who gets their own page: ECM Leadership and guest preachers, each with all their
+ * messages (newest first). Most recent preacher first.
+ */
+export function preacherPages(sermons: Sermon[]): Preacher[] {
   const map = new Map<string, Preacher>();
   for (const s of sermons) {
-    if (!s.guest) continue;
-    const p = map.get(s.preacherSlug) ?? { name: s.preacher, slug: s.preacherSlug, photo: findPreacher(s.preacher)?.photo ?? "", resident: false, sermons: [] };
+    if (s.role !== "ECM Leadership" && s.role !== "Guest Preacher") continue;
+    const p = map.get(s.preacherSlug) ?? { name: s.preacher, slug: s.preacherSlug, photo: findPreacher(s.preacher)?.photo ?? "", role: s.role, sermons: [] };
     p.sermons.push(s);
     map.set(s.preacherSlug, p);
   }
   return [...map.values()];
+}
+
+/** Videos linked to one event (by its slug in events.json). */
+export function sermonsForEvent(sermons: Sermon[], eventSlug: string) {
+  return sermons.filter((s) => s.event === eventSlug);
 }
 
 export const residentPreacher = resident.name;

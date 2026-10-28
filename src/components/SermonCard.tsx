@@ -2,7 +2,11 @@ import type { Sermon } from "@/lib/sermons";
 import { formatDate } from "@/lib/format";
 import { PlayIcon } from "./Icons";
 
+// Small label on the picture for videos that are not by our pastor.
+const BADGE: Partial<Record<Sermon["category"], string>> = { "ECM Leadership": "ECM Leadership", "Guest Preachers": "Guest", "Forum Discussions": "Forum", Outreach: "Outreach" };
+
 export default function SermonCard({ sermon }: { sermon: Sermon }) {
+  const badge = BADGE[sermon.category];
   return (
     <a
       href={`https://www.youtube.com/watch?v=${sermon.youtubeId}`}
@@ -16,7 +20,7 @@ export default function SermonCard({ sermon }: { sermon: Sermon }) {
         <span className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition group-hover:opacity-100">
           <span className="flex h-14 w-14 items-center justify-center rounded-full bg-ecm-red-dark text-white"><PlayIcon className="h-6 w-6" /></span>
         </span>
-        {sermon.guest && <span className="absolute left-3 top-3 rounded-full bg-ecm-navy/90 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">Guest</span>}
+        {badge && <span className="absolute left-3 top-3 rounded-full bg-ecm-navy/90 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">{badge}</span>}
       </div>
       <div className="flex flex-1 flex-col p-5">
         {sermon.series && <p className="text-xs font-bold uppercase tracking-wider text-ecm-red-dark">{sermon.series}</p>}

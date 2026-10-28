@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Preacher } from "@/lib/sermons";
 
-// One guest preacher: photo (or their latest video's picture), name and number of messages.
+// One preacher (ECM Leadership or guest): photo (or their latest video's picture), name and number of messages.
 export default function PreacherCard({ preacher }: { preacher: Preacher }) {
   const count = preacher.sermons.length;
   return (

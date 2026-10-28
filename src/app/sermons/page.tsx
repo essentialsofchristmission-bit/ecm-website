@@ -2,14 +2,16 @@ import type { Metadata } from "next";
 import PreacherCard from "@/components/PreacherCard";
 import SermonBrowser from "@/components/SermonBrowser";
 import { ButtonLink, Container, PageHero, SectionHeading } from "@/components/ui";
-import { getSermons, guestPreachers, residentPreacher, site } from "@/lib/content";
+import { getSermons, preacherPages, residentPreacher, site } from "@/lib/content";
 
-export const metadata: Metadata = { title: "Sermons", description: "Watch sermons from Essentials of Christ Mission, by our pastor and guest preachers." };
+export const metadata: Metadata = { title: "Sermons", description: "Watch sermons from Essentials of Christ Mission, by our pastor, ECM leadership and guest preachers." };
 export const revalidate = 3600;
 
 export default async function SermonsPage() {
   const sermons = await getSermons();
-  const guests = guestPreachers(sermons);
+  const people = preacherPages(sermons);
+  const leadership = people.filter((p) => p.role === "ECM Leadership");
+  const guests = people.filter((p) => p.role === "Guest Preacher");
   return (
     <>
       <PageHero title="Sermons" subtitle="Be blessed by messages from ECM." image="/images/banner-sermons.jpg" />
@@ -20,8 +22,19 @@ export default async function SermonsPage() {
         </Container>
       </section>
 
+      {leadership.length > 0 && (
+        <section id="ecm-leadership" className="scroll-mt-20 bg-ecm-cream py-16 sm:py-20">
+          <Container>
+            <SectionHeading eyebrow="From our church" title="ECM Leadership" intro="Messages from the leaders of Essentials of Christ Mission." />
+            <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {leadership.map((p) => <li key={p.slug}><PreacherCard preacher={p} /></li>)}
+            </ul>
+          </Container>
+        </section>
+      )}
+
       {guests.length > 0 && (
-        <section id="guest-preachers" className="scroll-mt-20 bg-ecm-cream py-16 sm:py-20">
+        <section id="guest-preachers" className={`scroll-mt-20 py-16 sm:py-20 ${leadership.length ? "" : "bg-ecm-cream"}`}>
           <Container>
             <SectionHeading eyebrow="Visiting ministers" title="Guest preachers" intro="Messages from the men and women of God who have ministered at ECM." />
             <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
