@@ -38,6 +38,7 @@ The easiest way is to edit files directly on GitHub:
   - `live` : set `"isLive": true` when you are streaming to show the red **WE ARE LIVE** banner. Set it back to `false` afterwards. If YouTube does not pick up the live stream automatically, paste the live video ID into `liveVideoId`.
   - `forms` : Formspree form links (see section 4)
   - `welcome` : the pastor's welcome message on the homepage
+  - `visit` : the **Plan your visit** window that opens from the Plan a Visit buttons: its title and intro, how many upcoming Sundays to offer (`sundaysToShow`), the note under "Are you bringing children?", and the questions and answers (`faqs`). Add or remove a `{ "question": ..., "answer": ... }` block to change the questions. The WhatsApp us button sends the visitor's chosen Sunday (and whether they are bringing children) to the church WhatsApp number in `contact`.
   - `outreach` : the Go Ye Train highlight on the homepage
   - `give` : Mobile Money and bank details
 - **`content/about.json`** : our story, vision, mission, statement of faith and leaders. `heroPhotos` is the photo collage behind "About Us" in the green banner at the top of the About page. Each photo has a `src` and a short description (`alt`). Use six photos: phones show the first 3, tablets the first 4, and computers all 6. On computers the 1st and 4th photos are tall and the 2nd and 6th are wide, so put photos with people in the middle in those spots.

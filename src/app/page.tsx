@@ -33,9 +33,13 @@ export default async function Home() {
   return (
     <>
       {/* 1. Hero */}
-      <HeroCarousel slides={hero} className="relative isolate flex min-h-[calc(100svh-5rem)] items-center overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ecm-green/95 via-ecm-green/75 to-ecm-navy/40" />
-        <Container className="py-20 text-white">
+      {/* On phones the hero is 4rem shorter, so the quick action bar at the bottom does not cover the slide dots. */}
+      <HeroCarousel slides={hero} className="relative isolate flex min-h-[calc(100svh-9rem)] items-center overflow-hidden md:min-h-[calc(100svh-5rem)]">
+        {/* Scrim: the green brand tint, plus a dark shade behind the text, so the words stay readable on every photo. */}
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ecm-green/95 via-ecm-green/80 to-ecm-navy/60" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_90%_80%_at_20%_50%,rgba(0,0,0,0.5),transparent_75%)]" />
+        <div className="absolute inset-x-0 bottom-0 -z-10 h-1/3 bg-gradient-to-t from-black/50 to-transparent" />
+        <Container className="py-20 text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.35)]">
           <p className="mb-4 inline-block rounded-full bg-white/15 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.25em] backdrop-blur">
             Our {site.theme.year} theme
           </p>
@@ -52,7 +56,7 @@ export default async function Home() {
           </ul>
           <div className="mt-10 flex flex-wrap gap-4">
             <ButtonLink href="#visit" variant="red" className="px-8 py-4">Plan a Visit</ButtonLink>
-            <ButtonLink href="/live" variant="outlineLight" className="px-8 py-4">Watch Online</ButtonLink>
+            <ButtonLink href="/live" variant="red" className="px-8 py-4">Watch Online</ButtonLink>
           </div>
         </Container>
       </HeroCarousel>
@@ -203,7 +207,10 @@ export default async function Home() {
               <li><a href={`tel:${site.contact.phone}`} className="flex gap-3 hover:underline"><PhoneIcon className="h-5 w-5 shrink-0" />{site.contact.phoneDisplay}</a></li>
               <li><a href={`mailto:${site.contact.email}`} className="flex gap-3 break-all hover:underline"><MailIcon className="h-5 w-5 shrink-0" />{site.contact.email}</a></li>
             </ul>
-            <ButtonLink href={mapDirectionsUrl()} variant="white" className="mt-8">Get directions</ButtonLink>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <ButtonLink href="#visit" variant="red">Plan my visit</ButtonLink>
+              <ButtonLink href={mapDirectionsUrl()} variant="white">Get directions</ButtonLink>
+            </div>
           </div>
           <MapEmbed className="h-full min-h-96" />
         </Container>

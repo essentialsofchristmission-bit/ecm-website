@@ -2,7 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Anton, Montserrat } from "next/font/google";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { site } from "@/lib/content";
+import MobileActionBar from "@/components/MobileActionBar";
+import PlanVisitModal from "@/components/PlanVisitModal";
+import { mapDirectionsUrl, site, whatsappUrl } from "@/lib/content";
 import "./globals.css";
 
 const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-montserrat", display: "swap" });
@@ -45,11 +47,20 @@ const jsonLd = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${montserrat.variable} ${anton.variable}`}>
-      <body className="font-sans antialiased">
+      {/* On phones, room at the bottom so the quick action bar never covers the footer. */}
+      <body className="pb-[calc(4rem+env(safe-area-inset-bottom))] font-sans antialiased md:pb-0">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <Header isLive={site.live.isLive} />
         <main id="main">{children}</main>
         <Footer />
+        <MobileActionBar directionsUrl={mapDirectionsUrl()} whatsappUrl={whatsappUrl("Hello ECM, ")} isLive={site.live.isLive} />
+        <PlanVisitModal
+          {...site.visit}
+          serviceName={site.serviceTimes[0].name}
+          serviceTime={site.serviceTimes[0].time}
+          directionsUrl={mapDirectionsUrl()}
+          whatsapp={site.contact.whatsapp}
+        />
       </body>
     </html>
   );

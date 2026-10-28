@@ -16,7 +16,7 @@ export function DateBadge({ date, className = "" }: { date: string; className?: 
 
 export default function EventCard({ event }: { event: ChurchEvent }) {
   return (
-    <Link href={`/events/${event.slug}`} className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 transition hover:-translate-y-1 hover:shadow-lg">
+    <Link href={`/events/${event.slug}`} className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg focus-visible:-translate-y-1 motion-reduce:hover:translate-y-0">
       <div className="relative aspect-[4/3] overflow-hidden">
         <Image src={event.image} alt={`${event.title} flyer`} fill sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="object-cover transition duration-500 group-hover:scale-105" />
         <DateBadge date={event.date} className="absolute left-4 top-4" />

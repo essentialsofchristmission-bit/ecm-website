@@ -78,6 +78,26 @@
     "pastorImageAlt": "Pastor Dr. Samuel E. Tandoh and his wife, Mrs. Eva O. Tandoh",
     "message": "Welcome to Essentials of Christ Mission. We are a family that believes the teachings of Jesus Christ are the foundation of every Christian life. Whether you are new to faith or have walked with God for years, there is a seat for you here. Come as you are, worship with us, grow in the Word and discover the life Jesus offers."
   },
+  "visit": {
+    "title": "Plan your visit",
+    "intro": "We would love to welcome you. Tell us when you are coming and our welcome team will be ready for you.",
+    "sundaysToShow": 4,
+    "childrenNote": "We will let our Children's Ministry know, so they are ready to welcome your children.",
+    "faqs": [
+      {
+        "question": "Where do I park?",
+        "answer": "We are behind Emefs Estate, Lashibi, Tema. Park at the church grounds and our ushers will help you from there. Tap Get directions below for the way."
+      },
+      {
+        "question": "What should I wear?",
+        "answer": "Come as you are. There is no dress code, so wear whatever you feel comfortable in."
+      },
+      {
+        "question": "What time should I arrive?",
+        "answer": "Sunday Service starts at 8:30 AM. Arriving around 8:15 AM gives you time to park, check in your children and find a seat."
+      }
+    ]
+  },
   "outreach": {
     "title": "Go Ye Train",
     "subtitle": "Annual outreach to Akuse Prisons",

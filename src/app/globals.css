@@ -81,9 +81,29 @@ body {
   .hero-collage > li:nth-child(6) { grid-column: 3 / span 2; grid-row: 2; }
 }
 
+/* Plan your visit window: slides up on phones, fades in on larger screens. */
+@keyframes visit-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+@keyframes visit-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes visit-backdrop {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.visit-dialog[open] { animation: visit-up 0.3s ease-out; }
+.visit-dialog[open]::backdrop { animation: visit-backdrop 0.3s ease-out; }
+@media (min-width: 640px) {
+  .visit-dialog[open] { animation-name: visit-in; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .live-dot { animation: none; }
+  .visit-dialog[open], .visit-dialog[open]::backdrop { animation: none; }
 }
 
 :focus-visible {
