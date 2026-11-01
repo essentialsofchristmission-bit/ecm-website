@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
     return [
       { source: "/ministries/go-ye", destination: "/ministries/evangelism", permanent: true },
       { source: "/sermons/preachers/joe-kissinger-anokye", destination: "/sermons/preachers/kissinger-joe-anokye", permanent: true },
+      { source: "/sermons/preachers/boateng", destination: "/sermons/preachers/prince-boateng", permanent: true },
     ];
   },
   images: {
