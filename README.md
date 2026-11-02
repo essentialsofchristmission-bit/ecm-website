@@ -58,6 +58,7 @@ The website reads each video's YouTube title, for example `DAYS OF NOAH || WEDNE
 - **Tab:** every video is in one tab on the Sermons page: **Sermons** (Pastor Tandoh), **ECM Leadership**, **Guest Preachers**, **Forum Discussions** (titles with "Panel Discussion" or "Forum Discussion", shown with "Panel" as the preacher), **Prayer Meetings** (titles with "Prayer Meeting") or **Outreach** (titles with "Outreach").
 - **Series:** titles that start the same way before a colon (`Foundations of Our Walk: Humility`) or that have a part number (`Part 2`, `Pt 3`, `Episode 1`, `Day 4`) are grouped into a series automatically.
 - **Hidden:** birthday wishes, hashtag clips, Shorts and repeat rebroadcasts are left out.
+- **Deleted on YouTube:** the website checks every video on YouTube about once an hour. A video that is deleted or made private on YouTube disappears from the website within about an hour, by itself. If it is made public again, it comes back. If YouTube cannot be reached, nothing is removed.
 
 Everyone in ECM Leadership and every guest preacher gets one page listing all their messages, linked from the cards at the bottom of the Sermons page.
 

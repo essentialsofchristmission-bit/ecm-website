@@ -3,7 +3,8 @@
 // Videos come from two places and are merged (each video only once):
 //   1. content/extra-sermons.json: the saved list of videos (old and new).
 //   2. YouTube's free channel feed: the 15 newest uploads, so new sermons appear by themselves.
-// No YouTube API key is needed.
+// No YouTube API key is needed. Saved videos are checked on YouTube every hour, and any that
+// were deleted or made private there are left out.
 //
 // Corrections in content/sermon-overrides.json (by video ID) always win over what is read from titles.
 
@@ -307,16 +308,57 @@ async function fetchFeed(): Promise<RawVideo[]> {
   }
 }
 
-/** Title and thumbnail of one video from YouTube's free oEmbed link. */
-async function fetchOEmbed(id: string): Promise<{ title?: string; thumbnail?: string }> {
+// Set when YouTube cannot be reached at all, so the remaining checks are skipped and every video is kept.
+let youtubeUnreachable = false;
+
+/**
+ * Checks one video with YouTube's free oEmbed link (rechecked every hour), and gets its title and thumbnail.
+ * `gone` is true only when YouTube clearly says the video was deleted or made private. When YouTube is busy
+ * or cannot be reached, the video is kept.
+ */
+async function checkVideo(id: string): Promise<{ gone: boolean; title?: string; thumbnail?: string }> {
+  if (youtubeUnreachable) return { gone: false };
   try {
-    const res = await fetch(`https://www.youtube.com/oembed?format=json&url=${encodeURIComponent(`https://www.youtube.com/watch?v=${id}`)}`, { next: { revalidate: 86400 } });
-    if (!res.ok) return {};
-    const data = await res.json();
-    return { title: data.title, thumbnail: data.thumbnail_url };
+    const res = await fetch(`https://www.youtube.com/oembed?format=json&url=${encodeURIComponent(`https://www.youtube.com/watch?v=${id}`)}`, {
+      next: { revalidate: 3600 },
+      signal: AbortSignal.timeout(10000),
+    });
+    if (res.ok) {
+      const data = await res.json();
+      return { gone: false, title: data.title, thumbnail: data.thumbnail_url };
+    }
+    if (res.status === 404 || res.status === 400) return { gone: true }; // deleted, or never existed
+    if (res.status === 401 || res.status === 403) return { gone: await isPrivate(id) }; // private, or only embedding is turned off
+    return { gone: false };
   } catch {
-    return {};
+    youtubeUnreachable = true;
+    return { gone: false };
   }
+}
+
+/** True if the video's YouTube page says it is private, removed or unavailable (not just that embedding is off). */
+async function isPrivate(id: string) {
+  try {
+    const res = await fetch(`https://www.youtube.com/watch?v=${id}`, { headers: { "Accept-Language": "en" }, next: { revalidate: 3600 }, signal: AbortSignal.timeout(10000) });
+    const html = await res.text();
+    return /"playabilityStatus":\{"status":"ERROR"/.test(html) || /"reason":"(Private video|This video is private|Video unavailable|This video is unavailable|This video has been removed)/.test(html);
+  } catch {
+    return false;
+  }
+}
+
+/** Runs `fn` over the list, a few at a time, so YouTube is not sent hundreds of requests at once. */
+async function mapLimit<T, R>(list: T[], limit: number, fn: (item: T) => Promise<R>): Promise<R[]> {
+  const out: R[] = new Array(list.length);
+  let next = 0;
+  const worker = async () => {
+    while (next < list.length) {
+      const i = next++;
+      out[i] = await fn(list[i]);
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(limit, list.length) }, worker));
+  return out;
 }
 
 /** Upload date of one video, read from its public YouTube page (oEmbed does not give dates). */
@@ -337,17 +379,19 @@ export async function getSermons(): Promise<Sermon[]> {
   const feed = await fetchFeed();
   const fromFeed = new Map(feed.map((v) => [v.id, v]));
 
-  // 1. Saved videos. Missing titles and dates are fetched from YouTube.
-  const saved = await Promise.all(
-    extras.map(async (e): Promise<RawVideo | null> => {
-      const id = videoId(e.url);
-      if (!id) return null;
-      const f = fromFeed.get(id);
-      const o = e.title || f?.title ? {} : await fetchOEmbed(id);
-      const date = e.date || f?.date || (await fetchDate(id));
-      return { id, title: e.title || f?.title || o.title || "", date, thumbnail: o.thumbnail, preacher: e.preacher, series: e.series };
-    }),
-  );
+  // 1. Saved videos. Each one not in the feed is checked on YouTube, and left out once it is deleted or
+  //    made private there (it comes back by itself if it is made public again). Missing titles and dates are
+  //    fetched from YouTube.
+  youtubeUnreachable = false;
+  const saved = await mapLimit(extras, 8, async (e): Promise<RawVideo | null> => {
+    const id = videoId(e.url);
+    if (!id) return null;
+    const f = fromFeed.get(id);
+    const o = f ? { gone: false } : await checkVideo(id);
+    if (o.gone) return null;
+    const date = e.date || f?.date || (await fetchDate(id));
+    return { id, title: e.title || f?.title || o.title || "", date, thumbnail: o.thumbnail, preacher: e.preacher, series: e.series };
+  });
 
   // 2. New uploads from the feed that are not saved yet.
   const all = new Map<string, RawVideo>();
