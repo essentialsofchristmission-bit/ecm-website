@@ -379,24 +379,34 @@ export async function getSermons(): Promise<Sermon[]> {
   const feed = await fetchFeed();
   const fromFeed = new Map(feed.map((v) => [v.id, v]));
 
-  // 1. Saved videos. Each one not in the feed is checked on YouTube, and left out once it is deleted or
-  //    made private there (it comes back by itself if it is made public again). Missing titles and dates are
-  //    fetched from YouTube.
+  // Every video, saved or from the feed, is checked on YouTube and left out once it is deleted or made
+  // private there (it comes back by itself if it is made public again). The feed is checked too, because
+  // YouTube keeps listing a deleted video in it for a while.
   youtubeUnreachable = false;
+  const gone = new Set<string>();
+  const check = async (id: string) => {
+    const o = await checkVideo(id);
+    if (o.gone) gone.add(id);
+    return o;
+  };
+
+  // 1. Saved videos. Missing titles and dates are fetched from YouTube.
   const saved = await mapLimit(extras, 8, async (e): Promise<RawVideo | null> => {
     const id = videoId(e.url);
     if (!id) return null;
     const f = fromFeed.get(id);
-    const o = f ? { gone: false } : await checkVideo(id);
+    const o = await check(id);
     if (o.gone) return null;
     const date = e.date || f?.date || (await fetchDate(id));
     return { id, title: e.title || f?.title || o.title || "", date, thumbnail: o.thumbnail, preacher: e.preacher, series: e.series };
   });
 
   // 2. New uploads from the feed that are not saved yet.
+  const savedIds = new Set(extras.map((e) => videoId(e.url)));
+  await mapLimit(feed.filter((v) => !savedIds.has(v.id)), 8, (v) => check(v.id));
   const all = new Map<string, RawVideo>();
   for (const v of saved) if (v && v.title && !all.has(v.id)) all.set(v.id, v);
-  for (const v of feed) if (!all.has(v.id)) all.set(v.id, v);
+  for (const v of feed) if (!all.has(v.id) && !gone.has(v.id)) all.set(v.id, v);
 
   // A rebroadcast is skipped when the original sermon is already in the list.
   const originals = new Set([...all.values()].filter((v) => !/^\s*rebroadcast/i.test(clean(v.title))).map((v) => parseTitle(v.title).title.toLowerCase()));
