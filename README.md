@@ -35,7 +35,7 @@ The easiest way is to edit files directly on GitHub:
   - `serviceTimes` : service names, days and times (shown on the homepage, footer and contact page)
   - `contact` : address, phone, email and WhatsApp number (WhatsApp number in international format, no plus sign or spaces)
   - `social` : YouTube, Facebook, Instagram and TikTok links
-  - `live` : set `"isLive": true` when you are streaming to show the red **WE ARE LIVE** banner. Set it back to `false` afterwards. If YouTube does not pick up the live stream automatically, paste the live video ID into `liveVideoId`.
+  - `live` : nothing to do when you go live. The website checks YouTube every minute, and while the church is live on YouTube it shows the live stream on the homepage and the ECM Live page, the red **WE ARE LIVE** banner and a pulsing dot on Watch Live. When the stream ends it goes back to the latest sermon by itself. Only if a live stream is ever not picked up: set `"isLive": true` and paste the live video ID into `liveVideoId`, then set them back to `false` and empty afterwards.
   - `forms` : Formspree form links (see section 4)
   - `welcome` : the pastor's welcome message on the homepage
   - `visit` : the **Plan your visit** window that opens from the Plan a Visit buttons: its title and intro, how many upcoming Sundays to offer (`sundaysToShow`), the note under "Are you bringing children?", and the questions and answers (`faqs`). Add or remove a `{ "question": ..., "answer": ... }` block to change the questions. The WhatsApp us button sends the visitor's chosen Sunday (and whether they are bringing children) to the church WhatsApp number in `contact`.
