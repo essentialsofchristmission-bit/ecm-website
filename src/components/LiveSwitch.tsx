@@ -30,12 +30,20 @@ export default function LiveSwitch({
   const status = useLive(initial);
   if (!status.live) return <>{children}</>;
   const player = <YouTubeEmbed src={liveEmbedUrl(channelId, status.videoId)} title="ECM live stream" />;
+  // In case the player does not start, the same stream on YouTube itself.
+  const onYouTube = status.videoId ? `https://www.youtube.com/watch?v=${status.videoId}` : `https://www.youtube.com/channel/${channelId}/live`;
+  const youTubeLink = (
+    <a href={onYouTube} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-ecm-navy px-6 py-3 text-sm font-bold uppercase tracking-wide text-ecm-navy transition-colors hover:bg-ecm-navy hover:text-white">
+      Watch on YouTube
+    </a>
+  );
 
   if (layout === "page")
     return (
       <>
         <div className="mb-6 flex justify-center"><LivePill /></div>
         {player}
+        <div className="mt-5 flex justify-center">{youTubeLink}</div>
       </>
     );
 
@@ -47,7 +55,10 @@ export default function LiveSwitch({
           <LivePill />
           <h2 className="mt-5 font-display text-4xl uppercase leading-tight text-ecm-navy sm:text-5xl">Join the service now</h2>
           <p className="mt-4 text-lg text-gray-700">Worship with us live from Essentials of Christ Mission, wherever you are.</p>
-          <Link href="/live" className="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-ecm-red-dark px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-ecm-red">Open ECM Live</Link>
+          <div className="mt-8 flex flex-wrap gap-3">
+          <Link href="/live" className="inline-flex items-center justify-center gap-2 rounded-full bg-ecm-red-dark px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-ecm-red">Open ECM Live</Link>
+          {youTubeLink}
+          </div>
         </div>
       </Container>
     </section>
