@@ -5,6 +5,7 @@ import Gallery from "@/components/Gallery";
 import HeroCarousel from "@/components/HeroCarousel";
 import { MailIcon, PhoneIcon, PinIcon } from "@/components/Icons";
 import LiveBanner from "@/components/LiveBanner";
+import LiveSwitch from "@/components/LiveSwitch";
 import MapEmbed from "@/components/MapEmbed";
 import MinistryCard from "@/components/MinistryCard";
 import ServiceTimes from "@/components/ServiceTimes";
@@ -83,7 +84,8 @@ export default async function Home() {
         </Container>
       </section>
 
-      {/* 4. Latest sermon */}
+      {/* 4. Latest sermon (the live stream instead, while we are live) */}
+      <LiveSwitch channelId={site.live.youtubeChannelId} layout="home">
       {latest && (
         <section className="bg-ecm-cream py-20 sm:py-24">
           <Container className="grid items-center gap-10 lg:grid-cols-5">
@@ -103,6 +105,7 @@ export default async function Home() {
           </Container>
         </section>
       )}
+      </LiveSwitch>
 
       {/* 5. Moment With Jesus */}
       {devotional && (

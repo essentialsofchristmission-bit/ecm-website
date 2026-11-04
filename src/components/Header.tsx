@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useLive } from "@/lib/useLive";
 
 const nav = [
   { href: "/", label: "Home" },
@@ -16,8 +17,9 @@ const nav = [
   { href: "/contact", label: "Contact" },
 ];
 
-export default function Header({ isLive }: { isLive: boolean }) {
+export default function Header({ isLive: forced }: { isLive: boolean }) {
   const [open, setOpen] = useState(false);
+  const isLive = useLive({ live: forced, videoId: "" }).live;
   const pathname = usePathname();
 
   useEffect(() => setOpen(false), [pathname]);

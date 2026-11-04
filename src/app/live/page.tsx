@@ -1,30 +1,27 @@
 import type { Metadata } from "next";
 import { FacebookIcon, YouTubeIcon } from "@/components/Icons";
-import YouTubeEmbed, { liveEmbedUrl, videoEmbedUrl } from "@/components/YouTubeEmbed";
+import LiveSwitch from "@/components/LiveSwitch";
+import YouTubeEmbed, { videoEmbedUrl } from "@/components/YouTubeEmbed";
 import { ButtonLink, Container, PageHero, SectionHeading } from "@/components/ui";
 import { getLatestVideo, site } from "@/lib/content";
 import { formatDate } from "@/lib/format";
+import { getLiveStatus } from "@/lib/live";
 
 export const metadata: Metadata = { title: "ECM Live", description: "Watch Essentials of Christ Mission services live on YouTube and Facebook." };
 
-export const revalidate = 900;
+// Every minute, so the live stream shows soon after it starts (an open page also switches by itself).
+export const revalidate = 60;
 
 export default async function LivePage() {
   const { live } = site;
-  const latest = live.isLive ? undefined : await getLatestVideo();
+  const [status, latest] = await Promise.all([getLiveStatus(), getLatestVideo()]);
   return (
     <>
       <PageHero title="ECM Live" subtitle="Worship with us from wherever you are." image="/images/live-banner.jpg" />
       <section className="py-16 sm:py-20">
         <Container className="max-w-5xl">
-          {live.isLive && (
-            <div className="mb-6 flex items-center justify-center gap-3">
-              <p className="inline-flex items-center gap-3 rounded-full bg-ecm-red-dark px-5 py-2 font-bold uppercase tracking-wider text-white">
-                <span className="live-dot h-3 w-3 rounded-full bg-white" aria-hidden="true" /> We are live
-              </p>
-            </div>
-          )}
-          {latest ? (
+          <LiveSwitch channelId={live.youtubeChannelId} initial={status} layout="page">
+          {latest && (
             <>
               <YouTubeEmbed src={videoEmbedUrl(latest.youtubeId)} title={latest.title} />
               <div className="mt-5 text-center">
@@ -33,9 +30,8 @@ export default async function LivePage() {
                 <p className="mt-1 text-gray-600">{[latest.preacher, latest.service, latest.date && formatDate(latest.date)].filter(Boolean).join(" \u00b7 ")}</p>
               </div>
             </>
-          ) : (
-            <YouTubeEmbed src={liveEmbedUrl(live.youtubeChannelId, live.liveVideoId)} title="ECM live stream" />
           )}
+          </LiveSwitch>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <ButtonLink href={`${site.social.youtube}?sub_confirmation=1`} variant="red"><YouTubeIcon /> Subscribe on YouTube</ButtonLink>
             <ButtonLink href={site.social.facebook} variant="navy"><FacebookIcon /> Follow on Facebook</ButtonLink>

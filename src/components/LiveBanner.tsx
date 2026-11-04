@@ -1,8 +1,11 @@
-import Link from "next/link";
-import { site } from "@/lib/content";
+"use client";
 
+import Link from "next/link";
+import { useLive } from "@/lib/useLive";
+
+/** Red "We are live" bar, shown by itself while the church is live on YouTube. */
 export default function LiveBanner() {
-  if (!site.live.isLive) return null;
+  if (!useLive().live) return null;
   return (
     <Link href="/live" className="block bg-ecm-red-dark text-white transition hover:bg-ecm-red">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-3 px-4 py-3 text-center">
