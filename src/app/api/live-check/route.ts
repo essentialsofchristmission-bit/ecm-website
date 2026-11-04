@@ -26,8 +26,26 @@ async function look(url: string) {
   }
 }
 
-export async function GET() {
-  const id = siteData.live.youtubeChannelId;
+async function player(videoId: string, clientName: string, clientVersion: string) {
+  try {
+    const res = await fetch("https://www.youtube.com/youtubei/v1/player?prettyPrint=false", {
+      method: "POST",
+      cache: "no-store",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ videoId, context: { client: { clientName, clientVersion, hl: "en" }, thirdParty: { embedUrl: "https://ecm-website-seven.vercel.app/" } } }),
+      signal: AbortSignal.timeout(8000),
+    });
+    const j = await res.json();
+    return { clientName, status: res.status, playability: j.playabilityStatus?.status, reason: j.playabilityStatus?.reason, isLive: j.videoDetails?.isLive, isLiveContent: j.videoDetails?.isLiveContent, isUpcoming: j.videoDetails?.isUpcoming, liveNow: j.microformat?.playerMicroformatRenderer?.liveBroadcastDetails?.isLiveNow };
+  } catch (e) {
+    return { clientName, error: String(e) };
+  }
+}
+
+export async function GET(req: Request) {
+  const id = new URL(req.url).searchParams.get("channel") || siteData.live.youtubeChannelId;
+  const v = new URL(req.url).searchParams.get("v");
+  if (v) return Response.json(await Promise.all([player(v, "WEB", "2.20250101.00.00"), player(v, "WEB_EMBEDDED_PLAYER", "1.20250101.00.00"), player(v, "TVHTML5_SIMPLY_EMBEDDED_PLAYER", "2.0"), player(v, "MWEB", "2.20250101.00.00")]));
   const feed = await fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${id}`, { cache: "no-store" }).then((r) => r.text()).catch(() => "");
   const newest = [...feed.matchAll(/<yt:videoId>([\w-]{11})</g)].slice(0, 3).map((m) => m[1]);
   return Response.json({
