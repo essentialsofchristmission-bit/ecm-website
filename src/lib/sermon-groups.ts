@@ -18,3 +18,16 @@ const KIND: Partial<Record<Category, string>> = { "Prayer Meetings": "Prayer Mee
 export function sermonKind(s: { category: Category; service: string }) {
   return KIND[s.category] ?? (s.service || "Sermon");
 }
+
+/**
+ * The service groups for the pastor's messages, read only from the service named in the title.
+ * Titles that name no service are kept apart rather than guessed.
+ */
+export const SERVICE_GROUPS = ["Sunday Service", "Wednesday Service", "Special services", "Service not stated"] as const;
+export type ServiceGroup = (typeof SERVICE_GROUPS)[number];
+export function serviceGroup(s: { service: string }): ServiceGroup {
+  if (!s.service) return "Service not stated";
+  if (/\bsunday\b/i.test(s.service)) return "Sunday Service";
+  if (/\bwedne?s?day\b/i.test(s.service)) return "Wednesday Service";
+  return "Special services";
+}

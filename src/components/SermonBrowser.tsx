@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { CATEGORIES, sermonKind } from "@/lib/sermon-groups";
+import { CATEGORIES, SERVICE_GROUPS, serviceGroup, sermonKind } from "@/lib/sermon-groups";
 import type { Sermon } from "@/lib/sermons";
 import SermonCard from "./SermonCard";
 
 const PAGE = 24; // how many videos to show before "Show more"
 
-type Filters = { tab: string; q: string; preacher: string; series: string; year: string };
-const EMPTY: Filters = { tab: "", q: "", preacher: "", series: "", year: "" };
+type Filters = { tab: string; service: string; q: string; preacher: string; series: string; year: string };
+const EMPTY: Filters = { tab: "", service: "", q: "", preacher: "", series: "", year: "" };
 type Key = keyof Filters;
 
 /** Everything a search can match, in lower case: title, preacher, series, kind, scripture and date. */
@@ -36,7 +36,7 @@ export default function SermonBrowser({ sermons, residentName }: { sermons: Serm
   // Start from the filters in the address (for example /sermons?series=End+Times), and keep it up to date.
   useEffect(() => {
     const p = new URLSearchParams(window.location.search);
-    setF({ tab: p.get("tab") ?? "", q: p.get("q") ?? "", preacher: p.get("preacher") ?? "", series: p.get("series") ?? "", year: p.get("year") ?? "" });
+    setF({ tab: p.get("tab") ?? "", service: p.get("service") ?? "", q: p.get("q") ?? "", preacher: p.get("preacher") ?? "", series: p.get("series") ?? "", year: p.get("year") ?? "" });
   }, []);
   useEffect(() => {
     const p = new URLSearchParams();
@@ -45,12 +45,17 @@ export default function SermonBrowser({ sermons, residentName }: { sermons: Serm
     if (url !== `${window.location.pathname}${window.location.search}${window.location.hash}`) window.history.replaceState(window.history.state, "", url);
   }, [f]);
 
+  // The pastor's messages can be split by service (Sunday, Wednesday...), shown with his tab or his name picked.
+  const byService = f.tab === "Sermons" || f.preacher === "resident";
+  const service = byService ? f.service : "";
+
   const text = useMemo(() => new Map(sermons.map((s) => [s.youtubeId, searchText(s)])), [sermons]);
   const words = f.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
 
   // Does a sermon pass every filter, leaving out one (so that filter's list can show what else is available)?
   const passes = (s: Sermon, skip?: Key) =>
     (skip === "tab" || !f.tab || s.category === f.tab) &&
+    (skip === "service" || !service || serviceGroup(s) === service) &&
     (skip === "q" || words.every((w) => text.get(s.youtubeId)!.includes(w))) &&
     (skip === "preacher" || !f.preacher || (f.preacher === "resident" ? s.role === "Resident Pastor" : s.preacherSlug === f.preacher)) &&
     (skip === "series" || !f.series || s.series === f.series) &&
@@ -64,6 +69,7 @@ export default function SermonBrowser({ sermons, residentName }: { sermons: Serm
   };
 
   const tabCounts = count("tab", (s) => s.category);
+  const serviceCounts = count("service", serviceGroup);
   const tabs = CATEGORIES.filter((c) => sermons.some((s) => s.category === c));
   const preacherCounts = count("preacher", (s) => (s.role === "Resident Pastor" ? "resident" : s.preacherSlug));
   const leadership = useMemo(() => peopleWith(sermons, "ECM Leadership"), [sermons]);
@@ -75,10 +81,11 @@ export default function SermonBrowser({ sermons, residentName }: { sermons: Serm
 
   // Any change to the filters starts the list from the top again.
   const set = (key: Key, value: string) => {
-    setF((old) => ({ ...old, [key]: value }));
+    // Changing the tab or preacher also resets the service choice, which belongs to the pastor's messages.
+    setF((old) => ({ ...old, [key]: value, ...((key === "tab" || key === "preacher") && { service: "" }) }));
     setShown(PAGE);
   };
-  const filtering = Boolean(f.q || f.preacher || f.series || f.year);
+  const filtering = Boolean(f.q || f.preacher || f.series || f.year || service);
 
   // A choice is offered when it has videos with the other filters, or when it is the current choice.
   const available = (counts: Map<string, number>, value: string, current: string) => (counts.get(value) ?? 0) > 0 || value === current;
@@ -101,6 +108,26 @@ export default function SermonBrowser({ sermons, residentName }: { sermons: Serm
           </button>
         ))}
       </div>
+
+      {byService && (
+        <div className="mb-4 flex flex-wrap items-center gap-2" role="group" aria-label="Service">
+          <span className="mr-1 text-xs font-bold uppercase tracking-wider text-ecm-navy">Service:</span>
+          {[["", "All services"], ...SERVICE_GROUPS.filter((g) => available(serviceCounts, g, service)).map((g) => [g, g])].map(([value, name]) => (
+            <button
+              key={value}
+              type="button"
+              aria-pressed={service === value}
+              onClick={() => set("service", value)}
+              className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${service === value ? "bg-ecm-navy text-white" : "bg-white text-ecm-navy ring-1 ring-gray-200 hover:bg-ecm-cream"}`}
+            >
+              {name}
+              <span className={`ml-1.5 text-xs ${service === value ? "text-white/80" : "text-gray-500"}`}>
+                {value ? serviceCounts.get(value) ?? 0 : sermons.filter((s) => passes(s, "service")).length}
+              </span>
+            </button>
+          ))}
+        </div>
+      )}
 
       <div className="mb-8 grid gap-4 rounded-2xl bg-ecm-cream p-4 sm:grid-cols-2 sm:p-5 lg:grid-cols-4">
         <div>

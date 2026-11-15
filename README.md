@@ -93,6 +93,7 @@ This file already lists every video on the channel up to October 2026. You can a
 - `note` is just a reminder for you of which video it is.
 - `preacher` is the person's name (use the same name as in `preachers.json`), or `Panel` for a discussion.
 - `leader` is used for prayer meetings: type the name of who led it between the quotes, for example `"leader": "Mrs. Eva O. Tandoh"`. While it is empty the card says "Led by: To be updated" (prayer meetings are never given to Pastor Tandoh automatically). Once a name is filled in, the prayer meeting also appears on that person's page.
+- `service` names the service when the title does not, for example `"service": "Sunday Service"` or `"Wednesday Service"`. On the Sermons page, Pastor Tandoh's messages can be shown by service (Sunday Service, Wednesday Service, Special services, Service not stated); this comes only from the title or this field, never guessed.
 - `scripture`, `description` and `duration` are optional extra details shown on the video's own page (and the length on its card), for example `"scripture": "John 3:16"`, `"description": "A short summary of the message."`, `"duration": "1:12:05"`. YouTube does not give these to the website, so they only appear when you type them in. Leave an empty line inside `description` to start a new paragraph.
 - `category` is the tab: `Sermons`, `ECM Leadership`, `Guest Preachers`, `Forum Discussions`, `Prayer Meetings` or `Outreach`. Leave it out to use the tab that matches the preacher's role.
 - `series` puts the video in a series.

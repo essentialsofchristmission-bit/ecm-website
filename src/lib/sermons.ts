@@ -48,6 +48,7 @@ type Override = {
   category?: string;
   series?: string;
   event?: string;
+  service?: string;
   scripture?: string;
   description?: string;
   duration?: string;
@@ -411,7 +412,9 @@ export async function getSermons(): Promise<Sermon[]> {
     const o = await check(id);
     if (o.gone) return null;
     const date = e.date || f?.date || (await fetchDate(id));
-    return { id, title: e.title || f?.title || o.title || "", date, thumbnail: o.thumbnail, preacher: e.preacher, series: e.series };
+    // For recent videos (in the feed) YouTube's current title wins, so renaming one on YouTube updates the
+    // website too. Older videos keep the saved title, which may have been corrected by hand.
+    return { id, title: f?.title || e.title || o.title || "", date, thumbnail: o.thumbnail, preacher: e.preacher, series: e.series };
   });
 
   // 2. New uploads from the feed that are not saved yet.
@@ -459,7 +462,7 @@ export async function getSermons(): Promise<Sermon[]> {
         category,
         series: "",
         setSeries: fix.series || v.series,
-        service: parsed.service,
+        service: fix.service?.trim() || parsed.service,
         event: fix.event ?? "",
         scripture: fix.scripture?.trim() ?? "",
         description: fix.description?.trim() ?? "",
