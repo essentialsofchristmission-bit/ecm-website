@@ -11,7 +11,7 @@ import heroData from "../../content/hero.json";
 import { getSermons } from "./sermons";
 
 export { formatDate, youtubeThumb } from "./format";
-export { CATEGORIES, getSermons, preacherPages, residentPreacher, sermonsForEvent, type Category, type Preacher, type Sermon } from "./sermons";
+export { CATEGORIES, findSermon, getSermons, preacherPages, relatedSermons, residentPreacher, sermonsForEvent, type Category, type Preacher, type Sermon } from "./sermons";
 
 export type ChurchEvent = {
   slug: string;

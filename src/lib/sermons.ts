@@ -30,6 +30,10 @@ export type Sermon = {
   series: string; // "" if not part of a series
   service: string; // for example "Sunday Service", or ""
   event: string; // slug of an event in events.json, or ""
+  // Only filled in by hand in content/sermon-overrides.json ("" when not given). Never guessed.
+  scripture: string; // for example "John 3:16"
+  description: string;
+  duration: string; // for example "1:12:05"
   thumbnail: string;
 };
 
@@ -38,7 +42,16 @@ export type Preacher = { name: string; slug: string; photo: string; role: Role; 
 type ExtraEntry = { url: string; title?: string; date?: string; preacher?: string; series?: string };
 type PreacherEntry = { name: string; role?: string; photo?: string; aliases?: string[] };
 type SeriesEntry = { name: string; titles?: string[]; videos?: string[] };
-type Override = { preacher?: string; leader?: string; category?: string; series?: string; event?: string };
+type Override = {
+  preacher?: string;
+  leader?: string;
+  category?: string;
+  series?: string;
+  event?: string;
+  scripture?: string;
+  description?: string;
+  duration?: string;
+};
 type RawVideo = { id: string; title: string; date: string; thumbnail?: string; preacher?: string; series?: string };
 
 const extras = extraData as ExtraEntry[];
@@ -448,6 +461,9 @@ export async function getSermons(): Promise<Sermon[]> {
         setSeries: fix.series || v.series,
         service: parsed.service,
         event: fix.event ?? "",
+        scripture: fix.scripture?.trim() ?? "",
+        description: fix.description?.trim() ?? "",
+        duration: fix.duration?.trim() ?? "",
         thumbnail: v.thumbnail || youtubeThumb(v.id),
       };
     });
@@ -471,6 +487,28 @@ export function preacherPages(sermons: Sermon[]): Preacher[] {
 }
 
 /** Videos linked to one event (by its slug in events.json). */
+/** One sermon by its YouTube video ID. */
+export function findSermon(sermons: Sermon[], id: string) {
+  return sermons.find((s) => s.youtubeId === id);
+}
+
+/**
+ * Up to `count` other sermons to watch next: the same series first, then the same preacher, then the
+ * closest in date.
+ */
+export function relatedSermons(sermons: Sermon[], sermon: Sermon, count = 3) {
+  const others = sermons.filter((s) => s.youtubeId !== sermon.youtubeId);
+  const near = (s: Sermon) => Math.abs(Date.parse(s.date || "1970-01-01") - Date.parse(sermon.date || "1970-01-01"));
+  const picked: Sermon[] = [];
+  const add = (list: Sermon[]) => {
+    for (const s of list.sort((a, b) => near(a) - near(b))) if (picked.length < count && !picked.includes(s)) picked.push(s);
+  };
+  if (sermon.series) add(others.filter((s) => s.series === sermon.series));
+  if (sermon.preacher && sermon.preacher !== PANEL) add(others.filter((s) => s.preacherSlug === sermon.preacherSlug));
+  add(others.filter((s) => s.category === sermon.category));
+  return picked;
+}
+
 export function sermonsForEvent(sermons: Sermon[], eventSlug: string) {
   return sermons.filter((s) => s.event === eventSlug);
 }

@@ -60,6 +60,10 @@ The website reads each video's YouTube title, for example `DAYS OF NOAH || WEDNE
 - **Hidden:** birthday wishes, hashtag clips, Shorts and repeat rebroadcasts are left out. If the same sermon is uploaded twice on the same day (same title), only the newest upload is shown. To show the other one instead, add the newer one to `content/hidden-videos.json`.
 - **Deleted on YouTube:** the website checks every video on YouTube about once an hour. A video that is deleted or made private on YouTube disappears from the website within about an hour, by itself. If it is made public again, it comes back. If YouTube cannot be reached, nothing is removed.
 
+Every video has its own page on the website (for example `/sermons/n6I7n9MZ7d0`, the video's YouTube ID), with the video, its details, buttons to share it on WhatsApp, Facebook and X, and related messages. Tapping a card on the Sermons page opens it.
+
+The filters on the Sermons page work together, and each list only offers choices that still have videos. A filtered list has its own address, so you can share it, for example `/sermons?series=End+Times` or `/sermons?preacher=resident&year=2025`.
+
 Everyone in ECM Leadership and every guest preacher gets one page listing all their messages, linked from the cards at the bottom of the Sermons page.
 
 **Adding an old video (or any video):** open `content/extra-sermons.json` and add a block with the YouTube link. `preacher` and `series` are optional. The title, picture and date are fetched from YouTube automatically:
@@ -89,6 +93,7 @@ This file already lists every video on the channel up to October 2026. You can a
 - `note` is just a reminder for you of which video it is.
 - `preacher` is the person's name (use the same name as in `preachers.json`), or `Panel` for a discussion.
 - `leader` is used for prayer meetings: type the name of who led it between the quotes, for example `"leader": "Mrs. Eva O. Tandoh"`. While it is empty the card says "Led by: To be updated" (prayer meetings are never given to Pastor Tandoh automatically). Once a name is filled in, the prayer meeting also appears on that person's page.
+- `scripture`, `description` and `duration` are optional extra details shown on the video's own page (and the length on its card), for example `"scripture": "John 3:16"`, `"description": "A short summary of the message."`, `"duration": "1:12:05"`. YouTube does not give these to the website, so they only appear when you type them in. Leave an empty line inside `description` to start a new paragraph.
 - `category` is the tab: `Sermons`, `ECM Leadership`, `Guest Preachers`, `Forum Discussions`, `Prayer Meetings` or `Outreach`. Leave it out to use the tab that matches the preacher's role.
 - `series` puts the video in a series.
 - `event` links the video to an event in `content/events.json` (use the event's `slug`). The event page then shows a "Watch ... service" button.
