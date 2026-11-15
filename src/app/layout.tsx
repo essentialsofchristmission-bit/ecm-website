@@ -40,6 +40,8 @@ const jsonLd = {
   telephone: site.contact.phone,
   email: site.contact.email,
   address: { "@type": "PostalAddress", streetAddress: site.contact.address, addressLocality: "Tema", addressRegion: "Greater Accra", addressCountry: "GH" },
+  geo: { "@type": "GeoCoordinates", latitude: site.contact.latitude, longitude: site.contact.longitude },
+  hasMap: `https://www.google.com/maps/search/?api=1&query=${site.contact.latitude},${site.contact.longitude}`,
   sameAs: Object.values(site.social),
 };
 

@@ -178,12 +178,15 @@ export function getDevotional(slug: string) {
   return getPublishedDevotionals().find((d) => d.slug === slug);
 }
 
+// The church's exact spot on the map (latitude,longitude from site.json). Searching by name found the wrong building.
+const churchLocation = () => `${site.contact.latitude},${site.contact.longitude}`;
+
 export function mapEmbedUrl() {
-  return `https://maps.google.com/maps?q=${encodeURIComponent(site.contact.mapQuery)}&z=15&output=embed`;
+  return `https://maps.google.com/maps?q=${encodeURIComponent(churchLocation())}&z=17&output=embed`;
 }
 
 export function mapDirectionsUrl() {
-  return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(site.contact.mapQuery)}`;
+  return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(churchLocation())}`;
 }
 
 export function whatsappUrl(text = "Hello ECM, ", phone: string = site.contact.whatsapp) {
