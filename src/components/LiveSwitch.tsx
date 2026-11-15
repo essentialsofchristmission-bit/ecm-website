@@ -33,7 +33,7 @@ export default function LiveSwitch({
   // In case the player does not start, the same stream on YouTube itself.
   const onYouTube = status.videoId ? `https://www.youtube.com/watch?v=${status.videoId}` : `https://www.youtube.com/channel/${channelId}/live`;
   const youTubeLink = (
-    <a href={onYouTube} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-ecm-navy px-6 py-3 text-sm font-bold uppercase tracking-wide text-ecm-navy transition-colors hover:bg-ecm-navy hover:text-white">
+    <a href={onYouTube} target="_blank" rel="noopener noreferrer" className={`inline-flex items-center justify-center gap-2 rounded-full border-2 px-6 py-3 text-sm font-bold uppercase tracking-wide transition-colors ${layout === "page" ? "border-white text-white hover:bg-white hover:text-ecm-navy" : "border-ecm-navy text-ecm-navy hover:bg-ecm-navy hover:text-white"}`}>
       Watch on YouTube
     </a>
   );

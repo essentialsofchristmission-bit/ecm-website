@@ -47,24 +47,7 @@
     "isLive": false,
     "youtubeChannelId": "UCZIz2r3qGKHp9JuuVZk-DUQ",
     "liveVideoId": "",
-    "facebookLive": "https://web.facebook.com/EssentialsOfChristMission/live",
-    "schedule": [
-      {
-        "day": "Sunday",
-        "time": "8:30 AM",
-        "what": "Sunday Service"
-      },
-      {
-        "day": "Wednesday",
-        "time": "7:30 PM",
-        "what": "Midweek Service"
-      },
-      {
-        "day": "Friday",
-        "time": "7:30 PM",
-        "what": "Friday Prayer Meeting"
-      }
-    ]
+    "facebookLive": "https://web.facebook.com/EssentialsOfChristMission/live"
   },
   "forms": {
     "contact": "https://formspree.io/f/mqppqobz",

@@ -47,8 +47,9 @@ export default function Header({ isLive: forced }: { isLive: boolean }) {
                 <Link
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
-                  className={`rounded-full px-3 py-2 text-sm font-semibold transition-colors ${
-                    isActive(item.href) ? "text-ecm-green" : "text-gray-700 hover:text-ecm-green"
+                  // The current page has a green underline; keyboard focus shows a soft green ring.
+                  className={`relative rounded-md px-3 py-2 text-sm font-semibold transition-colors after:absolute after:inset-x-3 after:-bottom-0.5 after:h-0.5 after:rounded-full after:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ecm-green/50 ${
+                    isActive(item.href) ? "text-ecm-green after:bg-ecm-green" : "text-gray-700 after:bg-transparent hover:text-ecm-green hover:after:bg-ecm-green/30"
                   }`}
                 >
                   {item.label}
@@ -89,8 +90,8 @@ export default function Header({ isLive: forced }: { isLive: boolean }) {
                 <Link
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
-                  className={`block rounded-xl px-4 py-3 text-base font-semibold ${
-                    isActive(item.href) ? "bg-ecm-cream text-ecm-green" : "text-gray-800 hover:bg-gray-50"
+                  className={`block rounded-xl border-l-4 px-4 py-3 text-base font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ecm-green/50 ${
+                    isActive(item.href) ? "border-ecm-green bg-ecm-cream text-ecm-green" : "border-transparent text-gray-800 hover:bg-gray-50"
                   }`}
                 >
                   {item.label}

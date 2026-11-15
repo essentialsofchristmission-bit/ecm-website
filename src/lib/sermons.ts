@@ -53,7 +53,7 @@ type Override = {
   description?: string;
   duration?: string;
 };
-type RawVideo = { id: string; title: string; date: string; thumbnail?: string; preacher?: string; series?: string };
+type RawVideo = { id: string; title: string; date: string; thumbnail?: string; preacher?: string; series?: string; views?: number };
 
 const extras = extraData as ExtraEntry[];
 const preacherList = preachersData as PreacherEntry[];
@@ -315,6 +315,7 @@ async function fetchFeed(): Promise<RawVideo[]> {
         id: e.match(/<yt:videoId>([^<]+)</)?.[1] ?? "",
         title: e.match(/<title>([^<]+)</)?.[1] ?? "",
         date: e.match(/<published>([^<]+)</)?.[1]?.slice(0, 10) ?? "",
+        views: Number(e.match(/<media:statistics views="(\d+)"/)?.[1] ?? 0),
       }))
       .filter((v) => v.id && v.title);
   } catch {
@@ -426,15 +427,18 @@ export async function getSermons(): Promise<Sermon[]> {
 
   // A rebroadcast is skipped when the original sermon is already in the list.
   const originals = new Set([...all.values()].filter((v) => !/^\s*rebroadcast/i.test(clean(v.title))).map((v) => parseTitle(v.title).title.toLowerCase()));
-  // The same sermon uploaded twice on one day (for example the live stream and a re-upload) is shown once:
-  // the newest upload, which is the one nearest the top of the feed.
+  // The same sermon uploaded twice on one day (for example a live stream and a re-upload) is shown once:
+  // the one with more views in the feed (an empty scheduled stream has none), else the newest upload.
   const feedOrder = new Map(feed.map((v, i) => [v.id, i]));
+  const views = new Map(feed.map((v) => [v.id, v.views ?? 0]));
+  const better = (a: RawVideo, b: RawVideo) =>
+    (views.get(a.id) ?? 0) !== (views.get(b.id) ?? 0) ? (views.get(a.id) ?? 0) > (views.get(b.id) ?? 0) : (feedOrder.get(a.id) ?? Infinity) < (feedOrder.get(b.id) ?? Infinity);
   const sameSermon = new Map<string, RawVideo>();
   for (const v of all.values()) {
     if (!v.date || isHidden(v.id, v.title)) continue;
     const key = `${v.date}|${parseTitle(v.title).title.toLowerCase()}`;
     const kept = sameSermon.get(key);
-    if (!kept || (feedOrder.get(v.id) ?? Infinity) < (feedOrder.get(kept.id) ?? Infinity)) sameSermon.set(key, v);
+    if (!kept || better(v, kept)) sameSermon.set(key, v);
   }
   const isDuplicate = (v: RawVideo) => !!v.date && sameSermon.get(`${v.date}|${parseTitle(v.title).title.toLowerCase()}`) !== v;
   const isRepeat = (v: RawVideo) =>

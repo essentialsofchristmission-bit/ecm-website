@@ -11,8 +11,17 @@ async function page(url: string) {
 }
 
 // YouTube often answers servers with a "confirm you are not a bot" page, but the page of a stream that is
-// live still says "isLive":true, so that is what is looked for.
-const isLiveNow = (html: string) => /"isLiveNow":true|"isLive":true/.test(html);
+// live still says "isLive":true, next to the video's details or "N watching now". A scheduled stream that
+// has not started also says "isLive":true, but next to "N waiting", and is marked offline or upcoming.
+function isLiveNow(html: string) {
+  if (/"isLiveNow":true/.test(html)) return true;
+  if (/"isLiveNow":false|"isUpcoming":true|"status":"LIVE_STREAM_OFFLINE"/.test(html)) return false;
+  for (const m of html.matchAll(/"isLive":true/g)) {
+    const before = html.slice(Math.max(0, m.index - 200), m.index);
+    if (!/waiting/i.test(before) && /"videoDetails"|watching/i.test(before)) return true;
+  }
+  return false;
+}
 const liveVideoId = (html: string) =>
   html.match(/<link rel="canonical" href="https:\/\/www\.youtube\.com\/watch\?v=([\w-]{11})"/)?.[1] ??
   html.match(/"videoDetails":\{"videoId":"([\w-]{11})"/)?.[1] ??

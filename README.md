@@ -32,7 +32,7 @@ The easiest way is to edit files directly on GitHub:
 
 - **`content/site.json`** : the main settings
   - `theme` : the yearly theme headline and scripture shown at the top of the homepage
-  - `serviceTimes` : service names, days and times (shown on the homepage, footer and contact page)
+  - `serviceTimes` : service names, days and times (shown on the homepage, footer, contact page and the ECM Live schedule, so they always match). Write times like `8:30 - 11:30 AM`; the ECM Live page shows the start time and which service is next.
   - `contact` : address, phone, email and WhatsApp number (WhatsApp number in international format, no plus sign or spaces)
   - `social` : YouTube, Facebook, Instagram and TikTok links
   - `live` : nothing to do when you go live. The website checks YouTube every minute, and while the church is live on YouTube it shows the live stream on the homepage and the ECM Live page, the red **WE ARE LIVE** banner and a pulsing dot on Watch Live. When the stream ends it goes back to the latest sermon by itself. Only if a live stream is ever not picked up: set `"isLive": true` and paste the live video ID into `liveVideoId`, then set them back to `false` and empty afterwards.
@@ -57,7 +57,7 @@ The website reads each video's YouTube title, for example `DAYS OF NOAH || WEDNE
 - **Preacher:** a name after `||` or `|` (usually at the end, such as `|| MR. MAXWELL AZAFOKPE`) is the preacher. Only when there is no name is the video listed under Pastor Dr. Samuel E. Tandoh. Their role (Resident Pastor, ECM Leadership or Guest Preacher) comes from `content/preachers.json`. Anyone not in that file counts as a guest preacher.
 - **Tab:** every video is in one tab on the Sermons page: **Sermons** (Pastor Tandoh), **ECM Leadership**, **Guest Preachers**, **Forum Discussions** (titles with "Panel Discussion" or "Forum Discussion", shown with "Panel" as the preacher), **Prayer Meetings** (titles with "Prayer Meeting") or **Outreach** (titles with "Outreach").
 - **Series:** titles that start the same way before a colon (`Foundations of Our Walk: Humility`) or that have a part number (`Part 2`, `Pt 3`, `Episode 1`, `Day 4`) are grouped into a series automatically.
-- **Hidden:** birthday wishes, hashtag clips, Shorts and repeat rebroadcasts are left out. If the same sermon is uploaded twice on the same day (same title), only the newest upload is shown. To show the other one instead, add the newer one to `content/hidden-videos.json`.
+- **Hidden:** birthday wishes, hashtag clips, Shorts and repeat rebroadcasts are left out. If the same sermon is uploaded twice on the same day (same title), only one is shown: the one with more views on YouTube (an empty scheduled live stream has none), or the newest if they are equal. To choose the other one, add the one you do not want to `content/hidden-videos.json`.
 - **Deleted on YouTube:** the website checks every video on YouTube about once an hour. A video that is deleted or made private on YouTube disappears from the website within about an hour, by itself. If it is made public again, it comes back. If YouTube cannot be reached, nothing is removed.
 
 Every video has its own page on the website (for example `/sermons/n6I7n9MZ7d0`, the video's YouTube ID), with the video, its details, buttons to share it on WhatsApp, Facebook and X, and related messages. Tapping a card on the Sermons page opens it.
@@ -235,7 +235,7 @@ The contact form, prayer request form and newsletter signup send to your email t
   },
 ```
 
-`contact` is the Send a Message form, `prayer` is the Prayer Request form (both on the Contact page) and `newsletter` is the signup in the footer. To move a form to a different Formspree account later, just replace its link.
+`contact` is the Send a Message form, `prayer` is the Prayer Request form (both on the Contact page) and `newsletter` is the signup in the footer. While `newsletter` is empty, footer signups go to the `contact` form instead, with the subject "New newsletter signup", so they still reach your email. To move a form to a different Formspree account later, just replace its link.
 
 Until a link is added, that form shows a friendly message asking visitors to email the church directly. Each form also has a hidden spam trap, so most robot submissions are blocked automatically.
 

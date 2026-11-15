@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { site } from "@/lib/content";
+import { mapDirectionsUrl, site, whatsappUrl } from "@/lib/content";
 import { NewsletterForm } from "./Forms";
 import { MailIcon, PhoneIcon, PinIcon, WhatsAppIcon } from "./Icons";
 import SocialLinks from "./SocialLinks";
@@ -51,17 +51,26 @@ export default function Footer() {
           </ul>
           <h2 className="mb-3 mt-8 text-sm font-bold uppercase tracking-[0.2em] text-white/70">Contact</h2>
           <ul className="space-y-1 text-sm text-white/90">
-            <li className="flex gap-2"><PinIcon className="h-5 w-5 shrink-0" />{site.contact.address}</li>
+            <li className="flex gap-2 py-1">
+              <PinIcon className="h-5 w-5 shrink-0" />
+              <span>
+                {site.contact.address}, {site.contact.region}
+                <a href={mapDirectionsUrl()} target="_blank" rel="noopener noreferrer" className="mt-1 block py-1 font-semibold text-white underline underline-offset-4 hover:text-white/80">
+                  Get directions<span className="sr-only"> on Google Maps (opens in a new tab)</span>
+                </a>
+              </span>
+            </li>
             <li><a className="flex gap-2 py-2 hover:underline sm:py-1" href={`tel:${site.contact.phone}`}><PhoneIcon className="h-5 w-5 shrink-0" />{site.contact.phoneDisplay}</a></li>
             <li><a className="flex gap-2 py-2 hover:underline sm:py-1" href={`mailto:${site.contact.email}`}><MailIcon className="h-5 w-5 shrink-0" /><span className="min-w-0">{site.contact.email.split("@")[0]}<wbr />@{site.contact.email.split("@")[1]}</span></a></li>
-            <li><a className="flex gap-2 py-2 hover:underline sm:py-1" href={`https://wa.me/${site.contact.whatsapp}`} target="_blank" rel="noopener noreferrer"><WhatsAppIcon className="h-5 w-5 shrink-0" />WhatsApp us</a></li>
+            <li><a className="flex gap-2 py-2 hover:underline sm:py-1" href={whatsappUrl()} target="_blank" rel="noopener noreferrer"><WhatsAppIcon className="h-5 w-5 shrink-0" />WhatsApp us</a></li>
           </ul>
         </div>
 
         <div>
           <h2 className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-white/70">Stay connected</h2>
           <p className="mb-4 text-sm text-white/80">Get news, events and devotionals in your inbox.</p>
-          <NewsletterForm formUrl={site.forms.newsletter} email={site.contact.email} />
+          {/* Sign-ups go to the newsletter form when one is set up, otherwise to the church's contact form (marked "New newsletter signup"). */}
+          <NewsletterForm formUrl={site.forms.newsletter || site.forms.contact} email={site.contact.email} />
         </div>
       </Container>
       <div className="border-t border-white/10">
